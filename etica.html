@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<meta name="theme-color" content="#0a2240">
+<title>Ética Digital y Uso de IA — CEMEY</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Exo 2',sans-serif;background:#f0f4f8;color:#1e293b;min-height:100vh}
+.back-bar{background:#071830;padding:8px 14px;display:flex;align-items:center;
+  border-bottom:3px solid #3b82f6;position:sticky;top:0;z-index:200}
+.back-btn{display:inline-flex;align-items:center;gap:7px;color:#ffd700;font-size:13px;
+  font-weight:700;text-decoration:none;padding:6px 12px;
+  background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);
+  border-radius:8px;transition:all .2s;touch-action:manipulation}
+.back-btn:hover{background:rgba(255,215,0,.2)}
+.back-bar-title{margin-left:12px;font-size:12px;color:rgba(255,255,255,.45);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr{background:linear-gradient(135deg,#0a2240 0%,#0f3460 55%,#1a4a7a 100%);
+  padding:10px 14px;display:flex;align-items:center;gap:12px;
+  box-shadow:0 2px 12px rgba(0,0,0,.4)}
+.hdr-logo{width:48px;height:48px;border-radius:50%;flex-shrink:0;
+  border:2px solid rgba(255,215,0,.55);overflow:hidden;background:rgba(255,255,255,.05)}
+.hdr-logo img{width:100%;height:100%;object-fit:contain}
+.hdr-text{flex:1;min-width:0}
+.hdr-inst{font-size:13px;color:#ffd700;font-weight:700;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-proj{font-size:14px;color:#fff;font-weight:700;line-height:1.25;margin-top:1px}
+.hdr-sub{font-size:9px;color:rgba(255,255,255,.48);margin-top:2px}
+.cbar{background:#071830;padding:5px 14px;display:flex;flex-wrap:wrap;
+  gap:2px 20px;border-bottom:1px solid rgba(255,255,255,.07)}
+.cr{font-size:10.5px;color:rgba(255,255,255,.45);white-space:nowrap}
+.cr-label{font-size:9.5px;font-style:italic;color:rgba(255,255,255,.3)}
+.cr strong{color:rgba(255,255,255,.9);font-weight:700;font-size:11px}
+.mod-hero{background:linear-gradient(135deg,#1e3a8a,#1d4ed8,#2563eb);
+  padding:22px 16px 18px;text-align:center;border-bottom:4px solid #93c5fd}
+.mod-icon{font-size:42px;margin-bottom:8px}
+.mod-title{font-size:clamp(18px,5vw,26px);font-weight:800;color:#fff;line-height:1.2}
+.mod-sub{font-size:12px;color:rgba(255,255,255,.65);margin-top:6px;line-height:1.5}
+.main{max-width:860px;margin:0 auto;padding:18px 13px 50px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;padding-bottom:2px}
+.tb{padding:9px 15px;border:2px solid transparent;border-radius:20px;cursor:pointer;
+  font-family:'Exo 2',sans-serif;font-size:12px;font-weight:600;white-space:nowrap;
+  background:#e2e8f0;color:#475569;touch-action:manipulation;transition:all .15s;flex-shrink:0}
+.tb:hover{background:#dbeafe;color:#1d4ed8}
+.tb.active{background:#2563eb;color:#fff;border-color:#1d4ed8}
+.tp{display:none}.tp.active{display:block}
+.card{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;
+  box-shadow:0 1px 8px rgba(15,52,96,.08);border:1px solid #e2e8f0}
+.ct{font-size:14px;font-weight:700;margin-bottom:10px;color:#1d4ed8}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:8px 0;border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:11.5px;min-width:280px}
+th{background:#2563eb;color:#fff;padding:8px 10px;text-align:left;font-size:11.5px}
+td{padding:7px 10px;border-bottom:1px solid #e2e8f0;font-size:11.5px;line-height:1.5}
+tr:nth-child(even) td{background:#eff6ff}
+.al{border-radius:8px;padding:10px 12px;margin:8px 0;font-size:12px;
+  display:flex;gap:8px;align-items:flex-start;line-height:1.55}
+.al-i{font-size:16px;flex-shrink:0;margin-top:1px}
+.info{background:#e0f2fe;border-left:4px solid #06b6d4;color:#0c4a6e}
+.warn{background:#fff7ed;border-left:4px solid #f97316;color:#7c2d12}
+.success{background:#dcfce7;border-left:4px solid #00c896;color:#14532d}
+.danger{background:#fee2e2;border-left:4px solid #dc2626;color:#7f1d1d}
+.blue-box{background:#eff6ff;border-left:4px solid #2563eb;color:#1e3a8a}
+.sr{display:flex;align-items:flex-start;gap:10px;padding:10px 0;
+  border-bottom:1px solid #f1f5f9}
+.sr:last-child{border-bottom:none}
+.sr-i{font-size:22px;flex-shrink:0}
+.sr-t{font-size:12.5px;line-height:1.55;color:#475569}
+.sr-t strong{color:#1e293b;display:block;margin-bottom:1px;font-size:13px}
+.dos-col{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.qq{background:#fff;border-radius:10px;padding:13px;margin-bottom:9px;border:1px solid #e2e8f0}
+.qq-q{font-size:13px;font-weight:700;margin-bottom:9px;color:#1d4ed8}
+.qq-opts{display:flex;flex-direction:column;gap:6px}
+.qq-opt{display:flex;align-items:center;gap:9px;padding:10px 12px;
+  border:1.5px solid #e2e8f0;border-radius:8px;cursor:pointer;font-size:12.5px;
+  background:#fff;min-height:44px;touch-action:manipulation;text-align:left;
+  width:100%;font-family:'Exo 2',sans-serif;transition:all .15s}
+.qq-opt:active{transform:scale(.98)}
+.qq-opt.correct{background:#dcfce7;border-color:#00c896;color:#14532d}
+.qq-opt.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.qq-fb{font-size:11.5px;margin-top:6px;padding:7px 10px;border-radius:6px}
+.qq-fb.correct{background:#dcfce7;color:#14532d}
+.qq-fb.wrong{background:#fee2e2;color:#7f1d1d}
+.cbtn{background:#2563eb;color:#fff;border:none;border-radius:8px;padding:13px;
+  font-size:15px;font-weight:700;cursor:pointer;font-family:'Exo 2',sans-serif;
+  width:100%;min-height:48px;touch-action:manipulation;margin-top:6px}
+.cbtn:active{background:#1d4ed8}
+.badge{display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,#ffd700,#ffaa00);
+  color:#4a3000;border-radius:20px;padding:9px 18px;font-size:13px;font-weight:700;margin:10px 0}
+p{line-height:1.7;font-size:12.5px;color:#475569;margin-bottom:7px}
+h4{font-size:13.5px;font-weight:700;color:#1d4ed8;margin:12px 0 7px}
+ul,ol{padding-left:17px;font-size:12.5px;color:#475569;line-height:1.8}
+li{margin-bottom:3px}
+@media(max-width:500px){.dos-col{grid-template-columns:1fr}.hdr-inst{font-size:11px}}
+@media(min-width:681px){.main{padding:22px 20px 50px}}
+</style>
+</head>
+<body>
+
+<div class="back-bar">
+  <a class="back-btn" href="https://coordsanjose-glitch.github.io/simulador-cemey/">&#8592; Volver al Men&uacute;</a>
+  <span class="back-bar-title">&Eacute;tica Digital y Uso de IA</span>
+</div>
+
+<header class="hdr">
+  <div class="hdr-logo"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAIAAAC2BqGFAAABCGlDQ1BJQ0MgUHJvZmlsZQAAeJxjYGA8wQAELAYMDLl5JUVB7k4KEZFRCuwPGBiBEAwSk4sLGHADoKpv1yBqL+viUYcLcKakFicD6Q9ArFIEtBxopAiQLZIOYWuA2EkQtg2IXV5SUAJkB4DYRSFBzkB2CpCtkY7ETkJiJxcUgdT3ANk2uTmlyQh3M/Ck5oUGA2kOIJZhKGYIYnBncAL5H6IkfxEDg8VXBgbmCQixpJkMDNtbGRgkbiHEVBYwMPC3MDBsO48QQ4RJQWJRIliIBYiZ0tIYGD4tZ2DgjWRgEL7AwMAVDQsIHG5TALvNnSEfCNMZchhSgSKeDHkMyQx6QJYRgwGDIYMZAKbWPz9HbOBQAABFoklEQVR42u29d5wlV3km/LznnEo3d46T8yiMRgElFBBISAYMSODAYow/25jFxjnvrsPyOeC02F4HjLMxxsYkA4vIEspxRhM0eXq6p3O4+d5K55z3++P2BEk9oxkhwPv7qF/9errvVNWteuo9z3nzAb6zfWf7zvad7aI3+r/+Nvk7QL8sd8QXcyKdOp6/A/T5b4Rf8BkBDsERcAiKIAkEgGEBDWhGYpEyDPO5noy/A/QLsCAAWYGiopJCUSEr4RM7BEksTsnsqVOIAQYsI2VKGG3LDY2aQUWjYaDPgp6+/YjTt11+CUBGot+hQQfdDmcEK1pGsSPSRERE6OxgtgARgQEGM8CMU78CDDKgmFHXmE95NkFZg0+B/O1DnL4NX3hafrMCqzwa9VBSVhHYggAhlFAOhNRSRBCh5bbh0HJsbWLIcBInQgjpKBZMnoILBMQZyQFZD1axJTZsO7iTBVqW5lKeiDCXfhvhpm89xESEVR5t8NGrrGBYhiRHuR47bptEme1CrMtx2khMmBqrlzF7kVmQhBAiUCLviB4HvQ53SROwFtYaCzBYiJbBRMzHIm6Zbz3c9K2EWHoKmwLe4HFArA0Eua4XGNcpgyejZKYdV8PUpis9O9E5rssrQUWAFFJ1eWLY5xHHlIQWxmoDIjKg2ZQPtHkp/VbCTd8aiB3fpUsydr2nhUWqhacyMvDLgseiaKIRtUIDe9ZJBAF4gE8IAI/IIyhAdqS3Q8+nFI+EOQYiRghEOKV+nEFOgJyCJ9dkeI2bFlhrAwYJovmE97axmPJzCe3/QqAJYDhCqUuLZpubIuVYy4yXY98ZN8nhZnuxoWHOgKsIOaBElCf4RAKsGSmQgGNGyjAEy2CAAAFIQBG5gEtwQYoYQMJoMlcZdUaCs+VdQjhDgdia1YMyNSkbS0rQTMK7Wtww+CbD/c0BmgjMAhSsKfLV2chNbSuRWTdnfXk4jQ7W2mH7DL4OUTfQK5AFLKHNqDE3GW0gXZkZXvAMBDAkISBkQQVBeYJixLBlxqJFiNNiToBb8uUleb3aSXQCyyQFHW7zMy3mbyLW9E0SZD8IvOu7wxFOam3yZVZlnEM62lcN4/AMOl1Eg0R5QgouM5cZjWVN7aJv8IWWjk/URegRyBBFzPOWF5jNWXAXA7Ezr0dE2k4ghUgsP9bgufSbJNr0skNMQGFdr70+20yanBivmPHHkT5dbTfby9IuQP0CQwKSscQ8z2idJbnfiEW3ggVEcIE+QX0EBSwyT9vTlEKAN5ilq/NJzpq2pozEkRBPNb8ZrE0vL1245ORvGGxt5GihIfJuELt4rBnO1OzyIUSDhGEBA0wzL1q2/E003p5jFhGKRCMCWWCJ+aTllJcpB8K7rGQu9eMwgiLRZv56jZvm5cX6ZQJaECxnstng9oFa0NK10OnOuIdM8lQltXrZvOshrBJgYJJ5yfJpu5Av6m0SADDzxQ+101YSrRLIAXPMk5Z5GW63FMhXluKstm0tfMmP1HkyeRmxppcL5WJ/l7y9u9wqg8l1XfFQM55ucodMfKJ1Aj5hyvI8vwSIBRGBOxrd2a66jrzySxDwvKA1BEV8wnLVnhHta7rSzU5aiamgsKfJz4YvF9byZUG5e00f7ihWlhbJd9yW4C9WkkoEAjGJQUkbBGrgw5abfLEvV5yFJkPKTMbxPCsl82nvxvIxFyddMWMeZInWCMoQqgCDifVU6DSF3JTV9YRWeZQRmEpeFmmkbxzlnk2D6SuD+tQS9XhqLDGP1m1nqlFEGwRc4jHLTXuxUnxG/hx3Z1f+uzb2XTNSXO2QnG9WTjZ2t5OnE70n0YfjuB1FsPbiJO+0P0ARrRPIEB+33LAQgIXXHYjbuqI4hCdpJrEP1b9xuX7pQJMgtty7eSi+0W9MLoregPa07P4WC8BC5AXWE2rgE5bBF3ujArAAlNqZz/1E1n/bQMbfVkDJQyvBsXpjvHkwNfPWzgEnGE9o+2iUVtsh+KXATSDqExglTLOdM53vdgLXub2njZgU0ULKD9T5G8NafkMorx9IbgoaJxdFX4AnGvZQu3OXoldgLWESdsbiIlE+FSehUjb75rz//Q5dBe51JLo96ynb1PFE60hLH7Nmxtq61r7WW9jucJUI/EkLazRdvLBxi1FjGiXKCK4wCDY1fDzy1uc1GeQEdStMfEMc8lKAJiJm7hrpMbfl65OL1OvjsTofj5ZRHpboF3zUct1e7J2JZa5wrioV3u7SRp0aIXqEHCl4znCGXClm2wvTrYNazxrTNMYyGyABAmu2w27wvQXHraQazHSxAzsFFkG9RL0CFQCwxuJ46K8raBgUFOUkTyWnbvGbD3QH5XxXQd7ZW52eFz0+PdXg4/EyyqsFCoIPG44vWpA7dNGVy/1AKXcntNQ6IspJuUGpwSGfRrMiTOPDtScbyRGdNq2BIBZkiQTDEqVAnzU7FakgGGcYrcVLYO0yKE80SCgDDMvMY6G/oZBqg16HiDGvX5pcy5dA6b7rZ18/tFSep6JL+1r2UAQBshBrJTLEhyybi0O5gwhLeX1X8b1Zd7NNa9pqQEgaceQVrpsZLZHwyruqnxlrPJ3EwtoB64wkckCLPAiuSATYsiES1m6DXe/7s8qrpulFizbAVaaAaESgDADWMsZjd2tBt1Ia9UTDcM28BKwvdmyTtNT92rVLfo0Bmont480OyrRGLKNsL06MCLBAKZt9Wy64lbjNZslyYrQkzsbOJrirri7x7YWxaPrgYrm0TW7a3FUIeqiVM7OcHmonT9aSva1GW89kbNWajpvUZ46k+hLEfc02x8ny1HpRM+SopAL4oGVmMNyCT3d2xZVQFCR/qcr1i7Yb6WJJo3fHcH0bJ9VQaNgvV5cZY0SgRHzg4lA+rVq8opB/p6eGrF4AWtYmrGWKZqTyN9J173JGbwoMT6aRHRkYyebWAMVTA1EAqhzx7OPluX+ciD5Tb0R2KjBhaoghmT2ifdL9ZJgstVoXZ+ETwBAd0TlgWTAs/JGceWUurYZCCP5ClS/IsfgSgCYCc76vyHeUmrNlkXf582VOGAzqFTRCvN+y5osV5FwmeHs++1qB2JoKELKxxiRNWirRpvfw9/5CWnLiowdQibaF6jXz4eZ6UkjhSmiXGl3O3Kr8yXUDC8V+xFCH7pud/t3x+MFowbeLQnduJmCuKvUfRuxqtKBTulisN0ow8zHuYB1c3hVvVDY1Yja1TzRegllwQQc6QuXfMFoOKyLn8IO1jkeRcoI2Cz5gObQX+MXLgizkzmL+R31ntdUL4BYQs7YhL6YCt/Drfs3edEN79+Pup/e/yQ68TRevTUTBcVWVxeG2ziux3peeSU1UzyVHtrr33bzmiYHVqMRm7wePlj+w2J6zc7k01JYYDrMU4mHpfq4ZhWH7ImiEAJDYLlBhO20hICx5r+4PvZh8SY827PRFOEPkBYszijsH6qWYwTQe87EIBFJE2wSfYG5cHMqe7/9gd/G/OiJjzDyhBU61btVpekBs+EXz438QretKPvjpKz+69LfOJb/k9mzyPHJdcyKKn67VZsPqQtyqmbjooTfvmdyqE7hx98yWeG56S2lx/S1D4rVefbbm7mMpKVLWMFlgg9WbfHfacatJSriYGbIKWi/QBiIwATOJs62gGwmt8nA8vnCJlhc4iIJS1r4iE1fbAoIfbnQIjzZLajDPXhDKyyxJYksx/6vF7KtgKswVgZhN3DJThpK7+K1/nN7zlujpJ3Lv+/qvzqz6i42btwRcUZwsJHislh5shrHRUggG1VI9GdnYUrc0RScx+dHDyc0HTuQL0ZFt29Wqt/Q3hpvtp+JgUWmfNXMK6jLmCiVi35/QBtZekPJHgAFCoo0SCwyGTa0TC17tWWNFRvLMhVoxFwS0AAU39rV0izIKjzY64XoxIFAgPnxBKHeeSnje93R3/awve42eAzWJkyRdavDEWtr6S/qnfjPs98z7P33nJ1r/uOqK7x/KxZyEmtzdDT7ajhppWEnYgBhQAgKk2cxG6aKmQLpFSn3f1rM7di9evTSxtDGY3fzKwdzrsThXwx6hBCXKaCZp7WVkB4LgOChOL8yGJCBicon6iRcZAqaceEMZLSx6FM2liC7ILpMXIs6ZkUKyUZlEi3nNR0IQyCXaJHHIQl+oSb2qkP+VUva7YdvGLghEsM2mHlMcv5Hf9v74LXcmX35s5Nce/4Nw4/svXT+g0gqxmNfy4Wry5kHzq5vdd6721wRyOjRKUDllX1DHO91I06nYWHJKUgQIZb4wTjftGe/PNI5fskVtuqfUXF2tPJG6iw4HVgOGsZr1ds+dd/2l5MIUbQLXmEYkDNBiEMSSkZuzJkxlj8Pj8csDtCDhXt8dxm3hCH6kAcNgiM0KFealF3mZp03qu7pLv+o766yeAxoSUWKm2nZsK2//Of3TPx9lwf/9//zg5/nvLrvi9mG/rpMEwt3f5rEwvKXb/MIm3xPkCbqqpO4Zdr9/1JuO7INLOquIAEGk2czEadWIguvkYAI3jYvb91SvmzleW+ctbH9lX+kN0cx0Q+9xHMla2YSpYM1OSRxkxoxlY16ERjpDtgXaIHiewTCxcX3PlgQHJOqGmy8u1PLF2Xl1IV4lLFs6kfBMAoC6BfUQHzmf0n7GpM5mf66r8AMS1tpFogi23DQHM0jfZP7Lr4V336w//sgl/2Pvn3vbfunq1YFI6pZlG/LrlXTYSz64w7u9322kMMwGiAwzI5B0XZdTcuhg00TccUYTAdU0mY8tuRlhrGguimxuLrj1mRMDXm3i8q3etrd4tYGlhceFW1EU2AQkrN0OO5IJxkiGafriWCdMGaIidbxOKKdqY04nWnQ5OBF/o0BLCOeaUmxiIsKTTViASGyRPG455HNd/bRJfV1X6Tfz/k6rF5mbgluJPZ7Yo5fZ7T8e/+SPxdCZn/3ie+/3//LGnVePuLU4MSzUeIwnatHBRuttI86tQ57VnFXwJfmCfEm+FIKQVXTjkHeioR+vmowkBgjsKLmoeW5+9rv82t2jfhAuTUYx+nfsq14zfby93qtefkux8Nrq+FiUPut5DmuFlDFq9SWus+j6C8mLu6K4AVorUAM0W2Md5dgeyS5R3SzHGF8K0J2sgcFsukZZNjQeLyvOgwI+8cQ5xVkCFnA8/909XT/lCt+YMiFmnm2ZvSUbfbf+vp8MX3+t/acnbvmNI3/ed/mP3DgqkbQsZJvlMw29u95u6iQjxZ66geG2wbGWHQvtWHt5P9Gy46F9YD751+lUMwisiBLh1JutV/L8H23z3nz5mp6evi39hXy7fGih4vUNzKnrdp0YDmqzOy/ztn9POp+pzD7u+A1BnomYctbslCQCf8yel0Y6JpYk9BMWGABXtbMuq3VKecUnX0So6Tz/Q4zMjf2tXCJA/LUqJ0yCaIfko3ZFxXnZ3iPaWCz8Uta/nPW85VigEdnDZCcu09vfmHzfq/Vca/B9u36qPPjDt23tLphmrJlAUwntrkcLcSSIBQiAZrSNVaeT7ug5nm3NCARcAiunGqVrkvJPraa7Nw9kunrnF5cOHBi74YadjpCHT0z9y/Ew7h703HxzaeFS/dE3bb+/ODj+2KNHv/orwMOOl01iAWEQEPZK5+NhWmm1zmfUCBJXKD6kucUA/Mu64lEAwMMNrunzcKk8jzi7OY+3+sYYmtM8nQCgfkE+8eQK4rxMF8q5u6/7tzLOkEnnQJoxFdqnBnTrruSNb4/u2Gk/fOie//fkn6658ntvGta2spikaSSdfbF6eqlW14miM7nmkhBIcgS5Z+2n/wwEpBCx46aVpXfkG7+2Dpf0FLoGR6Kw9olPPfnHf/70tVf19fSV+rp6rx92J+eXZhPKFzJT4rpd4yO5Rvmaq+WWu+sndHPhKS8Xgz0bMY1ac6nnLDjegj4HjXSeWhJ6CUsMAE0j12WM0cIRPJeeR27leQTd21hIigwA+9qILYFoo+RJi+j57Nyhi0I28+t9Xe+WaBlTIwpj3ivN/iv16rvD779Ta3/Tr+7/3aeLv3znzjXD5aPth55xDk+Fe8cOPHlof8EzubzShp+bNMrn2tnCcRNrhscP/OmO7I/euOUDf/bVfE8+CcPf/J0vPPREs7src9n2XH9P/stfe3r/gbk1FAYqnZf5IECaXfdM5er5MXN5b3zDd0fhtvKhPUpNKt+zoaCsMTsVCT84nzbShlgtUGFocGqdLl8HgC9pMj6VSXgxHC1IiEvzKVLRtDgaAqCioBLxCbOCdkF0ZXfXn3flbrB2CjY2mIn4sZG0ckd8613hjZfI/1j8kT9a+l9Dl7zmlmIdTzwtnjmZjeVS1U7Np6KS5o4db/Z4uq9PaEunvWJ0DvGwlj1ftCpdn7zvNWn9h99+1z9+9L6vfn3uVTcO/NYfPlqpB6k2737n5hMT1b/8mwfuf6T2yJOLDzw++4rVUlRmZqqJ15UNisWTfM2u40OlqPnKm6LRO5cOlHVtr1+wRrtkDW+HGQn8lbURAiwoQ8gSqgxAaMKwa8Gizdw455QozyXObrdv17gWhk4kXNUAibUCVebGGXHuCDIr54cHe/8o6xa0ngGHIe91edcrou47wjuv0Vy4/A/n/uSp0ntu3ZBbP7FfP/xsrmos3LH51my5ba2BKwPr5Q9NtJ0kHuixjoLjEASsWQFrazkIxMLMus8/lp3Vb/+hq8rlud/9o11XXl6cOFkbOynzOam1zQbh4aOtsSk3n/Mzgeu43hN7lioTYWmxamuLaaCyvZk0v3nXwlXVk/KGjdG1d1emu+vHnvEzS1CeDUGjxlzqOfOOv7Bi9CAGjS7r1AiNWpUxwpCk81jk5wZ6XT4pWDLAwTY0k0M0KviEPT06JGCAYjb7x4Pd73WoYkxVY66Nh9eks7dHl70ivGy1fJB/8kPmfxXW7LiZJ3OP7VFj1YyTXWylx6cazXYqxHItihVwpV8aX/DHxr2ZOVmvaJdsoSS0AdvTTlpi2ExGnRxbf++TuTiX6RHrhvmDf3/Y8/LlajI1awNfaW1dVx0ZC5stkcsqY9gyA+w4TmiolchcaPy52bBZF0XP7S4dCy9/6vFgmJq3vz7OvGJhz4TQR5y8sJGijDFXKiAIxgw/h0YISEF9AikQMjOrnGvzAopoKjkXe8hzKMJCbslqZUTN8ngMgHoFOcRzFgSiZZSv6u76177CrbBT1jTavEeZJ2+MvFvaO1annNvxUeevH+v+oSsL0aWH9zp7JjPGM9IZn2tMz7eMYSmeN8cwKS8XiWI57j5ZzR8ej2UcjQ7BcYgkMUM5xqHgwIH1X92fo4JxiLV+6pkliLyUDCilJDN3csY81xUC1j5/uk61roRWwu1uRWZ6Rh8fzxw/kSx0P/nkaL2K177aXnLX4iEkU3u9YovhwVjeznY4452mkTOamiIqES8xAMmEYdcKprpBa2UrUa4ozirjYJ1nYGmqwxsQqwRXGC0WgpjBJH9w1cBHipkB1jPaTjf4gbXpxF3h8KXhoC/25376U/1/nhRHb1x8dtWeY07FeplstR0fn6xX68lyddVKBoGVsErCdV0KSuMLYn4KYdPaVPuOKC8OPPD06n3znpvXgokts3ScQJB9YSLeuXLziAjgejsNDXUpLw9HsOsqm8n2HDu2cdeuYPtmfu3dldra+v4jrnNSZBwOCaPGXOI5C47f0UYEgQFKQMOi49JDwnIkMMIIA15ILwJodyDQ/QIGOB4iZlJEwwInrTSwjCCb+8A16367x6VmuNjm3cY+dEuoXx0OFJPG0sADa/5p1+ofGakdv/7QgZ7ptnKyUGJmvjkx245TLSW9qAcKzAwmxytWdGm8XDo2nTs6UXhqb3GhZV3HsiEIISQR8XL+LZ8+j56nt7zgkw4PhZGutlLpUCZQABmT5nJuO9zw8MMDgsUb39Dov35pTx31g05Jc+JSVpsrFWV8/wRDay0AGFAvoVPVYVl1eyYDEDCZXBh1dCR6dTbNMUUWx2IwqCAoS2KWDbB6qP+Td217y4DgOK1P6HsHkwNvaeW2tm3VHj9x88Tse6smuzWcuGq84luffC+MkhPTzblKBJx5ZkFWEAtiIViAhVhOA1r+cPlzy46A4yrh5owM/KJ1PdZa61gnTZ2GsKkUkFIASggIYiI+/VPQslRLsfwtDDCTICawkrDW1hqJNjYXOEpJra3rmiAY2rtv/dEjmVuuC2943eJ4ITl20M0vQnpIrb2EcGk2M0ayliaSgEAgQEf3UJ7iHglimk+xUkhPrkTQJNdltGNF1fDssp0iNEzV7ujpuvfmdTv6mVks1O3XrynPfnddIh4/FIxNvSvE9xSL7s6MGNGu9QIIVKvt49PNRjvtMDIzpGASsq39duLE2omNExsnTB0Lx1HUSryo86F2YuNEqSMFLIta4kVaucp1HaWcjFSBo5zIuNWWboWJQBQl1Erc1Pqnrxkb1xEshG0lmTB1YuM6kiXpxHiG/Eg7YeoYdqI4DaMocIXnKmPBnOQLmYWlTQ8/0j/cp7/7TYt2a2PXlMNjIi+RumID8+sy/oRwTkaRIEIPYWF5VqMh18JS1aC9Ak2rFYB2pPUABup6Of8rQ2bObMjkfj/n9e+fsYvZ4+uK4S84l26sHvwH+9Tubaz+q5tf1Z2PVg30QEoDQJvpxWh2KbIMRykGiKwg0YpdnTR29D28rmvWGgmCBXwXk4t4ZPKym9ZP5J020PkYvhs+PrnZsn/Xxr0E8eDYaM15pSsSR7mNNjZnv7J1s2lHfP/xdRuzezcOtEmWhBCdoWNs+sDkLdWmfPWqT3XnnXZsH5i8IVIb+ugrbnJ8zVCmt2gmK71PzFw5mXRHJlkzSKV8wAxjuVQUqbnuI/+26ujx1Xe/+Sujo+N/94d+83NqRyR7suIyQZ/Z3PP6Gf+xqVm1WhkFaNimlgngAHmJhfSFqKoVUhoy0koGW25YACRhpc1Z/3sDebDZWGg6ThgP/Y/pV76q/+Gv+f/x2W39oz/mK9mTqQ52laKoSURRlE7ONivNmIgJnUFNYeSmNr1s8PBbX/HI9evnpXNKXXJ4cYH2jKtXr99/8/Zo2fpjQEndDh9+lt7z6plrt0/pGlR85GOH17JEYp0B/9gdq7/4+msDOPbyp/bBNO64Spwqf7EAoPTVB6c//MTmey55cv2AEhnzyiPHfvaTd//gDXtet/Pg1LzvuVzI0Hjl8c8c3Hn/ofUzY6UNI87QYEBSWsMkOOt593/tlkP7Cu95z32vf/vuj+fc+i65YzLXe1lejmT+fGPvDR+rpWlMGeI6W21UyHAJgbgAjiYAcLp82y9ZM03ESFkExCWxvRHcQKYFrkX89GUJVrectPVPf/r2+SM7e2H6s07J9eNaxE1dOVEb3z3VOlmRlZYoN2UljGd0a6qxPvP0u276/I+9cs+6fp1oP04dYxyGs/+E/+yks3lYXrEOYeymRqXGS40y2n3kiNvrVe64LLQ62HXC2bE6eeqRXDiViWbCu6984tKN9ely0F/0h4rpYkPWmrI374Wxo61KjZMm/vr+cHvvWFtnFxqOS9760XBL5lmdJpds9Auey6Tma06g4ldtOHrDqv1cXtz/lFwc9wrKDwimyaap81I2FtY/u+vKKN5z1dWLr/3lYK63r3jSd5ba3TPNT5aTWScURJ28b1XyTJ4oZcwkFwZ0X6C7BEUGkwksRE6wT2sa7qWKDQBN1bUmzekHv5YZe/qO7kxucLi/f7gPVijyKtPhwskqa7jScYVj0nw7kmuHTvzwGx7+8Tce3bKK09RPtADYUczgZ47TYsNesc4OdyNKIAhEDOaMR0dn0lpob9zGWU+0Yzu5aC/bYsdns4fGt2Yz4Q/ctWv9IB+b0at7CSSswULddOfJdxhMBEuCk5R6Cl65ocPYxil8ITeuIt9NT85xX4E8hb4CpKC5mqsU3bJz4Zarx7Qu7z/ihvFAsZRzXLJG+FnbrgYP3zt6z9vG+0qt2d6lL322tfhQ+2g7fCDhaYpEILgKACrr2C4BwzSbvtBFsgLQasDXBaaWRcdjVyIGu011pUvMVmqq5Dm7VTeW1OF9hazX09Vd8vNKJ2b6+OLCbNmyJgFrnGaEgb5j73jd/T9x995t60PWbpoKKVgI+A6ilHYfF8byVRvRWxDGkJLUUT9cB9U29o2bvoJY3SuUpLE5m/Gor1sJbn3x8S2bVo9/720HPeUtNmzgIB8Iz0E9RJRgoEsAkBKChBRgxmCPqLXMUoMZlHVFT1Gkmmer3F8UiYbnUG8BruL5irCWr79s7pWXHYjCiYnpwMo+x5VkxfzJ6dkpU0tOkD82N6lnUlN7VE55fG9bt5GKoux48qSnuFcx2xUVD7WCI9AhMCM5pfS7oIRPJunJXLCWjXU4c1LWK7K7P4I7N1U+kp3NFHozJEQcpczGdzOpsW4w/ubX7L7z2pmeHLVCP4xYSEsAa5ICsxXeO06O0ttXCW2wUGUhiIgJDILriGfGEssY6ZEMEaeotswlq4Vuy0vXNbpKMzs2TXoBkjav7hNLTQQ+QJQLRK3JEws24xMzBDEBIEsR1g869TA9NmPiFP1F5Dyqtvjxo/aq9cJYmJR9hzYMIYxppuIa8Pff9uxsVH9mcmn/ifUnj/PiTKXUl7nzjY2bbu6PHX/vgrt5jf6rZnshaQpBLE5hGltiQAAOIXp+ecNzgWYQCJLBoFNAsyJqkzbxvbHzLiWM5L46ju1xu14Vrts6vv/Rnqn5I6Wp7uGNpf7R0vQxnqw9c3Du68KZ2LfIv/5RVxucVpM7XmZtzRuu6V7d577/4zOBKxPDUhCWlWg4ipLU/uhr++Zq5mf+uuY7oh2bu64u/umP9zfqNp+Xt1y166rNDTaOZVvM0ve8f/rYbOQqSlL+0E+O/vRfzx2ZipUSneotog4dkRQwln75rQP/819mrWUpWAj/od9btboPSQpmJCkciXUDrCHf8BvNSjqzbuRL+47OuMl1O0b/yw2vu3fz1iMn5+TkrsK6z3UVbvL+43NjsIYM2VPhUU4tGQYRFL2Y1rFMJwJsOD3lrBTMKRH4SDt6qpS/1sTaRXGfXLpEbrtyanZsbXlJnZwcK3Rv7xnoOnzi6QeP/R0IYDFfARA+N4jTMeGso0whY8uNlIRhi7MSEDvlVxZkU50cmeqczv/4FftL93QPdgmbquu2Tw33OGks/Sw+81D7/r3V07EdY7na0ov1BCROWYxnV8PQFeucnoJ4drwthLC28bknGz/+5qKJrZIgQmrgZtWH760+eFBvWefsPlSbnbN3XX6bnz8RDP7rf3zWVBLgL9Kttdk/mM89MF8RgOkkmkjAgg2TISisCLRYwRtADAYMn0o/IzYMAFp/oR3XhILgviaiXZ7I8CXXPsuczldPzE4uGmOXkieEICVdJcl1yHel74ng1O55IhsIRxERGQACvgPPgeeS6wjXEa5DniuEwFxNnFzoFgTPkb4r6+3kow80VEDWWrbSMoiYrfiTz5QJ5LnCVUREzHCVEESuIkeRo4SjIBwrXCtchrT93eJN1xYFIXAFET76QNUmkII7Vr/r8vyi/o2PVtcMdXmOXKrPbR25Ne8Nj+z4SLkVnlyQhz/rqHH7F9D//ZmTpDUDZLFMFwAsk2WASVwA0EwdW3UZ6I4zgUzHPkYlDL9kSYEcl7sPiMUpZ2R9eXTLWL3enJkenzk2DWr0dxe1SRlIUhslOop1eGqPY9MKTao51pyG0rFBmHhxKuOEkpST1CYpRzGsxaOPbj05vtEyjCVjAdDff7kSNllKQcTGwsmIh/a0v7qnLqXQBpbBjBPzptFmy0hSpBqp5lS7mbQrk5QySckzJVuX99yQsyxizUT02KH2/hOx55FlspadjHrfvyxVWn5XMbNYW3LqgzuKb8kM3D+wYU+tIhZnqPiUlD7/fSuNTbocAOLTjhawBSydK2aozhGsPRPmOJ0GbAFifqwV7SwE65H0hFTZ5cR3pduvPPh0ZnG676k9w7n+8Wiwp6/ZjlpR/Iotue1rPFcg68uMR1mfsr4KXM5maEPe/6u2SX+z522zuXsK1gjjSFbCBp5IUqq17Pu6lqbuLYuvExMzQymxfzz88q7262/NWwtmhqA//HTZWqscaeyyO3B9P338f4xU61YJsgzX4b0nM/+t1pUrsDTUNvQ79YUPXa62rgoOnmz7noxi/dGvN35rS59u6XxePry79fdfDTevGYwTMz+z2Hf3rcf6n3r94L81W9S2iB53t4V4KKeO1BqClwmPmM9KCV+GasWkhRU4ml/QO67TiqTzgU7iz8Xuux3peKbnsFi6TK0e0jvXL31Zi6a/aKJgXaZ/qK/7yPj0995U/Nkf7kNFwznFlRaQ0BFXJ9Bcu/gmz/zzdSVk6VTMmQDUx+197ejZdc/iSStBTAzbmS35Q1+oveHWvLGcC8SeA9Fnn6hLKYw9472bq9rvuiuHtl0eqITrruQji4d/f6BMKdizH98fvPfoyD035n/ro61OLeSH76v+4j3djkJq+Bf/bqGYLziBMze2FG1Vx39xbvSZPys1w5NNqkzI4UNUy8ovtFIYwyvVLFKnn8U5Et7VC1DGckcuuVx1TSSWW811HGzAWLv9eCl/E0x3gsrTbv115pqc3TvtztdELROWlxo9Q4XCUu23/23+LTcU+rs4bUIQGCQFacMHTporN6js58SrHe/jhUaYgog71aFhQtdvDoKE/n1qzf+eXbwfVQUygLEQgr64qz52PAk8IQV94DNlrbXryE5Et/NkUYr/+Fyt3taCCIBlOIour/t9fUH1BpPW7E9QaX2vHOjxHSUTY11HTMxH//F48wfe3vOBP5978hiu2Jpvt5L56pL5nTWFyfCeclq21E4FPe4MgT5iqdpun622dRiVT7Nup70TE7+4RNtTb0aK01JmzzqRATLmS2G8NXB6XN17TC5MOKNrkpsL6cfajt0i5v5PpdCTXTvcv+fw+C//w9xHfnXINowUgsAkcOAkX7pWji/ZiUeiv9s3fUoczigGX3jfhq1DavUa92NEfNYodBTFif6br1Tf8109TxyJ/+3BqhDC2GVffueYwS7xMx+aOT4bnqXEEsDqUk/fqlRF3E1BaQjXbfJzgVNpxJ0a8z/4xJIV4nf/vbpuuN8SLY4vJq8K7M7CnQ8dzipdiahySK05QYdz8vFqRKdiCsviyPZ0QRwJWrb/VqovESswR6emyjntOmdSZ/i7g0q9HX7JgKQoGSufUjUjtpbSjYm1AyJaa+aml/wgGB3o/pf7lz77UDuTk9qwo+jgpF3VR2HCs4vm8o3SUZQLpO/JwJOBt/zLbNl4HnTKrecaVx1MP/y1aqXJH7y32gq1ekEMITXoLUrPEdmgc02VC6Sr6HaRee3J/KV176qi22zyNZc477it0IFHCLFnLHzn7485XraQ9xu1dtnU7btXDxxbeBWHizE1W9J7VGUc8ZnI6iQ+O6TAp+2iTqOgThdEEL840AQ+A/TyY5Cl58m9BQh4qh0dhPI97h0X9TFFAd9c0LJtcZWzFDWajfZAb7fnej/9oZlag7MBHZ62eR993eKJw/rKLU4jpVRzMzRRbDo6SRSbMDaHF3RPXijzfLFghhBifD753X9f+j9P1ok67HyqvSCDCLvG0qOzOk5tK9RhbMJYN0OdaJaO+bd87y+Xu4zHAuDEvvO25YojIgjBXYVsb1cxBc+Nz5u7e+yIfOPJRSKOGNU9zppZPOLKsVb7+VlDzKxAtOwuJEdAAmCkuCCOhgYg4IqO05R1B/TnvyWTJJ+P3LW+7IJdekpV16SrC+mOpno6T9hOM/sXN2wZXTvce+jE1G9/dPFXvrcv1bxljTo0bvqLIsgKz3euWJ/tLUjQcixEEhLNm4aUUJ3QOJ2eVixzh3aloH++b1GcSvroUDsxdxqzXbNRhbeVTs4lp4VdEFKDKzd6hQxuH3X3T9hLV4soxI5N/jtf0/X3X14UQgqi3lJJuao8X2tmE/PO0Q3PTl3tJIsJalVZeIKiQH2xncKsEN8m1WnbCQDkChZACmj7whlxJcswtkQSLkEAlpEw+c9n9w6BTITho37hNW7cNyWmj7j57fGNpfRg2Ysud2pHwqXFWm9fsbdU+MNPLdywrfDGW7xGxVZb5tpt7slJ/V+uy/7C60qrezvq/Zk2uVojCtn1uXKm/x1lM06rnXbsAEHLUzxbdnOOk5PNmdBxCAZK0Ad+ph8Ni7OvSQRt2w1TKFCv4f0TdtuoSBP7J+8e8Fzx0fvLSmUK+Vyq9dzMPH58hL3o7oVq4nHM1HzS2VYTnwyo1n5BlVHn8h7O5Bf4ggXIAOkFcTQQWwLYJbiikyzC7jliqcZ8pRVNSadHWO9pVY+oJ6evc7R1QFc6s7PlJNXD/b3M4vc+Plep05EZHizJVsSVJnflZHdOUOcriJc7j5JQjsjk1eQS6qYDK1lr335z12i3a6ylZeUVQsCyfce1pU39zqnGHTRVhq1bo9km1qbWpmxTaxPLFplAKiFGBtVwtzi5BDAyDv3Ju/p7Cl6pVBKOXJopx4MqfUvfzr0zW3xdS1Gel327xVRGPdII6ZTi/PzNpzMdmjKSYaF5xZjhChJt24bYg2MRCEQWEZNDTPS8zpUdoW6G4Zc89x2e6J/DyYNu7or4qlL6zLwsbxbxs/H8THl09cBAT/HhA+VLfuQoCQQOtWP9g6/u3jwafOS+iu+Ssc+5pBBIUv7pu/t6egSAjqa0WLLh6xT9Azo9Kqgz/7giuN61H2mfPn+wC297/8zkUiIFLJ+lyuCM2SWIhVD/8vNDg8POH3x4cabqXr450wyjhXKZfn2zalXe2Go1XI4MJY+q7kj8lWt1Ep8rdE+B6LQiIQBZyWREwnaltm7qBQwNDrWwZCQhK1ABYkAQeeAIWIlAdrXCK0qZnSpZ2K3qm3RvxtycMZ/USlzrlu9t9OnuXDYjy5WZSgxwRyVqJmZ8Ifry7uq5mlbd+tr8gUxERIYgiT7LzfgeIT+uuG0hwIJMwmqn88c3V91/TQSJjqh7TA8ebE4txOdvwdKVdzwX9ar50Bdrqwb7LImFySWzOadfk7/tiYNrsnoq4vKkM/Ss2JNRh8uNla/VITCPO7nSQkoOCAwO7bmS818g0bGhhEGgggLAlpEysnSudGqbJp8P06YrhxcR7VeRwvZisiZms1rqNdSYbDhCsCElSAnhSyIgS6IkpQQCR7hCuFKe3pUjMpAfS9pLgRFMbAFG0m0xDNyhYJmZoZlA9Folc7ABg0EaAH+sGiuhJMgVwiH5wt0VUkIoFl2++rvPV45N62LGjdpxvVWnHxnuivmHetqpAyOFfMTxWH0+TmHOWQ5FDqAIbQAQGWU9AKDWBQJNsMzUtiDivFjWnVtA4RzJRQAB0+3wfpZdLjLPOI2alB7fUtCizvwat7XZSk+qrCCfhE/wSXpiT6q/qGPyBHsEn+BRpwEp+SQ8YTzaPxL7HimPnICUR44jRMR4vRQ9ijwhHHI2K1xNosGOJxyfVIa8jPzHtfX5AaOKkrqEKAlREuKsX2RJUEk4RVkdsD95vPrBL1RyXY6TddI44R0ivbz4c17j2m020414wt18wn3YlwuN1sqZux0wcgQN1gAgCo6VTJa5ri8s458Ahrcun25UnBo83uS2pZKgUbL7zHkuEfj+e/NuT9McvM703Bj5MX16yt/TS/LOga3uNfvnvwLdBslOlh08hgRatMIQ7zSu7ALCU95sJuQAz0KRU4ONQQLaBTIMJtSB9NRhXYwU567I6xS7dPiSUE1k15bbum94vL6rNvnM1lWXPP7KmTCe3nVcHf+pHE04P9Oux2GMcwHNEGslM3jcAAgu74oGLNrMj9RXLBdQK6cglxPBrnaYuhTaCRoMJcgjjvlcQt2Oos/73o/4VNwrG9ulXzQ3lNKT025utj2yKYwDyVpJIQUMEaSFBKiw7FORAEEIIkksiQWz0BBZiBxLJoIVlnwrnqzT8aIVDtsWvZVFYJgZKDDEslotNOARBbzsQaOzfT28bJCBiKGITRFd2WhDoXGlP3PwBL85087le0RxWn0iePV49j2qHYXxOWssOjDkgQkLQJLgomS2omnYrjxBqBUvYRqpk0K7TL0OTyVsmEJGF2F25Y4nHaz3tsKnuzJXNNI9u93kNZHQ9I7B5J7RhRuuOFot141OhCACE+HUTwJYnPZ5EQhnfBd0xuYHA67C2ILzln3BM4J/J8+/fGUjzbAVoFPaxdmOMzrL//gchxovj5mOgSMzTXhVU5l8om2HV9fLtXUtGtrwOe9wt/3KeOP85fkUECTQBABZdE0AWKByztGkVuQCay3VDPUL7pKkiDVzmamPePa81WFp8vm2szmQA4dwqD/o6ddG84k52hzaSiQTLc4KPfApMJYb94Oe62PsQE50OvPfxDQ0qj/st//1icxP39DYX1Wznw14RpDDUEQSrKxwBaQWLpEkSAuHICxJC0EkmSRICggrFIQkUFLqzmey4cSk3DdJQ9tweE6oL6+6Jmu+NzmJVOMFGu1zTJUegRbYAIAc8GMyxMSL6cUA3WGP2UQMBsZl0evwbIIKY5Uglzg5X91jbG0sZHfK6+8T5LqR5tZn3fYXA1MeNSfq5IpTIsVYVihouT6Ilgd2p3EgE6OTp77seyRi7O5J8z/V+LEb06efDJJf69p+TPhYbijNgCVmEBMz0fKfgizYEpg6BwACFsyd0kQXzo0lm9TiJ3ptO9afynevSlYl4u+1fnxiSdIKK46cPeipi3jSAixAGHCtjUXbcvuclfHqXBcyi7FKM0YCwy5mE9ZMTVC/WLEk6/RrXu84Xda2JY0wiyaMwkjdrqtZDOZxoIna6VEtVqC8FXnw7C845O064XzsB5Lb/tm5YYaQe2EPGD5TZHR2nzp+rvKrAW2xroCCxJE2L5mipg0Vi94EGTXsO9KRNjXnUcUpJyCBWidBydc5hgYWztcYRp0rUdlo45QN+ol7FPmCI8uzltYLTK08oDo+x41KwGrJtAiaH+G4hgnSbhT2FUu1jZl4qkpKnj7hhTq8Pas5DYgFU2dekwxLcC12LMi7/tDbIvG1XjPvW8kd5epU8d1pfYCfr0+ZszUsZuG53Ru7Qaqhw2eyUang0ypvjXC7InPHkPPmS9b+++7DkmgFoe7w3CBxZTmIpdZkQmsIxNPxOYXmPNQBwE5EaiinKRWjHh8Nuc5kQV3E5edPiZ2/AsdZT2yBJtPUrUn/pfoTe/yjOf7ArY1XXnpt9Q29+8pfgUkBsRyqkfY5SQGC0emiQQwrYAnKggEWEMtLV/QekV/8q9zbr40/8j0RFNApgBEAWViCoeVnEhbmbKwJlpZfIwicBqWrbg0uP8mVfZfsQ+zszI98z2tyJ58V5h+i3jT5xcv7PrF/3KbxCkLNgCIUBfZpAMpRPOSwiUTd2vb5Omqo89CQXoqcMKsdYJVLx0O2zLOWRgSXV56NlRASEClm+1G8RPvGvmY4mZz1kkrtpDz5iq5LT8q19cYBCc8qaxPetBT0nBI+SUja2JOLB0kNxWp3sR3n7SWzQaT4eC65upIRgiSjtp7vfGN7cI16dTPLMZMVD/fEKuJL27mxIFnoTiAomJfr626xSEkKSVCgCtu93W2RIZUKw6nweq/Pbyoq8XTlhJRJcejK/z1qRnoW3Vc05v612FfzH1tqWaMFvSBU0hHnYcEN29F03TW5WKUgYCI6f9G9Ok+Zg2XGiVhsd6yyYtjjyZgXmEZARcG157y9joA2ough373Hpd5FLBxT/oakv6SvXFQPHxYnNx3etHbdNnfrYzyuKcKS/Pmlnl8rFgIHbNmRohXj+JL93RO137m8kJZpO086Gg+kg3803vxiqf1oz0As2RM0XjFrr5z823b369wgUdo16v8pLz04GT88PHhvq32XmkGO3zNdfJfNF3z0FUWaQhJiw3802fzNwlLSY4gxEmwdoOzRdGlu9iC6t3y/iW5Yvz+M24tH3eJEppIL3vfE+KniO36+/EmiPuIDpqM+03rfJKEw4LnkPLyB87UE7gj1RMsxCpqxMViuEpm2tFqsfDjzY1EyKdWgtc5jTpiKlHDtcFqaJ3ukuj88vNrvy/Zu3lRRX01Gf39Dd34AqsRON6GI4y1TC+z7NxdXd9GJSIssvtvkS11imOX/zJUwDK+L0ENON0izzAPdUEVCv/2lQuGuTHZCpncOB3emOYAHpMr2YzIxs4lxeiAKHPTgv60vPc1rbpr1ODeyvbAuInNoaT95QV+U+6+rdleT1lKCqb8orKqr3z5Zn1+qSHpBEVLHJhoRaDK3GYC/uhAHFpIwHi/bKS+5jQRbdqSy/YpdUMtyw6DNNEjQhPbzC5UFkGpjXfdSl1WFFnwEoyaj2A3p8JJsr2oVMkM7HhM/P52uYhyaT6fm9Ml5M71oD0zocoObbSuUeXZcj3Spj9rmPZOBVyFliGt2eiE9Op1Ozug9M8knutrbjjiYt+PzdnrehlXuqctSQe4/GqWT/GBX9D1+7hI4mrBUw5GTabVl55bMdDXNWb69kfHmVzdzxeN+eWJqF7Kb3hsdv7a7NrFEBx/2d3wwO1tyfmTvtEmSFXMzyCHaIPiIhYEk4VzfFcWhgOBdrRdtPabOa4EAQHqs6WzsjdOItmVoOmEGjzOtE6g8/5V3XAlPh/H1eX+Nm1Z2qcYmI3L6sqF09yE1eah5KHtIftj82KG5+XoNkKd8xQDbP37X6Ph8+kefmr1sY/Gh31vdtVf+yq9P7tyQ/b5bS7/4N5NnzwPq77P/7S9msGBODVRRzDof/vnRt/7OeJQAf6EWPNPdK5IG/fxfz37msbKUwnRyD9l0l/KXDqHpzR1/Tw2j3ZvL8V2F2V1HKHQo/JA/APl949V2oylxDnZeK3jJcsQAgk2lyEuJBI5GrF+8ReiLdRMnGG3ocCR8xT7RhgAAVy3aoFGJ52pRnb/iOH7AwDpioInkCUdLki7f2puK3Vy1M+XXZPuCQpBxlVoeja4kgPMBCYFOarMiaM0MJubhLvXqK/Kve0XxNTsKG9ZmnDtcOFAKisTPvWX9W28aFoJrLb3UsDlfkLQ/M991SdNrxzzYLRZqCYF9h3oKTndO9hbd/q5SXcjy0lLYrgFD7+axRshLLRy7z9u4X37asZ+cKQu8oPi1g3JBIA9MMAiu6+CSjG4lZNHpTHch7bvwIkJNSI813FRxwtgakCdA4DGDPqLM81PNOky1uxWNQWU87j0ga1NKC6zrT7eHbJ6ozV5bzw535f38R3521dhfbxz/p80/dlfPGVMckGBj8MaFHADNvKrP+ek39v3cm3t//M7eH377gP1Zx7rcsQIboQkTay3t3JBZP6BasWWD93YVbh/xnp3UAPKBZOBVlxWe/JONj/zBuk+/76pcMWdqSfmaptkxcttC9ZpCbbJCizXhfsHL+/J3qm3W6TkqQUHriU8wGwYjc2Vv24QUSD4Qsrmg3ncX1B/fWMu7myrnWmNpZxYMThgTljaKs3wUZ15/msT3azZC9Fimx9zICitx01Di70aZFho3Olmd+cLxaIHtfFW3tYWAS9R5xiTlcs2+esAFUMqpR58N3/Cbx2/7lWNvfv/x+aV4OVAEMPivPjf+2cdmieieGwsDXTLSALBojZun/qKYmmNHEoAHD7au/5nDv/Wx1iceTeqVtB40mt/tZqqFH8uMzzQpYl561LtsTt4r8XStvoIjaZk0JFpAmQHk+ovJGmnjlJqWx6ML7KyoXvwQBgjJTMufD0yBeMgVI66dSuyCFV1SrBV27DlGeUeo97XCo8XMZjcenJCTh5S3PenrMq+YN19/sjl1fWPzFwqf2jv3Nz0n8cFO2An3zkQPUBvAZMUsJDyfMgCjGQX5zjt6fZccS+uGPGtInlpV7y9/8rIDE80//uSx3/jI3GC3k82KZsNqg6htu/K01OTFkEBUbei+Lnn1JYN//ZWGm5rJ25p2dMPbpueHu8LdC1ReUt2PuBzIv6m36ayEAjrLcyi6BErEewwTO0I5N3RVKhXKOfzVKi54Uxd4HBPSJ2vud/XEjZCuytNimWPmY5YuldQjlvuynfViTZp8LfXXK1mQnHnCba01wjPXjCZ791Dl8kr1xv61n8qngQl/WOJZw4wPX9nGrlRCtOL0Nb8xplMm0FTE/xS13EOhUiRAn320ga2Wf1khMmz5bz89UW8bycJoc99Y3EkQeev7Jl0Jy6wkzdUtmP7s3cNvv23kR/+ybSq21lsL31BcU/Xe3nNgbIFSUOMh/4a6+FTGjDdX6vDDEB5hncARCwMCitcOVahFnqSjka2al7s3acd+0dYJCRt8Exkx4PJ4DAYaTBslakD6HG2PgEVj1/j+oDBunRaU8NbqQLHXFIcW0S622w820nGT/lTG3u7xjR6tdZynQPs0E8K60bGVTI2NztwlauaBaEphRkL7Tn5Nr/vabbl9Jsg6JzhZUqnb5chuZ++bXD2mBVFVcZVQE6gQc5aQl9Nv9g8eMJ94eC6h9uKbUtPnvmNyvg/t6QrNTzk9n/fgyf9dC+MkeX5Lqc7PbRLzjCVmcNe6vuhymVTakgmPNED0Tei2e6qdlX9DX9RrIUBHQru/jU4bvNXE+5nTM3Ld+XdjIf8uB8KYWSEabw27uw3F9M+H/XGfULZICL0EH7DLfWywyLBMnexSBuWJugSB2IPIku5VYkTJwGVYXTGoaVQ0GgwNkEWIs7UgwvKafCwtQl4u9nflUDX9gY2hliCfKp/LXHVUftyXX5qviuXOIMvZodxJNtkskYLHLINzxbx6Q191dkGUPP5SBTWD0+e8zEADICghndf1hUlEOUmPNOxUAkAMCfQSP2vPnoIJYKV+sJi9gtMkEke32MJ3hW7KM3NeQixdZgJS2+mlR8wQIKezlu+pjBgL0mBiMARRI6R7I9Xo5Vxd3Ew6oyxbkIAkdJILaTm00CnXXV5kUjJJCe7U8IKTxCl2pX7Gzo07o59yo0B9oBEnUXQqZRlSkLYMhlgn4BIfYob1HK/wplULzQXKKtrVsseii+2IrnCRmzZG3F/x7uyOK21cn6cvV7lq7IwVStAWgYPM9iy+1vpridnmSunb/iNi4YQqDJnAs6t6O0toPX8F6hf6oE97lRlYq0An6d8W3Fsz6fVrk7CT+XUOh/bZxhSfSZNEGKXthqQMy8fdHiH+VnMcRWeSfDv+foZYLRGAD1omdliW7li1kFTIkziZvASU8VKWByGYyKgaxNasqSZic4CJGClznckXNEIon9I8AAJqxg4EwShrx1CzJqpruFjUrGAErIQVz93lc/ez/osFNKHo2mOT6rrVCWW5bZa7ZcSWYn7+noBSIAESWo6Ma4EUkC5HUi7ud7btFccD9blGeDqDv0O5xKA1gnLEh5iZJYue29YslZomNiKy+PpLXGXoJS11IQCLYFspvcLTlVh4gr9Q5cgCEKMCReIjzIk9nYk1nMv+hCckmzgV+9ejsMou26wrR2lW/AXEsL7t2pbu26fWr7XJHuUsCbIEw7CEF6xl2FkjFKIT9QaDSaCzinsCzk2J9Yb+1NCxeoPOihgAJNYTXOAwLFvJ1Hvz2spImFQi4Uq+t3z+SN7LDXSnqYeFv7Mn2aJMLRZK8JdOYT0o0U98zHLrFNZCvrU7f7OOIyJKkRq66CU7ACaKLU1dZlo70uAZZ+MzwnFZvNgz8At+6/BTxuFHlPvhSpOMPo0ySaKNAgZ8zDKzhOi9eU11VRQvtkXO4XvLnSd6aQvefAOLEnWUkGt6kg3C1LVwib9c46YBILoFrRY8xbxgO2zZn83+UNZV1vI5Gyq9yOZbk7E2ScTnh/gVVQxrxAIRiTMJxeeCgFYqahDyryM902h2Em/AEFmBDYQqeMIy2IHqvm1VZShMFkNRcPgLFa4brBAL+BYAfQbr3mSjMLVEBIrvq/KSBjr3LdBiHrNsGYJ8zxcvSRg6Lf02eO47hCHwTIqiQonweVYPtUJ5kRLW0QANUTNJOjF3AtEAYZgwCV6wDPYdr3D7aLnQ1LVI5Fz+Ynl5kRv+RqD6BjcCMYKd3ck2V1cikXf48TqfiHHWCnYYs1y33+jqi0r9UCl/uY4TQQ7zSen8WSNK4vgbvX2XaJ2ASzhuucUMzhVy/h0DZdRsbKQr7Rcry/0Zv7EH+IYXjuzE72dCL1ViY6BrMa3PCE/wTAILlEFMWCsoIDSI7LJue1YqxwXtAmBrl6RzpSPYWgj5rynm221xlop4oTudvgESg5I2EprMRywnTEBpTQ/d0V1plZmgrOQvVLj18iw++3IADUBAL0TOEsnNOR2m6FVi1MdcyonlFmOJqYdotQATmmf1Q7zI8V4zphQEl7G+TzgP1pv0ElaePdUbGUVBmwVyxMeZ5xjMDqnCtUPJ1W5zsUJ5163AfKliE/ufZinUs5DQ9USOp+66nHHYgsXWDFJLZc0GvASKQCOChgQMUfs5D09EF8RxzEsQw5nMx1tRnCQX+KaIQKfrNzqrzW6UYpAwDz62HMzO9ubd2/ub/Wmy1FS9GfdQmj5Uscz/yRb3fa4eLEl61/Uk64VuxBRILGo82eCaQSebro8wIgDwnMUcnzHZL2wxKyFEVy6/VK9d+MMtZ6FBiB5gSCAALYGmWMeGAUc53hVdeqsb1ZtQwnd9ergRTTT4P+m64MuJKctmCDG8VXlcl4+RcmqEK3A05H3tjrZPROgTNERwCRXL84z6N3EBdgoIfYReIgIvMM/aTnMdAXLXFWhnLnYT20xUKfDnKH2oHLfj/9wr3Z99cwQwHNdxrimla2UaJpAkNPhwG4ci1qfSlotEA4QiwQBVxhJzg1coO6Vzfs+KiXrLIZ8soYuoW8BntIE5y0vLFydADmfkjpzuJtOIyVcZGYin2+1DFQP7zUD55aaOF0aAAHcgK6/KJyXWkYYiSpiORXw0PF1UQ4rQRdQjkCeAEYLrjAajzUjOtGY4//cQAIcQAHlQXiBLkEDIvMQoL8etl2eEVb7YnrU9yoYxhAgyGe+EjZ+qhO0Q9FJH0rcT6LNZG+StL/BlmSRrTaIhSWjGdMLHIp4/EwwlScgRFQgFooBYMBhIgRQcM1KG6TQGP6U/SCIHcAkukcOQxJYRE5qWa4w6n+pWBAKQEbTGx4aA85KTFIQgyAbzIt1Va83XLPBNEuRvFdBnzXISwt2Yx7ZMmrda6+W5sWEwlfBkzGX9nOFPBI/gAz7gEVyQs1yCcardC5FlaHDCiBkREC03vj0bLgoEDblY5aHPsQpIDSmZcQN/Xui9jdZ0VX/TuOJbDvRzmVVCOKuyYnNG95Ema60BgSxRy2Ix5bkEZY3GuXLA6bnv7hwHeQIlRf0OBhwUlXU6rRHguG7GeM4UpwcbzfnaMh3jW4HytxDo58ItAFXw1boMr3J1HoasPRUUIs0ImRoGNcMNjaZBZJEwa4ZhsmfZO4KgiByCT8hIyksUFPKSc5LdzotgEDnK8dnzqoQTcXusHrZbfLaa9C189G/5dpYcSQjV48tRH4OOKQrjWANm2LNT98kApkPQvFxJ0QntdRqRSILs1B6djt+RktKB8lKlqsTTcXKyFVZbermtxrca4m8f0CtZKAKkAlf2uNTnUreyOWF9WMncqTrplL0wnaoE5+UAH4OIBIQASSZlpIpJNhhLWi/E6WIUR5E5nUNw+sRv3+N+W7cXWBkCECRFRomcEllFgUQg4AkoIiXSNBVSKKE4NcIQEkZo0Ta2aWwr1e1Uc2qfZ0k9L4b4/1Ogzwv6ue6VVorlng0unXtJhe8AfS4Vgy/i/TC+s31n+872ne0723e2i9v+PxYb8jr9CAPsAAAAAElFTkSuQmCC" alt="CEMEY"></div>
+  <div class="hdr-text">
+    <div class="hdr-inst">Centro Escolar Manuel Espinosa Yglesias &mdash; CEMEY Puebla</div>
+    <div class="hdr-proj">Un Futuro Brillante para Todos</div>
+    <div class="hdr-sub">Simulador T&eacute;cnico de Electr&oacute;nica &bull; 3&deg; de Secundaria</div>
+  </div>
+</header>
+
+<div class="cbar">
+  <span class="cr"><span class="cr-label">Docente titular &nbsp;</span><strong>Reyna Cordera P&eacute;rez</strong></span>
+  <span class="cr"><span class="cr-label">Asesor tecnol&oacute;gico y creador &nbsp;</span><strong>Ing. Rodolfo Fernando Porras S&aacute;nchez</strong></span>
+</div>
+
+<div class="mod-hero">
+  <div class="mod-icon">⚖️</div>
+  <div class="mod-title">&Eacute;tica Digital y Uso de IA</div>
+  <div class="mod-sub">Uso honesto de la IA &bull; Privacidad &bull; Netiqueta &bull; Responsabilidad digital</div>
+</div>
+
+<div class="main">
+
+<div class="tabs">
+  <button class="tb active" onclick="switchTab(this,'et','e1')">🤖 ¿Qué es la IA?</button>
+  <button class="tb" onclick="switchTab(this,'et','e2')">✅ Honestidad</button>
+  <button class="tb" onclick="switchTab(this,'et','e3')">🔒 Privacidad</button>
+  <button class="tb" onclick="switchTab(this,'et','e4')">🔍 Verificación</button>
+  <button class="tb" onclick="switchTab(this,'et','e5')">💬 Netiqueta</button>
+  <button class="tb" onclick="switchTab(this,'et','e6')">🎓 Responsabilidad</button>
+  <button class="tb" onclick="switchTab(this,'et','e7')">📝 Quiz</button>
+</div>
+
+<div id="et">
+
+<!-- E1: QUÉ ES LA IA -->
+<div id="e1" class="tp active">
+  <div class="card">
+    <div class="ct">🤖 ¿Qué es la Inteligencia Artificial?</div>
+    <p>La <strong>Inteligencia Artificial (IA)</strong> es tecnología que permite a las computadoras realizar tareas que normalmente requieren inteligencia humana: entender lenguaje, reconocer imágenes, responder preguntas y generar texto, música o imágenes.</p>
+    <p>Herramientas como <strong>ChatGPT, Claude, Gemini y Copilot</strong> son ejemplos de IA generativa — pueden ayudarte a aprender, explicar conceptos difíciles y generar ideas, pero también pueden cometer errores o ser usadas deshonestamente.</p>
+    <div class="al blue-box">
+      <span class="al-i">💡</span>
+      <div><strong>La IA es una herramienta, como una calculadora.</strong> Una calculadora puede darte la respuesta a una suma, pero si introduces los datos incorrectos, la respuesta será incorrecta. Lo mismo pasa con la IA — su valor depende de cómo la uses y de si sabes interpretar sus respuestas.</div>
+    </div>
+    <h4>¿Cómo funciona la IA generativa?</h4>
+    <ul>
+      <li>Fue entrenada con millones de textos, libros y páginas de internet.</li>
+      <li>Predice qué palabras o respuestas tienen más sentido según tu pregunta.</li>
+      <li>No "sabe" ni "entiende" como un humano — genera texto probable, no necesariamente verdadero.</li>
+      <li>Por eso puede inventar datos, fechas o citas que parecen reales pero no lo son.</li>
+    </ul>
+    <div class="al warn">
+      <span class="al-i">⚠️</span>
+      <div>A esto se le llama <strong>"alucinación de IA"</strong> — cuando la IA inventa información con total confianza. Por eso siempre hay que verificar lo que dice.</div>
+    </div>
+  </div>
+</div>
+
+<!-- E2: HONESTIDAD -->
+<div id="e2" class="tp">
+  <div class="card">
+    <div class="ct">✅ Uso Honesto vs. Trampa Académica</div>
+    <div class="dos-col">
+      <div class="al success">
+        <span class="al-i">✅</span>
+        <div>
+          <strong>Sí está permitido:</strong>
+          <ul style="margin-top:6px">
+            <li>Usar la IA para entender un concepto difícil.</li>
+            <li>Pedir que explique una fórmula de otra manera.</li>
+            <li>Generar ideas que luego desarrollas con tus propias palabras.</li>
+            <li>Verificar si tu respuesta tiene sentido.</li>
+            <li>Pedir ejemplos de un tema que estás estudiando.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="al danger">
+        <span class="al-i">❌</span>
+        <div>
+          <strong>No está permitido:</strong>
+          <ul style="margin-top:6px">
+            <li>Copiar la respuesta de la IA y presentarla como tuya.</li>
+            <li>Pedirle que haga tu tarea o examen completo.</li>
+            <li>Engañar al docente sobre el origen de tu trabajo.</li>
+            <li>Usar la IA durante una evaluación sin autorización.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="al blue-box">
+      <span class="al-i">🏅</span>
+      <div>Cuando uses IA como apoyo en un trabajo, <strong>menciónalo al maestro y en tu entrega</strong>. Eso no es debilidad — es honestidad académica. Un buen técnico siempre reconoce sus herramientas y fuentes.</div>
+    </div>
+    <h4>¿Cómo sabe el maestro si usaste IA sin mencionarlo?</h4>
+    <ul>
+      <li>Los textos generados por IA suelen tener un estilo muy uniforme y formal, sin errores naturales de escritura.</li>
+      <li>Existen herramientas que detectan texto generado por IA.</li>
+      <li>Un maestro conoce la forma de escribir de sus alumnos — los cambios repentinos de estilo son notorios.</li>
+    </ul>
+  </div>
+</div>
+
+<!-- E3: PRIVACIDAD -->
+<div id="e3" class="tp">
+  <div class="card">
+    <div class="ct">🔒 Privacidad y Datos Personales</div>
+    <div class="al danger">
+      <span class="al-i">🚫</span>
+      <div><strong>NUNCA compartas esta información con apps de IA:</strong> tu nombre completo, dirección, número de teléfono, fotografías, contraseñas, datos de tu familia ni información de tu escuela.</div>
+    </div>
+    <h4>¿Por qué es importante proteger tus datos?</h4>
+    <ul>
+      <li><strong>Lo que escribes en apps de IA puede almacenarse</strong> en servidores y usarse para entrenar futuros modelos.</li>
+      <li>Algunas apps de IA no son completamente seguras — tus datos podrían ser vistos por terceros.</li>
+      <li>La información personal puede usarse para contactarte con fines no deseados.</li>
+    </ul>
+    <div class="sr"><span class="sr-i">🔑</span><div class="sr-t"><strong>No compartas contraseñas</strong>Ni con compañeros de confianza, ni con apps, ni con supuestos "técnicos" que las pidan. Ningún servicio legítimo te pedirá tu contraseña.</div></div>
+    <div class="sr"><span class="sr-i">📸</span><div class="sr-t"><strong>No subas fotos personales a IA</strong>Las imágenes también contienen datos — ubicación, rostros, información del entorno. Piénsalo antes de compartir.</div></div>
+    <div class="sr"><span class="sr-i">👥</span><div class="sr-t"><strong>Protege también los datos de otros</strong>Si encuentras información personal de otra persona en internet — no la difundas, no la compartas, repórtala si es posible.</div></div>
+    <div class="sr"><span class="sr-i">🏫</span><div class="sr-t"><strong>Usa cuentas educativas cuando sea posible</strong>Si la escuela proporciona cuentas institucionales para herramientas digitales, úsalas en lugar de tus cuentas personales.</div></div>
+  </div>
+</div>
+
+<!-- E4: VERIFICACIÓN -->
+<div id="e4" class="tp">
+  <div class="card">
+    <div class="ct">🔍 Verificación de la Información</div>
+    <p>La IA <strong>puede equivocarse</strong>. No es una enciclopedia confiable — es un predictor de texto. A veces inventa datos, cita libros que no existen o da información desactualizada con total seguridad.</p>
+    <div class="al warn">
+      <span class="al-i">⚠️</span>
+      <div><strong>La IA es confiable como punto de partida, nunca como punto de llegada.</strong> Siempre verifica la información importante antes de usarla.</div>
+    </div>
+    <h4>¿Cómo verificar información que da la IA?</h4>
+    <ul class="steps" style="list-style:none;padding:0">
+      <li style="display:flex;gap:11px;padding:8px 0;border-bottom:1px solid #f1f5f9">
+        <div style="width:26px;height:26px;border-radius:50%;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">1</div>
+        <div style="font-size:12.5px;line-height:1.6;color:#475569"><strong style="color:#1e293b">Consulta tu libro de texto</strong> — si la IA dice algo que contradice lo que aprendiste en clase, el libro o el maestro tienen la última palabra.</div>
+      </li>
+      <li style="display:flex;gap:11px;padding:8px 0;border-bottom:1px solid #f1f5f9">
+        <div style="width:26px;height:26px;border-radius:50%;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">2</div>
+        <div style="font-size:12.5px;line-height:1.6;color:#475569"><strong style="color:#1e293b">Compara con al menos dos fuentes</strong> — si dos fuentes confiables coinciden con la IA, la información probablemente es correcta.</div>
+      </li>
+      <li style="display:flex;gap:11px;padding:8px 0;border-bottom:1px solid #f1f5f9">
+        <div style="width:26px;height:26px;border-radius:50%;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">3</div>
+        <div style="font-size:12.5px;line-height:1.6;color:#475569"><strong style="color:#1e293b">Pregunta al maestro</strong> si la información parece rara, contradictoria o demasiado conveniente.</div>
+      </li>
+      <li style="display:flex;gap:11px;padding:8px 0">
+        <div style="width:26px;height:26px;border-radius:50%;background:#2563eb;color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0">4</div>
+        <div style="font-size:12.5px;line-height:1.6;color:#475569"><strong style="color:#1e293b">Busca en sitios oficiales</strong> — para información técnica de electrónica, busca en hojas de datos (datasheets) del fabricante o en sitios educativos reconocidos.</div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- E5: NETIQUETA -->
+<div id="e5" class="tp">
+  <div class="card">
+    <div class="ct">💬 Netiqueta — Comunicación Digital Respetuosa</div>
+    <p>La <strong>netiqueta</strong> (de "net" = red + "etiqueta") son las normas de comportamiento cortés y respetuoso en internet y plataformas digitales. Son el equivalente digital de los buenos modales en persona.</p>
+    <div class="sr"><span class="sr-i">📝</span><div class="sr-t"><strong>Usa lenguaje apropiado</strong>En correos, chats de grupo y foros escolares, usa el mismo lenguaje respetuoso que usarías en persona frente al maestro.</div></div>
+    <div class="sr"><span class="sr-i">🤔</span><div class="sr-t"><strong>Piensa antes de publicar</strong>Antes de enviar un mensaje, pregúntate: ¿podría esto lastimar a alguien? ¿Me avergonzaría si el maestro o mis padres lo vieran?</div></div>
+    <div class="sr"><span class="sr-i">🚫</span><div class="sr-t"><strong>No participes en cyberbullying</strong>No envíes, reenvíes ni "te rías" de mensajes ofensivos sobre otras personas. Aunque no seas el autor, participar te hace responsable.</div></div>
+    <div class="sr"><span class="sr-i">📢</span><div class="sr-t"><strong>Reporta mensajes inapropiados</strong>Si recibes mensajes que te hacen sentir incómodo, amenazado o acosado — repórtalo a un adulto de confianza. No tienes que manejarlo solo.</div></div>
+    <div class="sr"><span class="sr-i">⏰</span><div class="sr-t"><strong>Respeta los tiempos de respuesta</strong>No esperes respuestas inmediatas de maestros o compañeros. Un mensaje enviado a las 11pm no tiene por qué responderse esa noche.</div></div>
+    <div class="sr"><span class="sr-i">✅</span><div class="sr-t"><strong>Verifica antes de compartir</strong>No difundas noticias, rumores o información sin verificar su veracidad. La desinformación se propaga rápidamente y puede causar daño real.</div></div>
+    <div class="al blue-box">
+      <span class="al-i">💡</span>
+      <div><strong>Regla de oro digital:</strong> Trata a los demás en internet como te gustaría que te trataran a ti. Lo que se publica en internet, aunque se borre, puede haber sido guardado por otros.</div>
+    </div>
+  </div>
+</div>
+
+<!-- E6: RESPONSABILIDAD -->
+<div id="e6" class="tp">
+  <div class="card">
+    <div class="ct">🎓 Responsabilidad como Usuario Digital</div>
+    <div class="sr"><span class="sr-i">💻</span><div class="sr-t"><strong>Usa los equipos escolares para su propósito</strong>Las computadoras y tablets de la escuela son herramientas de aprendizaje. Úsalas para actividades educativas durante el horario de clase.</div></div>
+    <div class="sr"><span class="sr-i">🔧</span><div class="sr-t"><strong>No instales software no autorizado</strong>Instalar programas, juegos o extensiones en equipos escolares puede afectar su funcionamiento y exponer a la red de la escuela a riesgos de seguridad.</div></div>
+    <div class="sr"><span class="sr-i">🛡️</span><div class="sr-t"><strong>Cuida los dispositivos escolares</strong>Tratalos como si fueran tuyos — son recursos que sirven a muchos estudiantes. Reporta cualquier daño o mal funcionamiento al docente.</div></div>
+    <div class="sr"><span class="sr-i">🔓</span><div class="sr-t"><strong>No intentes evadir restricciones</strong>Si un sitio está bloqueado en la red escolar, probablemente tiene una razón. No uses VPNs ni proxies para saltarte los filtros de seguridad.</div></div>
+    <div class="sr"><span class="sr-i">📊</span><div class="sr-t"><strong>Tu huella digital importa</strong>Todo lo que haces en internet deja un rastro. Construye una huella digital positiva desde ahora — futuros empleadores o universidades podrían buscar tu nombre.</div></div>
+    <div class="al success">
+      <span class="al-i">🌟</span>
+      <div>Ser un <strong>ciudadano digital responsable</strong> es tan importante como ser un buen ciudadano en la vida real. Las habilidades digitales éticas son cada vez más valoradas en el mundo profesional.</div>
+    </div>
+  </div>
+</div>
+
+<!-- E7: QUIZ -->
+<div id="e7" class="tp">
+  <div class="card">
+    <div class="ct">📝 Quiz — Ética Digital</div>
+    <p style="font-size:11px;color:#94a3b8;margin-bottom:10px">5 preguntas &bull; Toca una opción para responder &bull; Retroalimentación inmediata</p>
+    <div id="quiz-cont"></div>
+    <button class="cbtn" id="quiz-btn" onclick="startQuiz()">Comenzar Quiz ▶</button>
+    <div id="quiz-result" style="display:none;margin-top:10px"></div>
+  </div>
+</div>
+
+</div><!-- /et -->
+</div><!-- /main -->
+
+<script>
+function switchTab(btn,gid,pid){
+  document.getElementById(gid).querySelectorAll('.tp').forEach(p=>p.classList.remove('active'));
+  document.getElementById(pid).classList.add('active');
+  btn.closest('.tabs').querySelectorAll('.tb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+const QUIZ=[
+  {q:'¿Cuál de estas acciones es un uso CORRECTO y ÉTICO de la IA en el aula?',
+    o:['Copiar la tarea directamente del chatbot y entregarla como propia',
+       'Usar la IA para entender un concepto difícil y luego explicarlo con tus propias palabras',
+       'Pedir a la IA que responda el examen por ti sin que el maestro lo sepa',
+       'Usar la IA para insultar a un compañero de forma anónima'],
+    a:1,f:'¡Correcto! La IA es una herramienta de aprendizaje. Usarla para comprender y luego expresar con tus propias palabras es el uso ético y honesto correcto.'},
+  {q:'La IA te da información que parece incorrecta sobre un circuito eléctrico. ¿Qué debes hacer?',
+    o:['Creerla sin dudar — la IA siempre tiene razón',
+       'Ignorarla completamente — la IA nunca tiene razón',
+       'Verificarla con tu libro de texto, otras fuentes confiables o consultar al maestro',
+       'Compartirla en redes sociales para que otros la corrijan'],
+    a:2,f:'¡Exacto! La IA puede equivocarse (alucinaciones). Siempre verifica con fuentes confiables antes de usar la información, especialmente en temas técnicos.'},
+  {q:'¿Cuál de estos datos NO debes compartir con aplicaciones de IA?',
+    o:['El nombre de una ciudad',
+       'Tu dirección de casa y número de teléfono personal',
+       'Una pregunta sobre cómo funciona un LED',
+       'El nombre de un libro de texto que estás estudiando'],
+    a:1,f:'¡Correcto! Nunca compartas datos personales como dirección, teléfono o contraseñas con apps de IA. Esa información puede almacenarse y usarse de forma no deseada.'},
+  {q:'La netiqueta se refiere a:',
+    o:['Las reglas para conectar cables de red en el laboratorio',
+       'Las normas de comportamiento respetuoso y cortés en internet y plataformas digitales',
+       'Un tipo especial de cable de conexión para computadoras',
+       'El reglamento interno del laboratorio de cómputo'],
+    a:1,f:'¡Bien! La netiqueta = normas de buena conducta digital. Son los buenos modales del mundo en línea.'},
+  {q:'Si usas IA como apoyo para desarrollar una tarea, ¿qué debes hacer?',
+    o:['Ocultarlo para que nadie lo sepa y no tener problemas',
+       'Mencionarlo al maestro e indicarlo en tu entrega — es honestidad académica',
+       'Borrarlo de tu historial para no dejar evidencia',
+       'No entregar el trabajo porque ya no es válido si usaste IA'],
+    a:1,f:'¡Correcto! Reconocer el uso de IA como herramienta de apoyo es honestidad académica. Ocultarlo es trampa. Un buen técnico siempre es transparente con sus fuentes y herramientas.'}
+];
+
+let answers=new Array(QUIZ.length).fill(null);
+
+function startQuiz(){
+  document.getElementById('quiz-btn').style.display='none';
+  let h='';
+  QUIZ.forEach((q,i)=>{
+    h+=`<div class="qq"><div class="qq-q">${i+1}. ${q.q}</div><div class="qq-opts">`;
+    q.o.forEach((o,j)=>{
+      h+=`<button class="qq-opt" id="qo_${i}_${j}" onclick="answerQ(${i},${j})">
+        <span style="font-weight:700;color:#2563eb;margin-right:4px">${['A','B','C','D'][j]})</span>${o}</button>`;
+    });
+    h+=`</div><div class="qq-fb" id="qfb_${i}" style="display:none"></div></div>`;
+  });
+  document.getElementById('quiz-cont').innerHTML=h;
+}
+
+function answerQ(qi,chosen){
+  if(answers[qi]!==null)return;
+  answers[qi]=chosen;
+  const correct=QUIZ[qi].a;
+  QUIZ[qi].o.forEach((_,j)=>{
+    const el=document.getElementById(`qo_${qi}_${j}`);
+    if(!el)return;
+    el.classList.add(j===correct?'correct':(j===chosen?'wrong':''));
+    el.style.pointerEvents='none';
+  });
+  const fb=document.getElementById(`qfb_${qi}`);
+  fb.style.display='block';
+  fb.className='qq-fb '+(chosen===correct?'correct':'wrong');
+  fb.textContent=(chosen===correct?'✅ ':'❌ ')+QUIZ[qi].f;
+  setTimeout(()=>{
+    if(answers.every(a=>a!==null))showResult();
+  },500);
+}
+
+function showResult(){
+  const score=answers.filter((a,i)=>a===QUIZ[i].a).length;
+  const pct=Math.round(score/QUIZ.length*100);
+  const res=document.getElementById('quiz-result');
+  res.style.display='block';
+  if(pct>=80){
+    res.innerHTML=`<div class="badge">🏅 Quiz superado &mdash; ${score}/5 correctas (${pct}%)</div>
+      <div class="al success"><span class="al-i">✅</span><div>Demostraste entender los principios de uso ético de la tecnología digital. ¡Bien hecho!</div></div>`;
+  }else{
+    res.innerHTML=`<div class="al danger"><span class="al-i">❌</span><div><strong>${score}/5 correctas (${pct}%)</strong>. Revisa las secciones donde tuviste error y vuelve a intentarlo.</div></div>
+      <button class="cbtn" onclick="retryQuiz()" style="margin-top:8px">Reintentar ↺</button>`;
+  }
+}
+
+function retryQuiz(){
+  answers=new Array(QUIZ.length).fill(null);
+  document.getElementById('quiz-result').style.display='none';
+  startQuiz();
+}
+</script>
+</body>
+</html>
