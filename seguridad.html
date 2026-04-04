@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<meta name="theme-color" content="#0a2240">
+<title>Seguridad Eléctrica y al Soldar — CEMEY</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Exo 2',sans-serif;background:#f0f4f8;color:#1e293b;min-height:100vh}
+
+/* ── BACK BAR ── */
+.back-bar{
+  background:#071830;padding:8px 14px;
+  display:flex;align-items:center;
+  border-bottom:2px solid #dc2626;
+  position:sticky;top:0;z-index:200;
+}
+.back-btn{
+  display:inline-flex;align-items:center;gap:7px;
+  color:#ffd700;font-size:13px;font-weight:700;
+  text-decoration:none;padding:6px 12px;
+  background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);
+  border-radius:8px;transition:all .2s;touch-action:manipulation;
+}
+.back-btn:hover{background:rgba(255,215,0,.2)}
+.back-bar-title{
+  margin-left:12px;font-size:12px;color:rgba(255,255,255,.5);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+/* ── HEADER ── */
+.hdr{
+  background:linear-gradient(135deg,#0a2240 0%,#0f3460 55%,#1a4a7a 100%);
+  padding:10px 14px;display:flex;align-items:center;gap:12px;
+  box-shadow:0 2px 12px rgba(0,0,0,.4);
+}
+.hdr-logo{
+  width:48px;height:48px;border-radius:50%;flex-shrink:0;
+  border:2px solid rgba(255,215,0,.55);overflow:hidden;
+  background:rgba(255,255,255,.05);
+}
+.hdr-logo img{width:100%;height:100%;object-fit:contain}
+.hdr-text{flex:1;min-width:0}
+.hdr-inst{font-size:13px;color:#ffd700;font-weight:700;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-proj{font-size:14px;color:#fff;font-weight:700;line-height:1.25;margin-top:1px}
+.hdr-sub{font-size:9px;color:rgba(255,255,255,.48);margin-top:2px}
+
+/* ── CREDITS BAR ── */
+.cbar{
+  background:#071830;padding:5px 14px;
+  display:flex;flex-wrap:wrap;gap:2px 20px;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.cr{font-size:10.5px;color:rgba(255,255,255,.45);white-space:nowrap}
+.cr-label{font-size:9.5px;font-style:italic;color:rgba(255,255,255,.3)}
+.cr strong{color:rgba(255,255,255,.9);font-weight:700;font-size:11px}
+
+/* ── MODULE HERO ── */
+.mod-hero{
+  background:linear-gradient(135deg,#7f1d1d,#991b1b,#b91c1c);
+  padding:22px 16px 18px;text-align:center;
+  border-bottom:4px solid #fca5a5;
+}
+.mod-icon{font-size:42px;margin-bottom:8px}
+.mod-title{font-size:clamp(18px,5vw,26px);font-weight:800;color:#fff;line-height:1.2}
+.mod-sub{font-size:12px;color:rgba(255,255,255,.65);margin-top:6px;line-height:1.5}
+.mod-tag{
+  display:inline-block;margin-top:10px;
+  background:rgba(252,165,165,.2);border:1px solid rgba(252,165,165,.4);
+  color:#fca5a5;font-size:10.5px;font-weight:700;letter-spacing:.07em;
+  text-transform:uppercase;padding:3px 12px;border-radius:20px;
+}
+
+/* ── MAIN ── */
+.main{max-width:860px;margin:0 auto;padding:18px 13px 50px}
+
+/* ── TABS ── */
+.tabs{
+  display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;
+  padding-bottom:2px;
+}
+.tb{
+  padding:9px 15px;border:none;border-radius:20px;cursor:pointer;
+  font-family:'Exo 2',sans-serif;font-size:12px;font-weight:600;
+  white-space:nowrap;background:#e2e8f0;color:#475569;
+  touch-action:manipulation;transition:all .15s;flex-shrink:0;
+  border:2px solid transparent;
+}
+.tb:hover{background:#fecaca;color:#991b1b}
+.tb.active{background:#dc2626;color:#fff;border-color:#991b1b}
+.tp{display:none}.tp.active{display:block}
+@media(max-width:500px){
+  .tb{font-size:11px;padding:8px 11px}
+}
+
+/* ── CARDS ── */
+.card{
+  background:#fff;border-radius:12px;padding:14px;
+  margin-bottom:12px;
+  box-shadow:0 1px 8px rgba(15,52,96,.08);
+  border:1px solid #e2e8f0;
+}
+.ct{font-size:14px;font-weight:700;margin-bottom:10px;color:#991b1b}
+
+/* ── TABLES ── */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:8px 0;border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:11.5px;min-width:280px}
+th{background:#991b1b;color:#fff;padding:8px 10px;text-align:left;font-size:11.5px}
+td{padding:7px 10px;border-bottom:1px solid #e2e8f0;font-size:11.5px;line-height:1.5}
+tr:nth-child(even) td{background:#fef2f2}
+tr:hover td{background:#fee2e2}
+
+/* ── ALERTS ── */
+.al{border-radius:8px;padding:10px 12px;margin:8px 0;font-size:12px;
+  display:flex;gap:8px;align-items:flex-start;line-height:1.55}
+.al-i{font-size:16px;flex-shrink:0;margin-top:1px}
+.info{background:#e0f2fe;border-left:4px solid #06b6d4;color:#0c4a6e}
+.warn{background:#fff7ed;border-left:4px solid #f97316;color:#7c2d12}
+.danger{background:#fee2e2;border-left:4px solid #dc2626;color:#7f1d1d}
+.success{background:#dcfce7;border-left:4px solid #00c896;color:#14532d}
+
+/* ── SAFE RULES ── */
+.sr{display:flex;align-items:flex-start;gap:10px;padding:10px 0;
+  border-bottom:1px solid #f1f5f9}
+.sr:last-child{border-bottom:none}
+.sr-i{font-size:22px;flex-shrink:0}
+.sr-t{font-size:12.5px;line-height:1.55;color:#475569}
+.sr-t strong{color:#1e293b;display:block;margin-bottom:1px;font-size:13px}
+
+/* ── CHECKLIST ── */
+.clist{list-style:none}
+.clist li{
+  display:flex;align-items:flex-start;gap:10px;
+  padding:9px 0;border-bottom:1px solid #f1f5f9;
+  font-size:12.5px;line-height:1.5;color:#475569;
+}
+.clist li:last-child{border-bottom:none}
+.cb{
+  width:23px;height:23px;border:2px solid #e2e8f0;border-radius:5px;
+  flex-shrink:0;cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:14px;touch-action:manipulation;
+  min-width:23px;transition:all .15s;margin-top:1px;
+}
+.cb.chk{background:#00c896;border-color:#00c896;color:#003}
+
+/* ── STEPS ── */
+.steps{list-style:none}
+.steps li{
+  display:flex;gap:11px;padding:10px 0;
+  border-bottom:1px solid #f1f5f9;align-items:flex-start;
+}
+.steps li:last-child{border-bottom:none}
+.sn{
+  width:26px;height:26px;border-radius:50%;background:#991b1b;
+  color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex-shrink:0;margin-top:2px;
+}
+.st{font-size:12.5px;line-height:1.6;color:#475569}
+.st strong{color:#1e293b}
+
+/* ── QUIZ ── */
+.qq{background:#fff;border-radius:10px;padding:13px;
+  margin-bottom:9px;border:1px solid #e2e8f0}
+.qq-q{font-size:13px;font-weight:700;margin-bottom:9px;color:#991b1b}
+.qq-opts{display:flex;flex-direction:column;gap:6px}
+.qq-opt{
+  display:flex;align-items:center;gap:9px;padding:10px 12px;
+  border:1.5px solid #e2e8f0;border-radius:8px;cursor:pointer;
+  font-size:12.5px;background:#fff;min-height:44px;
+  touch-action:manipulation;text-align:left;width:100%;
+  font-family:'Exo 2',sans-serif;transition:all .15s;
+}
+.qq-opt:active{transform:scale(.98)}
+.qq-opt.correct{background:#dcfce7;border-color:#00c896;color:#14532d}
+.qq-opt.wrong{background:#fee2e2;border-color:#dc2626;color:#7f1d1d}
+.qq-fb{font-size:11.5px;margin-top:6px;padding:7px 10px;border-radius:6px}
+.qq-fb.correct{background:#dcfce7;color:#14532d}
+.qq-fb.wrong{background:#fee2e2;color:#7f1d1d}
+.cbtn{
+  background:#991b1b;color:#fff;border:none;border-radius:8px;
+  padding:13px;font-size:15px;font-weight:700;cursor:pointer;
+  font-family:'Exo 2',sans-serif;width:100%;min-height:48px;
+  touch-action:manipulation;margin-top:6px;
+}
+.cbtn:active{background:#7f1d1d}
+.badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:linear-gradient(135deg,#ffd700,#ffaa00);
+  color:#4a3000;border-radius:20px;padding:9px 18px;
+  font-size:13px;font-weight:700;margin:10px 0;
+}
+
+/* ── EMERGENCY BOX ── */
+.emerg{
+  background:#7f1d1d;border-radius:10px;padding:14px 16px;margin-top:10px;
+}
+.emerg-title{font-size:14px;font-weight:700;color:#fca5a5;margin-bottom:8px}
+.emerg-nums{display:flex;flex-wrap:wrap;gap:8px}
+.emerg-num{
+  background:rgba(252,165,165,.15);border:1px solid rgba(252,165,165,.3);
+  border-radius:8px;padding:8px 14px;text-align:center;flex:1;min-width:80px;
+}
+.emerg-n{font-size:22px;font-weight:800;color:#fff;font-family:'Share Tech Mono',monospace}
+.emerg-l{font-size:10px;color:rgba(252,165,165,.8);margin-top:2px}
+
+/* ── TYPOGRAPHY ── */
+p{line-height:1.7;font-size:12.5px;color:#475569;margin-bottom:7px}
+h4{font-size:13.5px;font-weight:700;color:#991b1b;margin:12px 0 7px}
+ul,ol{padding-left:17px;font-size:12.5px;color:#475569;line-height:1.8}
+li{margin-bottom:3px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:480px){
+  .hdr-inst{font-size:11px}
+  .mod-title{font-size:20px}
+  .cbar{padding:4px 10px}
+}
+@media(min-width:681px){
+  .main{padding:22px 20px 50px}
+}
+</style>
+</head>
+<body>
+
+<!-- BACK BAR -->
+<div class="back-bar">
+  <a class="back-btn" href="https://coordsanjose-glitch.github.io/simulador-cemey/">&#8592; Volver al Men&uacute;</a>
+  <span class="back-bar-title">Seguridad El&eacute;ctrica y al Soldar</span>
+</div>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-logo">
+    <img src="data:image/png;base64,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" alt="Escudo CEMEY">
+  </div>
+  <div class="hdr-text">
+    <div class="hdr-inst">Centro Escolar Manuel Espinosa Yglesias &mdash; CEMEY Puebla</div>
+    <div class="hdr-proj">Un Futuro Brillante para Todos</div>
+    <div class="hdr-sub">Simulador T&eacute;cnico de Electr&oacute;nica &bull; 3&deg; de Secundaria</div>
+  </div>
+</header>
+
+<!-- CREDITS -->
+<div class="cbar">
+  <span class="cr"><span class="cr-label">Docente titular &nbsp;</span><strong>Reyna Cordera P&eacute;rez</strong></span>
+  <span class="cr"><span class="cr-label">Asesor tecnol&oacute;gico y creador &nbsp;</span><strong>Ing. Rodolfo Fernando Porras S&aacute;nchez</strong></span>
+</div>
+
+<!-- MODULE HERO -->
+<div class="mod-hero">
+  <div class="mod-icon">🦺</div>
+  <div class="mod-title">Seguridad El&eacute;ctrica y al Soldar</div>
+  <div class="mod-sub">Normas el&eacute;ctricas &bull; Protecci&oacute;n Civil &bull; EPP &bull; Orden en el taller &bull; Primeros auxilios</div>
+  <div class="mod-tag">&#9888; Leer antes de cualquier pr&aacute;ctica</div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <div class="al danger" style="margin-bottom:14px">
+    <span class="al-i">🚨</span>
+    <div><strong>Este m&oacute;dulo es obligatorio</strong> antes de realizar cualquier pr&aacute;ctica
+    en el taller. Completa el quiz al final para demostrar que est&aacute;s listo para trabajar de forma segura.</div>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button class="tb active" onclick="switchTab(this,'tabs','t1')">⚡ La electricidad</button>
+    <button class="tb" onclick="switchTab(this,'tabs','t2')">🔋 Niveles de voltaje</button>
+    <button class="tb" onclick="switchTab(this,'tabs','t3')">📋 Reglas eléctricas</button>
+    <button class="tb" onclick="switchTab(this,'tabs','t4')">🧯 Protección Civil</button>
+    <button class="tb" onclick="switchTab(this,'tabs','t5')">🦺 EPP y orden</button>
+    <button class="tb" onclick="switchTab(this,'tabs','t6')">🔧 Al soldar</button>
+    <button class="tb" onclick="switchTab(this,'tabs','t7')">🩺 Primeros auxilios</button>
+    <button class="tb" onclick="switchTab(this,'tabs','t8')">📝 Quiz</button>
+  </div>
+
+  <div id="tabs">
+
+  <!-- T1: POR QUÉ ES PELIGROSA -->
+  <div id="t1" class="tp active">
+    <div class="card">
+      <div class="ct">⚡ ¿Por Qué la Electricidad es Peligrosa?</div>
+      <p>La electricidad no se ve, no se huele y no avisa. Lo que realmente lastima al cuerpo humano no es el voltaje, sino la <strong>corriente</strong> que pasa a través de él.</p>
+      <div class="tw"><table>
+        <tr><th>Corriente</th><th>Efecto en el cuerpo humano</th></tr>
+        <tr><td><strong>1 mA</strong></td><td>Hormigueo apenas perceptible</td></tr>
+        <tr><td><strong>5 mA</strong></td><td>Choque leve, molesto pero no peligroso</td></tr>
+        <tr><td><strong>10–20 mA</strong></td><td>Contracción muscular — posible no poder soltar el cable</td></tr>
+        <tr><td><strong>50–100 mA</strong></td><td style="color:#991b1b;font-weight:600">⚠️ Fibrilación ventricular — paro cardíaco posible</td></tr>
+        <tr><td><strong>&gt; 100 mA</strong></td><td style="color:#7f1d1d;font-weight:700">☠️ Muerte probable</td></tr>
+        <tr><td><strong>&gt; 200 mA</strong></td><td style="color:#7f1d1d;font-weight:700">☠️ Quemaduras internas graves, muerte segura</td></tr>
+      </table></div>
+      <div class="al success">
+        <span class="al-i">✅</span>
+        <div>Los circuitos de <strong>5V a 12V DC</strong> que usamos en clase son completamente seguros para la corriente que manejan. El verdadero peligro está en el enchufe de pared de <strong>110V AC</strong> — la diferencia es enorme.</div>
+      </div>
+      <div class="al info">
+        <span class="al-i">💡</span>
+        <div><strong>¿Por qué el agua es tan peligrosa con la electricidad?</strong> La piel seca tiene una resistencia de ~100,000 Ω. La piel mojada baja a ~1,000 Ω — 100 veces menos resistencia, lo que significa 100 veces más corriente para el mismo voltaje.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T2: NIVELES DE VOLTAJE -->
+  <div id="t2" class="tp">
+    <div class="card">
+      <div class="ct">🔋 Niveles de Voltaje y su Nivel de Riesgo</div>
+      <div class="tw"><table>
+        <tr><th>Voltaje</th><th>Fuente común</th><th>Nivel de riesgo</th></tr>
+        <tr><td>1.5 V DC</td><td>Pila AA, AAA</td><td style="color:#15803d;font-weight:600">✅ Completamente seguro</td></tr>
+        <tr><td>3.7 V DC</td><td>Batería de celular, Li-Po</td><td style="color:#15803d;font-weight:600">✅ Seguro</td></tr>
+        <tr><td>5 V DC</td><td>Puerto USB, Arduino</td><td style="color:#15803d;font-weight:600">✅ Seguro</td></tr>
+        <tr><td>9 V DC</td><td>Batería cuadrada</td><td style="color:#15803d;font-weight:600">✅ Seguro</td></tr>
+        <tr><td>12 V DC</td><td>Fuente para letreros, auto</td><td style="color:#b45309;font-weight:600">⚠️ Chispa y quemadura posibles</td></tr>
+        <tr><td>24 V DC</td><td>Fuentes industriales</td><td style="color:#b45309;font-weight:600">⚠️ Precaución — peligroso en piel húmeda</td></tr>
+        <tr><td>110 V AC</td><td>Enchufe de pared en México</td><td style="color:#991b1b;font-weight:700">❌ MUY PELIGROSO — puede matar</td></tr>
+        <tr><td>220 V AC</td><td>Instalaciones industriales</td><td style="color:#7f1d1d;font-weight:700">❌ EXTREMADAMENTE PELIGROSO</td></tr>
+      </table></div>
+      <div class="al danger">
+        <span class="al-i">🚨</span>
+        <div>En este curso trabajamos con voltajes de <strong>5V a 12V DC</strong> únicamente. <strong>NUNCA conectes nada directamente al enchufe de pared (110V AC)</strong>. Si algo requiere ese voltaje, llama al maestro.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T3: REGLAS ELÉCTRICAS -->
+  <div id="t3" class="tp">
+    <div class="card">
+      <div class="ct">📋 Reglas de Seguridad Eléctrica en el Aula</div>
+      <div class="sr"><span class="sr-i">🔌</span><div class="sr-t"><strong>Desconecta antes de modificar</strong>Nunca cambies componentes, cables ni conexiones con el circuito encendido. Apaga siempre primero.</div></div>
+      <div class="sr"><span class="sr-i">💧</span><div class="sr-t"><strong>Aleja el agua y la humedad</strong>Bebidas, sudor y humedad conducen la electricidad. Mantenlos siempre alejados del área de trabajo.</div></div>
+      <div class="sr"><span class="sr-i">👁️</span><div class="sr-t"><strong>Revisa antes de encender</strong>Verifica que no hay cables pelados tocándose, conexiones inversas ni cortocircuitos antes de aplicar energía.</div></div>
+      <div class="sr"><span class="sr-i">⚡</span><div class="sr-t"><strong>Solo fuentes aprobadas por el docente</strong>Máximo 12V DC supervisado. Nunca conectes al enchufe de pared de 110V AC.</div></div>
+      <div class="sr"><span class="sr-i">🔍</span><div class="sr-t"><strong>Identifica cortocircuitos</strong>Cables pelados que se tocan = peligro inmediato y daño al equipo. Revisa siempre el aislamiento de los cables.</div></div>
+      <div class="sr"><span class="sr-i">📢</span><div class="sr-t"><strong>Reporta cualquier anomalía</strong>Chispa, olor a quemado, calor excesivo o sonido inusual → apaga inmediatamente y avisa al maestro.</div></div>
+      <div class="sr"><span class="sr-i">🧤</span><div class="sr-t"><strong>Trabaja con cuidado en circuitos de 12V</strong>A este voltaje es poco probable un choque eléctrico, pero sí pueden ocurrir chispas al conectar — hazlo con cuidado.</div></div>
+      <div class="sr"><span class="sr-i">🚫</span><div class="sr-t"><strong>No improvises</strong>Si no sabes exactamente cómo hacer una conexión, pregunta al maestro antes de intentarlo. Un error puede dañar componentes o crear un peligro.</div></div>
+    </div>
+  </div>
+
+  <!-- T4: PROTECCIÓN CIVIL -->
+  <div id="t4" class="tp">
+    <div class="card">
+      <div class="ct">🧯 Normas Básicas de Protección Civil</div>
+      <div class="al warn">
+        <span class="al-i">🏫</span>
+        <div>La Protección Civil no es solo para sismos. En un taller de electrónica, conocer estas normas puede evitar accidentes graves. <strong>Apréndelas antes de tu primera práctica.</strong></div>
+      </div>
+      <div class="sr"><span class="sr-i">🚪</span><div class="sr-t"><strong>Conoce las salidas de emergencia</strong>Identifica las puertas de salida del aula y del edificio antes de empezar cualquier práctica. No esperes una emergencia para buscarlas.</div></div>
+      <div class="sr"><span class="sr-i">🧯</span><div class="sr-t"><strong>Localiza el extintor más cercano</strong>Saber dónde está. Si hay un incendio pequeño, avisa al adulto responsable — no intentes usarlo sin capacitación previa.</div></div>
+      <div class="sr"><span class="sr-i">🔥</span><div class="sr-t"><strong>Extintor correcto para fuego eléctrico</strong>Solo tipo <strong>C o CO₂</strong>. <strong>NUNCA agua</strong> sobre equipos eléctricos energizados — el agua conduce la electricidad y puede causar electrocución.</div></div>
+      <div class="sr"><span class="sr-i">🗺️</span><div class="sr-t"><strong>Conoce la ruta de evacuación</strong>Sigue la ruta establecida por Protección Civil del plantel. Camina, no corras. No uses elevadores.</div></div>
+      <div class="sr"><span class="sr-i">🏃</span><div class="sr-t"><strong>Punto de reunión</strong>Identifica el área segura designada FUERA del edificio donde debes reunirte tras una evacuación.</div></div>
+      <div class="sr"><span class="sr-i">🔔</span><div class="sr-t"><strong>Señal de alarma</strong>Conoce cómo suena la alarma del plantel. Al escucharla: deja todo, apaga tu equipo y evacúa inmediatamente siguiendo la ruta.</div></div>
+      <div class="sr"><span class="sr-i">📵</span><div class="sr-t"><strong>No obstruyas pasillos ni salidas</strong>Mochilas, cables y materiales deben estar siempre fuera de las rutas de evacuación durante las prácticas.</div></div>
+      <div class="sr"><span class="sr-i">📋</span><div class="sr-t"><strong>Reporta condiciones inseguras</strong>Cables pelados, enchufes dañados, olor a quemado, equipos en mal estado → repórtalo al docente de inmediato, no lo ignores.</div></div>
+      <div class="sr"><span class="sr-i">🩺</span><div class="sr-t"><strong>Botiquín de primeros auxilios</strong>Conoce la ubicación del botiquín del aula o de la institución antes de iniciar cualquier práctica.</div></div>
+
+      <div class="emerg">
+        <div class="emerg-title">📞 Números de Emergencia en México</div>
+        <div class="emerg-nums">
+          <div class="emerg-num">
+            <div class="emerg-n">911</div>
+            <div class="emerg-l">Emergencias generales</div>
+          </div>
+          <div class="emerg-num">
+            <div class="emerg-n">065</div>
+            <div class="emerg-l">Cruz Roja</div>
+          </div>
+          <div class="emerg-num">
+            <div class="emerg-n">068</div>
+            <div class="emerg-l">Bomberos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T5: EPP Y ORDEN -->
+  <div id="t5" class="tp">
+    <div class="card">
+      <div class="ct">🦺 Equipo de Protección Personal (EPP) por Actividad</div>
+      <div class="tw"><table>
+        <tr><th>Actividad</th><th>EPP obligatorio</th><th>EPP recomendado</th></tr>
+        <tr><td>Armar circuitos en protoboard</td><td>Ninguno especial</td><td>—</td></tr>
+        <tr><td>Soldar con cautín</td><td style="font-weight:600">Gafas de protección</td><td>Guantes de nitrilo</td></tr>
+        <tr><td>Cortar Neón Flex o cables</td><td>Ninguno especial</td><td>Guantes de corte</td></tr>
+        <tr><td>Medir con multímetro (&lt;24V)</td><td>Ninguno especial</td><td>—</td></tr>
+        <tr><td>Fuentes de voltaje &gt;50V AC</td><td colspan="2" style="color:#991b1b;font-weight:700">❌ PROHIBIDO sin capacitación específica</td></tr>
+      </table></div>
+    </div>
+
+    <div class="card">
+      <div class="ct">🧹 Lista de Verificación — Antes de Iniciar Cada Práctica</div>
+      <p style="font-size:11px;color:#94a3b8;margin-bottom:8px">Marca cada punto antes de empezar. Toca la casilla para marcarla.</p>
+      <ul class="clist">
+        <li><div class="cb" onclick="toggleCheck(this)"></div>Mi área de trabajo está limpia y despejada de objetos innecesarios</li>
+        <li><div class="cb" onclick="toggleCheck(this)"></div>No tengo bebidas ni comida sobre la mesa de trabajo</li>
+        <li><div class="cb" onclick="toggleCheck(this)"></div>Los cables están ordenados y no cruzados en el piso</li>
+        <li><div class="cb" onclick="toggleCheck(this)"></div>Tengo espacio suficiente para trabajar sin molestar a mis compañeros</li>
+        <li><div class="cb" onclick="toggleCheck(this)"></div>El cautín (si lo usaré) está en su soporte y alejado del borde de la mesa</li>
+        <li><div class="cb" onclick="toggleCheck(this)"></div>Mis herramientas están ordenadas y al alcance, no amontonadas</li>
+        <li><div class="cb" onclick="toggleCheck(this)"></div>Tengo identificadas las salidas de emergencia del aula</li>
+        <li><div class="cb" onclick="toggleCheck(this)"></div>Sé dónde está el botiquín de primeros auxilios</li>
+        <li><div class="cb" onclick="toggleCheck(this)"></div>Cuento con mis gafas de protección (si voy a soldar)</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="ct">🛠️ Cómo Guardar las Herramientas al Terminar</div>
+      <div class="tw"><table>
+        <tr><th>Herramienta</th><th>Procedimiento al terminar</th></tr>
+        <tr><td>Cautín</td><td>Desenchufar, esperar 20 min de enfriamiento, guardar en estuche</td></tr>
+        <tr><td>Multímetro</td><td>Selector a OFF o V AC máximo, retirar puntas, guardar en estuche</td></tr>
+        <tr><td>Pinzas y desarmadores</td><td>Limpiar y colocar en estuche o portaherramientas</td></tr>
+        <tr><td>Estaño y flux</td><td>Tapar bien, guardar fuera de fuentes de calor</td></tr>
+        <tr><td>Cables y conectores</td><td>Enrollar sin doblez forzado, guardar en bolsa etiquetada</td></tr>
+        <tr><td>LEDs y componentes</td><td>Guardar en bolsa o caja, separados por tipo y valor</td></tr>
+      </table></div>
+      <div class="al success">
+        <span class="al-i">💡</span>
+        <div>Un espacio de trabajo ordenado no es solo estética — reduce accidentes, ahorra tiempo y refleja la <strong>actitud profesional</strong> de un buen técnico.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T6: AL SOLDAR -->
+  <div id="t6" class="tp">
+    <div class="card">
+      <div class="ct">🔧 Seguridad al Soldar — Qué HACER</div>
+      <div class="sr"><span class="sr-i">💨</span><div class="sr-t"><strong>Trabajar en área ventilada</strong>El humo del flux y del estaño es irritante para los pulmones y los ojos. Abre ventanas o trabaja cerca de un extractor de aire.</div></div>
+      <div class="sr"><span class="sr-i">🥽</span><div class="sr-t"><strong>Usar gafas de protección siempre</strong>El estaño líquido puede salpicar pequeñas gotas calientes hacia los ojos. Las gafas son obligatorias durante toda la soldadura.</div></div>
+      <div class="sr"><span class="sr-i">🦾</span><div class="sr-t"><strong>Usar la "tercera mano"</strong>Las piezas se calientan durante la soldadura — nunca las sostengas con los dedos directamente. Usa un sujetador o "tercera mano".</div></div>
+      <div class="sr"><span class="sr-i">🧼</span><div class="sr-t"><strong>Lavarse las manos al terminar</strong>El estaño con plomo (Sn60/Pb40) es tóxico si se ingiere. Lávate siempre las manos con agua y jabón antes de tocar tu cara o comer.</div></div>
+      <div class="sr"><span class="sr-i">🧹</span><div class="sr-t"><strong>Mantén la mesa despejada</strong>Menos objetos cerca del cautín caliente = menos riesgo de accidentes, quemaduras y cables derretidos.</div></div>
+      <div class="sr"><span class="sr-i">🔩</span><div class="sr-t"><strong>Coloca el cautín en su soporte siempre</strong>Cuando no estés soldando activamente, el cautín debe estar en su soporte. Nunca lo apoyes sobre la mesa.</div></div>
+    </div>
+
+    <div class="card">
+      <div class="ct">🚫 Seguridad al Soldar — Qué NO HACER</div>
+      <div class="sr"><span class="sr-i">🚫</span><div class="sr-t"><strong>NO toques la punta del cautín</strong>Quemadura instantánea y grave — la punta alcanza entre 250°C y 450°C. El daño ocurre en menos de un segundo.</div></div>
+      <div class="sr"><span class="sr-i">🚫</span><div class="sr-t"><strong>NO soples el humo hacia tu cara</strong>Los vapores de flux y plomo son tóxicos si se inhalan frecuentemente. Aleja siempre la cara del humo y ventila el área.</div></div>
+      <div class="sr"><span class="sr-i">🚫</span><div class="sr-t"><strong>NO dejes el cautín encendido sin supervisión</strong>Un cautín desatendido es un riesgo de incendio y quemaduras a compañeros. Desenchúfalo si vas a ausentarte.</div></div>
+      <div class="sr"><span class="sr-i">🚫</span><div class="sr-t"><strong>NO comas ni bebas mientras soldas</strong>Facilita la ingesta accidental de plomo. Espera a terminar, lávate las manos y luego consume alimentos.</div></div>
+      <div class="sr"><span class="sr-i">🚫</span><div class="sr-t"><strong>NO sacudas el estaño líquido</strong>Provoca salpicaduras de metal fundido — quemaduras en piel, ropa y ojos de quien esté cerca.</div></div>
+      <div class="sr"><span class="sr-i">🚫</span><div class="sr-t"><strong>NO uses el cautín sobre superficies inflamables</strong>Papel, cartón, plástico, tela — el cautín puede iniciar un incendio en segundos sobre estos materiales.</div></div>
+    </div>
+
+    <div class="card">
+      <div class="ct">🌡️ Temperatura del Cautín para Neón Flex</div>
+      <div class="tw"><table>
+        <tr><th>Temperatura</th><th>Efecto</th><th>¿Recomendado?</th></tr>
+        <tr><td>&lt; 280°C</td><td>El estaño no funde correctamente → soldadura fría</td><td style="color:#991b1b">❌ No</td></tr>
+        <tr><td>280°C – 320°C</td><td>Fusión perfecta del estaño, sin daño a LEDs ni silicona</td><td style="color:#15803d">✅ Zona segura</td></tr>
+        <tr><td><strong>300°C</strong></td><td>Temperatura óptima de trabajo para principiantes</td><td style="color:#15803d;font-weight:700">✅ Ideal</td></tr>
+        <tr><td>&gt; 340°C</td><td>Riesgo de dañar LEDs SMD internos y deformar la silicona</td><td style="color:#991b1b">❌ Evitar</td></tr>
+      </table></div>
+      <div class="al info">
+        <span class="al-i">💡</span>
+        <div>Para soldar Neón Flex usa un cautín de <strong>30W</strong>. Es suficiente para fundir el estaño sin el riesgo de sobrecalentar los componentes delicados del Neón Flex.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T7: PRIMEROS AUXILIOS -->
+  <div id="t7" class="tp">
+    <div class="card">
+      <div class="ct">🔥 Primeros Auxilios — Quemadura Leve por Soldadura</div>
+      <ul class="steps">
+        <li><div class="sn">1</div><div class="st"><strong>Enfría con agua fría corriente</strong> durante 10 a 15 minutos continuos. El agua fría es el mejor tratamiento inmediato. <strong>Nunca uses hielo</strong> — daña el tejido.</div></li>
+        <li><div class="sn">2</div><div class="st"><strong>No apliques</strong> crema dental, mantequilla, aceite ni ningún remedio casero. Estos productos empeoran la quemadura e incrementan el riesgo de infección.</div></li>
+        <li><div class="sn">3</div><div class="st">Si hay ampolla formada, <strong>cúbrela con gasa estéril</strong> sin reventarla. La ampolla protege el tejido mientras sana.</div></li>
+        <li><div class="sn">4</div><div class="st"><strong>Informa al maestro inmediatamente</strong> — aunque la quemadura parezca menor. El docente decidirá si se necesita atención médica adicional.</div></li>
+      </ul>
+      <div class="al warn">
+        <span class="al-i">⚠️</span>
+        <div>Si la quemadura es grande, muy profunda o en cara/manos/articulaciones — ve directamente al médico o urgencias. <strong>No intentes tratarla tú solo.</strong></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="ct">⚡ Primeros Auxilios — Choque Eléctrico</div>
+      <ul class="steps">
+        <li><div class="sn">1</div><div class="st"><strong>Desconecta la fuente de energía PRIMERO</strong> — apaga el interruptor, desenchufa el cable o usa algo no conductor (madera, plástico) para apartar el cable. <strong>NUNCA toques a la persona directamente</strong> si aún está en contacto con la electricidad.</div></li>
+        <li><div class="sn">2</div><div class="st"><strong>Llama al adulto responsable de inmediato</strong> — docente, prefecto o personal de la escuela. No actúes solo.</div></li>
+        <li><div class="sn">3</div><div class="st">Si la persona <strong>no responde o no respira</strong> → llama al <strong>911</strong> inmediatamente. Si sabes RCP y el operador te lo indica, aplícala hasta que llegue la ayuda.</div></li>
+      </ul>
+      <div class="al danger">
+        <span class="al-i">🚨</span>
+        <div>Ante cualquier emergencia eléctrica recuerda siempre:<br>
+        <strong>1) Apaga la fuente &nbsp; 2) No toques &nbsp; 3) Avisa al adulto &nbsp; 4) Llama al 911</strong></div>
+      </div>
+
+      <div class="emerg" style="margin-top:12px">
+        <div class="emerg-title">📞 Emergencias en México</div>
+        <div class="emerg-nums">
+          <div class="emerg-num">
+            <div class="emerg-n">911</div>
+            <div class="emerg-l">Emergencias</div>
+          </div>
+          <div class="emerg-num">
+            <div class="emerg-n">065</div>
+            <div class="emerg-l">Cruz Roja</div>
+          </div>
+          <div class="emerg-num">
+            <div class="emerg-n">068</div>
+            <div class="emerg-l">Bomberos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- T8: QUIZ -->
+  <div id="t8" class="tp">
+    <div class="card">
+      <div class="ct">📝 Quiz de Seguridad — Obligatorio antes del taller</div>
+      <div class="al warn" style="margin-bottom:12px">
+        <span class="al-i">⚠️</span>
+        <div>Este quiz es <strong>obligatorio</strong>. Responde todas las preguntas antes de realizar cualquier práctica en el taller. Recibirás retroalimentación inmediata en cada respuesta.</div>
+      </div>
+      <div id="quiz-cont"></div>
+      <button class="cbtn" id="quiz-btn" onclick="startQuiz()">Comenzar Quiz ▶</button>
+      <div id="quiz-result" style="display:none;margin-top:10px"></div>
+    </div>
+  </div>
+
+  </div><!-- /tabs -->
+
+</div><!-- /main -->
+
+<script>
+const MENU = "https://coordsanjose-glitch.github.io/simulador-cemey/";
+
+function switchTab(btn, groupId, panelId) {
+  const g = document.getElementById(groupId);
+  if (!g) return;
+  g.querySelectorAll('.tp').forEach(p => p.classList.remove('active'));
+  document.getElementById(panelId).classList.add('active');
+  btn.closest('.tabs').querySelectorAll('.tb').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function toggleCheck(el) {
+  el.classList.toggle('chk');
+  el.textContent = el.classList.contains('chk') ? '✓' : '';
+}
+
+const QUIZ = [
+  {q:'¿Qué parámetro eléctrico es el que realmente daña al cuerpo humano?',
+    o:['El voltaje (Volts)','La resistencia (Ohms)','La corriente (Amperes)','La potencia (Watts)'],
+    a:2, f:'¡Correcto! Es la CORRIENTE (Amperes) la que daña los tejidos. Con tan solo 50–100 mA puede ocurrir fibrilación ventricular y paro cardíaco.'},
+  {q:'¿Cuál es el número de emergencias generales en México?',
+    o:['066','080','911','100'],
+    a:2, f:'¡Correcto! El 911 atiende todas las emergencias. También puedes llamar al 065 (Cruz Roja) o 068 (Bomberos) para situaciones específicas.'},
+  {q:'Si ves chispas o hueles a quemado en tu área de trabajo, ¿qué debes hacer?',
+    o:['Seguir trabajando con más cuidado','Apagar la fuente de energía y avisar al maestro inmediatamente','Soplar sobre los componentes para enfriarlos','Tocar los componentes para identificar cuál está caliente'],
+    a:1, f:'¡Exacto! Ante cualquier anomalía: apaga la fuente, no toques nada y avisa al adulto responsable de inmediato. La seguridad primero.'},
+  {q:'¿Qué tipo de extintor se debe usar en un incendio de origen eléctrico?',
+    o:['Extintor de agua','Extintor tipo C o de CO₂','Cualquier extintor que esté disponible','Arena mojada o tierra'],
+    a:1, f:'¡Correcto! Para fuego eléctrico usa extintor tipo C o CO₂. NUNCA uses agua sobre equipos energizados — el agua conduce la electricidad y puedes electrocutarte.'},
+  {q:'¿Por qué es importante lavarse las manos siempre al terminar de soldar?',
+    o:['Para no ensuciar los componentes electrónicos','El estaño con plomo es tóxico si se ingiere accidentalmente','Para que las herramientas no se oxiden','Es solo una costumbre del laboratorio, no es necesario'],
+    a:1, f:'¡Correcto! El estaño con plomo (Pb) puede adherirse a la piel y ser ingerido accidentalmente al tocarse la cara o comer. Lavarse las manos es indispensable.'},
+  {q:'¿Cuál es la temperatura óptima de trabajo del cautín para soldar Neón Flex?',
+    o:['200°C','250°C','300°C','400°C'],
+    a:2, f:'¡Correcto! 300°C es la temperatura óptima: suficiente para fundir el estaño correctamente sin riesgo de dañar los LEDs SMD internos ni la cubierta de silicona del Neón Flex.'},
+];
+
+let answers = new Array(QUIZ.length).fill(null);
+let quizStarted = false;
+
+function startQuiz() {
+  quizStarted = true;
+  document.getElementById('quiz-btn').style.display = 'none';
+  let h = '';
+  QUIZ.forEach((q, i) => {
+    h += `<div class="qq"><div class="qq-q">${i+1}. ${q.q}</div><div class="qq-opts">`;
+    q.o.forEach((o, j) => {
+      h += `<button class="qq-opt" id="qo_${i}_${j}" onclick="answerQ(${i},${j})">`
+         + `<span style="font-weight:700;color:#991b1b;margin-right:4px">${['A','B','C','D'][j]})</span>${o}</button>`;
+    });
+    h += `</div><div class="qq-fb" id="qfb_${i}" style="display:none"></div></div>`;
+  });
+  document.getElementById('quiz-cont').innerHTML = h;
+}
+
+function answerQ(qi, chosen) {
+  if (answers[qi] !== null) return;
+  answers[qi] = chosen;
+  const correct = QUIZ[qi].a;
+  QUIZ[qi].o.forEach((_, j) => {
+    const el = document.getElementById(`qo_${qi}_${j}`);
+    if (!el) return;
+    el.classList.add(j === correct ? 'correct' : (j === chosen ? 'wrong' : ''));
+    el.style.pointerEvents = 'none';
+  });
+  const fb = document.getElementById(`qfb_${qi}`);
+  fb.style.display = 'block';
+  fb.className = 'qq-fb ' + (chosen === correct ? 'correct' : 'wrong');
+  fb.textContent = (chosen === correct ? '✅ ' : '❌ ') + QUIZ[qi].f;
+
+  setTimeout(() => {
+    if (answers.every(a => a !== null)) showResult();
+  }, 500);
+}
+
+function showResult() {
+  const score = answers.filter((a, i) => a === QUIZ[i].a).length;
+  const total = QUIZ.length;
+  const pct = Math.round(score / total * 100);
+  const res = document.getElementById('quiz-result');
+  res.style.display = 'block';
+  if (pct >= 80) {
+    res.innerHTML = `<div class="badge">🏅 ¡Quiz superado! ${score}/${total} respuestas correctas (${pct}%)</div>
+      <div class="al success"><span class="al-i">✅</span><div><strong>¡Estás listo para el taller!</strong> Demostraste conocer las normas de seguridad. Recuerda aplicarlas siempre en cada práctica.</div></div>`;
+  } else {
+    res.innerHTML = `<div class="al danger"><span class="al-i">❌</span><div><strong>${score}/${total} correctas (${pct}%)</strong> — Necesitas al menos 80% para aprobar. Revisa las secciones donde tuviste error y vuelve a intentarlo.</div></div>
+      <button class="cbtn" onclick="retryQuiz()" style="margin-top:8px;background:#991b1b">Reintentar Quiz ↺</button>`;
+  }
+}
+
+function retryQuiz() {
+  answers = new Array(QUIZ.length).fill(null);
+  document.getElementById('quiz-result').style.display = 'none';
+  startQuiz();
+}
+</script>
+
+</body>
+</html>
