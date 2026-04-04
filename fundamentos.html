@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<meta name="theme-color" content="#0a2240">
+<title>Fundamentos Eléctricos y Leyes — CEMEY</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Exo 2',sans-serif;background:#f0f4f8;color:#1e293b;min-height:100vh}
+.back-bar{background:#071830;padding:8px 14px;display:flex;align-items:center;
+  border-bottom:3px solid #f59e0b;position:sticky;top:0;z-index:200}
+.back-btn{display:inline-flex;align-items:center;gap:7px;color:#ffd700;font-size:13px;
+  font-weight:700;text-decoration:none;padding:6px 12px;
+  background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);
+  border-radius:8px;transition:all .2s;touch-action:manipulation}
+.back-btn:hover{background:rgba(255,215,0,.2)}
+.back-bar-title{margin-left:12px;font-size:12px;color:rgba(255,255,255,.45);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr{background:linear-gradient(135deg,#0a2240 0%,#0f3460 55%,#1a4a7a 100%);
+  padding:10px 14px;display:flex;align-items:center;gap:12px;
+  box-shadow:0 2px 12px rgba(0,0,0,.4)}
+.hdr-logo{width:48px;height:48px;border-radius:50%;flex-shrink:0;
+  border:2px solid rgba(255,215,0,.55);overflow:hidden;background:rgba(255,255,255,.05)}
+.hdr-logo img{width:100%;height:100%;object-fit:contain}
+.hdr-text{flex:1;min-width:0}
+.hdr-inst{font-size:13px;color:#ffd700;font-weight:700;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-proj{font-size:14px;color:#fff;font-weight:700;line-height:1.25;margin-top:1px}
+.hdr-sub{font-size:9px;color:rgba(255,255,255,.48);margin-top:2px}
+.cbar{background:#071830;padding:5px 14px;display:flex;flex-wrap:wrap;
+  gap:2px 20px;border-bottom:1px solid rgba(255,255,255,.07)}
+.cr{font-size:10.5px;color:rgba(255,255,255,.45);white-space:nowrap}
+.cr-label{font-size:9.5px;font-style:italic;color:rgba(255,255,255,.3)}
+.cr strong{color:rgba(255,255,255,.9);font-weight:700;font-size:11px}
+.mod-hero{background:linear-gradient(135deg,#78350f,#b45309,#d97706);
+  padding:22px 16px 18px;text-align:center;border-bottom:4px solid #fcd34d}
+.mod-icon{font-size:42px;margin-bottom:8px}
+.mod-title{font-size:clamp(18px,5vw,26px);font-weight:800;color:#fff;line-height:1.2}
+.mod-sub{font-size:12px;color:rgba(255,255,255,.7);margin-top:6px;line-height:1.5}
+.main{max-width:860px;margin:0 auto;padding:18px 13px 50px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;padding-bottom:2px}
+.tb{padding:9px 15px;border:2px solid transparent;border-radius:20px;cursor:pointer;
+  font-family:'Exo 2',sans-serif;font-size:12px;font-weight:600;white-space:nowrap;
+  background:#e2e8f0;color:#475569;touch-action:manipulation;transition:all .15s;flex-shrink:0}
+.tb:hover{background:#fef3c7;color:#b45309}
+.tb.active{background:#d97706;color:#fff;border-color:#b45309}
+.tp{display:none}.tp.active{display:block}
+.card{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;
+  box-shadow:0 1px 8px rgba(15,52,96,.08);border:1px solid #e2e8f0}
+.ct{font-size:14px;font-weight:700;margin-bottom:10px;color:#b45309}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:8px 0;border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:11.5px;min-width:280px}
+th{background:#d97706;color:#fff;padding:8px 10px;text-align:left;font-size:11.5px}
+td{padding:7px 10px;border-bottom:1px solid #e2e8f0;font-size:11.5px;line-height:1.5}
+tr:nth-child(even) td{background:#fffbeb}
+tr:hover td{background:#fef9c3}
+.fml{background:#1e293b;color:#7dd3fc;border-radius:8px;padding:12px 14px;
+  margin:8px 0;font-family:'Share Tech Mono',monospace;font-size:12px;
+  border-left:4px solid #06b6d4;overflow-x:auto;white-space:pre;line-height:1.75}
+.cm{color:#64748b;font-size:10.5px}
+.al{border-radius:8px;padding:10px 12px;margin:8px 0;font-size:12px;
+  display:flex;gap:8px;align-items:flex-start;line-height:1.55}
+.al-i{font-size:16px;flex-shrink:0;margin-top:1px}
+.info{background:#e0f2fe;border-left:4px solid #06b6d4;color:#0c4a6e}
+.warn{background:#fff7ed;border-left:4px solid #f97316;color:#7c2d12}
+.success{background:#dcfce7;border-left:4px solid #00c896;color:#14532d}
+.amber{background:#fffbeb;border-left:4px solid #f59e0b;color:#78350f}
+.steps{list-style:none}
+.steps li{display:flex;gap:11px;padding:10px 0;
+  border-bottom:1px solid #f1f5f9;align-items:flex-start}
+.steps li:last-child{border-bottom:none}
+.sn{width:26px;height:26px;border-radius:50%;background:#d97706;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex-shrink:0;margin-top:2px}
+.st{font-size:12.5px;line-height:1.6;color:#475569}
+.st strong{color:#1e293b}
+.tri-wrap{text-align:center;padding:12px 0}
+.cf{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.cf label{font-size:11.5px;font-weight:700;color:#64748b}
+.cf input,.cf select{padding:10px 11px;border:1.5px solid #e2e8f0;
+  border-radius:8px;font-size:15px;font-family:'Exo 2',sans-serif;
+  width:100%;background:#fff;-webkit-appearance:none}
+.cf input:focus,.cf select:focus{outline:none;border-color:#d97706}
+.cbtn{background:#d97706;color:#fff;border:none;border-radius:8px;
+  padding:13px;font-size:15px;font-weight:700;cursor:pointer;
+  font-family:'Exo 2',sans-serif;width:100%;min-height:48px;touch-action:manipulation}
+.cbtn:active{background:#b45309}
+.rbox{background:#1e293b;color:#00c896;border-radius:8px;
+  padding:13px;margin-top:9px;font-family:'Share Tech Mono',monospace}
+.rl{margin:4px 0;font-size:13px}
+.rlb{color:#94a3b8}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+p{line-height:1.7;font-size:12.5px;color:#475569;margin-bottom:7px}
+h4{font-size:13.5px;font-weight:700;color:#b45309;margin:12px 0 7px}
+ul,ol{padding-left:17px;font-size:12.5px;color:#475569;line-height:1.8}
+li{margin-bottom:3px}
+@media(max-width:500px){.grid2{grid-template-columns:1fr}.hdr-inst{font-size:11px}}
+@media(min-width:681px){.main{padding:22px 20px 50px}}
+</style>
+</head>
+<body>
+
+<div class="back-bar">
+  <a class="back-btn" href="https://coordsanjose-glitch.github.io/simulador-cemey/">&#8592; Volver al Men&uacute;</a>
+  <span class="back-bar-title">Fundamentos El&eacute;ctricos y Leyes</span>
+</div>
+
+<header class="hdr">
+  <div class="hdr-logo"><img src="data:image/png;base64,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" alt="CEMEY"></div>
+  <div class="hdr-text">
+    <div class="hdr-inst">Centro Escolar Manuel Espinosa Yglesias &mdash; CEMEY Puebla</div>
+    <div class="hdr-proj">Un Futuro Brillante para Todos</div>
+    <div class="hdr-sub">Simulador T&eacute;cnico de Electr&oacute;nica &bull; 3&deg; de Secundaria</div>
+  </div>
+</header>
+
+<div class="cbar">
+  <span class="cr"><span class="cr-label">Docente titular &nbsp;</span><strong>Reyna Cordera P&eacute;rez</strong></span>
+  <span class="cr"><span class="cr-label">Asesor tecnol&oacute;gico y creador &nbsp;</span><strong>Ing. Rodolfo Fernando Porras S&aacute;nchez</strong></span>
+</div>
+
+<div class="mod-hero">
+  <div class="mod-icon">⚡</div>
+  <div class="mod-title">Fundamentos El&eacute;ctricos y Leyes</div>
+  <div class="mod-sub">Corriente &bull; Voltaje &bull; Resistencia &bull; Potencia &bull; Ley de Ohm &bull; Kirchhoff &bull; Diodos rectificadores</div>
+</div>
+
+<div class="main">
+
+<div class="tabs">
+  <button class="tb active" onclick="switchTab(this,'ft','fA')">⚡ Corriente</button>
+  <button class="tb" onclick="switchTab(this,'ft','fB')">🔋 Voltaje</button>
+  <button class="tb" onclick="switchTab(this,'ft','fC')">🌀 Resistencia</button>
+  <button class="tb" onclick="switchTab(this,'ft','fD')">💥 Potencia</button>
+  <button class="tb" onclick="switchTab(this,'ft','fE')">📐 Ley de Ohm</button>
+  <button class="tb" onclick="switchTab(this,'ft','fF')">🔗 Kirchhoff</button>
+  <button class="tb" onclick="switchTab(this,'ft','fG')">🔒 Resistencia LED</button>
+  <button class="tb" onclick="switchTab(this,'ft','fH')">🔶 Diodos + Baterías</button>
+  <button class="tb" onclick="switchTab(this,'ft','fI')">🔢 Calculadoras</button>
+  <button class="tb" onclick="switchTab(this,'ft','fJ')">🎨 Colores LED</button>
+  <button class="tb" onclick="switchTab(this,'ft','fM')">🌈 LED Camaleón</button>
+  <button class="tb" onclick="switchTab(this,'ft','fN')">⚡ Fuente 5V</button>
+</div>
+
+<div id="ft">
+
+<!-- ── A: CORRIENTE ── -->
+<div id="fA" class="tp active">
+  <div class="card">
+    <div class="ct">⚡ Corriente Eléctrica (I)</div>
+    <p>La <strong>corriente eléctrica</strong> es el flujo ordenado de electrones a través de un conductor. Imagínala como el agua que fluye por una manguera: los electrones son las moléculas de agua y el cable es la manguera.</p>
+    <div class="fml">I = Q / t
+<span class="cm">I = corriente en Amperes (A)
+Q = carga eléctrica en Coulombs (C)
+t = tiempo en segundos (s)</span></div>
+    <div class="tw"><table>
+      <tr><th>Propiedad</th><th>Detalle</th></tr>
+      <tr><td>Símbolo</td><td><strong>I</strong></td></tr>
+      <tr><td>Unidad base</td><td>Ampere (A)</td></tr>
+      <tr><td>Subunidades</td><td>miliAmpere (mA): 1 A = 1,000 mA &nbsp;&bull;&nbsp; microAmpere (μA): 1 mA = 1,000 μA</td></tr>
+      <tr><td>Corriente DC</td><td>Fluye en una sola dirección. Pilas, baterías, fuentes reguladas.</td></tr>
+      <tr><td>Corriente AC</td><td>Cambia de dirección 60 veces/segundo. Enchufe de pared 110V en México.</td></tr>
+      <tr><td>LED estándar 5mm</td><td>20 mA = 0.020 A</td></tr>
+      <tr><td>Neón Flex 12V (por metro)</td><td>0.67 – 1.0 A/m</td></tr>
+    </table></div>
+    <div class="al info">
+      <span class="al-i">💡</span>
+      <div><strong>Analogía del agua:</strong> La corriente es como el caudal (litros por segundo). Un cable más grueso permite más corriente, igual que una manguera más ancha permite más agua.</div>
+    </div>
+    <div class="al amber">
+      <span class="al-i">⚠️</span>
+      <div>Lo que daña al cuerpo humano en un accidente eléctrico <strong>no es el voltaje sino la corriente</strong>. Con apenas 50–100 mA puede ocurrir paro cardíaco. Por eso la seguridad eléctrica es tan importante.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── B: VOLTAJE ── -->
+<div id="fB" class="tp">
+  <div class="card">
+    <div class="ct">🔋 Voltaje — Diferencia de Potencial (V)</div>
+    <p>El <strong>voltaje</strong> o diferencia de potencial es la "presión" que empuja a los electrones a moverse a través del conductor. Sin voltaje no hay corriente — como sin diferencia de altura no cae el agua.</p>
+    <div class="fml">V = I × R    (derivada de la Ley de Ohm)
+<span class="cm">V = voltaje en Volts (V)
+I = corriente en Amperes (A)
+R = resistencia en Ohms (Ω)</span></div>
+    <div class="tw"><table>
+      <tr><th>Fuente de voltaje</th><th>Voltaje típico</th><th>Tipo</th><th>Nivel de riesgo</th></tr>
+      <tr><td>Pila AA / AAA</td><td>1.5 V</td><td>DC</td><td style="color:#15803d">✅ Seguro</td></tr>
+      <tr><td>Batería celular / Li-Po</td><td>3.7 V</td><td>DC</td><td style="color:#15803d">✅ Seguro</td></tr>
+      <tr><td>Puerto USB / Arduino</td><td>5 V</td><td>DC</td><td style="color:#15803d">✅ Seguro</td></tr>
+      <tr><td>Batería cuadrada</td><td>9 V</td><td>DC</td><td style="color:#15803d">✅ Seguro</td></tr>
+      <tr><td>Fuente para letreros</td><td>12 V / 24 V</td><td>DC</td><td style="color:#b45309">⚠️ Precaución</td></tr>
+      <tr><td>Enchufe de pared México</td><td>110–127 V</td><td>AC</td><td style="color:#991b1b">❌ PELIGROSO</td></tr>
+    </table></div>
+    <div class="al amber">
+      <span class="al-i">💡</span>
+      <div><strong>Analogía:</strong> El voltaje es como la presión del agua. Una manguera con más presión empuja más agua — un circuito con más voltaje empuja más corriente a través del mismo conductor.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── C: RESISTENCIA ── -->
+<div id="fC" class="tp">
+  <div class="card">
+    <div class="ct">🌀 Resistencia Eléctrica (R)</div>
+    <p>La <strong>resistencia</strong> es la oposición que ofrece un material al paso de la corriente eléctrica. Todo material tiene resistencia en diferente grado — desde casi cero (conductores) hasta casi infinita (aislantes).</p>
+    <div class="fml">R = V / I
+<span class="cm">R = resistencia en Ohms (Ω)
+V = voltaje en Volts (V)
+I = corriente en Amperes (A)</span></div>
+    <div class="tw"><table>
+      <tr><th>Unidad</th><th>Símbolo</th><th>Equivalencia</th><th>Ejemplo de aplicación</th></tr>
+      <tr><td>Ohm</td><td>Ω</td><td>Unidad base</td><td>Resistencias para LEDs (100–1,000 Ω)</td></tr>
+      <tr><td>kilohm</td><td>kΩ</td><td>1 kΩ = 1,000 Ω</td><td>Resistencias de pull-up en circuitos digitales</td></tr>
+      <tr><td>Megaohm</td><td>MΩ</td><td>1 MΩ = 1,000,000 Ω</td><td>Resistencias de alta impedancia</td></tr>
+    </table></div>
+    <div class="tw" style="margin-top:10px"><table>
+      <tr><th>Material</th><th>Tipo</th><th>Resistencia</th><th>Uso en electrónica</th></tr>
+      <tr><td>Cobre, plata, aluminio</td><td>Conductor</td><td>Muy baja (&lt;1 Ω/m)</td><td>Cables, pistas de circuito impreso</td></tr>
+      <tr><td>Carbono, silicio, germanio</td><td>Semiconductor</td><td>Variable y controlable</td><td>LEDs, transistores, resistencias</td></tr>
+      <tr><td>Plástico, caucho, vidrio, aire</td><td>Aislante</td><td>Muy alta (&gt;1 MΩ)</td><td>Recubrimiento de cables, bases de circuitos</td></tr>
+    </table></div>
+    <div class="al info">
+      <span class="al-i">💡</span>
+      <div><strong>El cuerpo humano tiene resistencia variable:</strong> piel seca ~100,000 Ω, piel húmeda ~1,000 Ω. Por eso el agua hace mucho más peligrosa la electricidad — reduce la resistencia 100 veces.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── D: POTENCIA ── -->
+<div id="fD" class="tp">
+  <div class="card">
+    <div class="ct">💥 Potencia Eléctrica (P)</div>
+    <p>La <strong>potencia eléctrica</strong> es la cantidad de energía que un componente consume o convierte por segundo. Se mide en Watts (W) o miliWatts (mW).</p>
+    <div class="fml">P = V × I          (la más usada)
+P = I² × R        (cuando no conoces V)
+P = V² / R        (cuando no conoces I)
+<span class="cm">P = potencia en Watts (W)
+1 W = 1,000 mW</span></div>
+    <div class="tw"><table>
+      <tr><th>Componente</th><th>Potencia típica</th><th>Comparación</th></tr>
+      <tr><td>LED 5mm</td><td>~64 mW (0.064 W)</td><td>Base de referencia</td></tr>
+      <tr><td>Neón Flex (por metro)</td><td>8–12 W/m</td><td>~150 LEDs equivalentes</td></tr>
+      <tr><td>Foco LED doméstico</td><td>8–12 W</td><td>= 1m de Neón Flex</td></tr>
+      <tr><td>Foco incandescente</td><td>60 W</td><td>~930 LEDs equivalentes</td></tr>
+    </table></div>
+    <h4>Energía eléctrica y costo</h4>
+    <div class="fml">E = P × t
+<span class="cm">E = energía en kWh, P = potencia en kW, t = tiempo en horas
+Ejemplo — letrero 15W encendido 8h/día:
+E = 0.015 kW × 8 h = 0.12 kWh/día ≈ $0.22 pesos/día (CFE)</span></div>
+  </div>
+  <div class="card">
+    <div class="ct">🔢 Calculadora — Potencia Eléctrica</div>
+    <p style="font-size:11px;color:#94a3b8;margin-bottom:10px">Ingresa los valores disponibles. Calcula la potencia por los tres métodos.</p>
+    <div class="cf"><label>Voltaje V (Volts)</label>
+      <input type="number" id="pv" placeholder="V" inputmode="decimal" step="any"></div>
+    <div class="cf"><label>Corriente I (miliAmperes)</label>
+      <input type="number" id="pi" placeholder="mA" inputmode="decimal" step="any"></div>
+    <div class="cf"><label>Resistencia R (Ohms)</label>
+      <input type="number" id="pr" placeholder="Ω" inputmode="decimal" step="any"></div>
+    <button class="cbtn" onclick="calcPot()">Calcular potencia ⚡</button>
+    <div class="rbox" id="pot-res" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ── E: LEY DE OHM ── -->
+<div id="fE" class="tp">
+  <div class="card">
+    <div class="ct">📐 Ley de Ohm — El Triángulo Mágico</div>
+    <p>La <strong>Ley de Ohm</strong> relaciona las tres variables fundamentales de cualquier circuito. Conociendo dos de ellas puedes calcular la tercera.</p>
+    <div class="tri-wrap">
+      <svg viewBox="0 0 220 150" width="175" style="display:inline-block">
+        <polygon points="110,8 205,138 15,138" fill="#1e3a5f" stroke="#ffd700" stroke-width="2"/>
+        <line x1="110" y1="8" x2="110" y2="138" stroke="#ffd700" stroke-width="1.5" stroke-dasharray="5,3"/>
+        <line x1="15" y1="138" x2="205" y2="138" stroke="#ffd700" stroke-width="1.5"/>
+        <text x="110" y="82" text-anchor="middle" font-size="36" fill="#ffd700" font-weight="bold" font-family="Share Tech Mono">V</text>
+        <text x="62" y="130" text-anchor="middle" font-size="26" fill="#06b6d4" font-weight="bold" font-family="Share Tech Mono">I</text>
+        <text x="160" y="130" text-anchor="middle" font-size="26" fill="#00c896" font-weight="bold" font-family="Share Tech Mono">R</text>
+        <text x="110" y="148" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="Exo 2">Tapa el valor que buscas</text>
+      </svg>
+    </div>
+    <div class="fml">V = I × R    →  tapa V: multiplica I × R
+I = V / R    →  tapa I: divide V entre R
+R = V / I    →  tapa R: divide V entre I</div>
+    <h4>Potencia — 3 formas equivalentes</h4>
+    <div class="fml">P = V × I   →  la más usada
+P = I² × R  →  cuando no conoces V
+P = V² / R  →  cuando no conoces I</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">🔬 Ejemplo 1 — Calcular la resistencia para un LED rojo (fuente 9V)</div>
+    <p>Quieres encender un LED rojo (Vf = 2.0V, If = 20mA) con una batería de 9V. ¿Qué valor de resistencia necesitas?</p>
+    <div style="background:#0a1628;border-radius:10px;padding:12px;margin:8px 0;overflow-x:auto">
+    <svg viewBox="0 0 480 150" width="100%" style="min-width:300px;display:block;margin:0 auto">
+      <defs><marker id="arE1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M1 1L9 5L1 9" fill="none" stroke="#ffd700" stroke-width="1.8" stroke-linecap="round"/></marker></defs>
+      <text x="240" y="13" text-anchor="middle" font-size="10" fill="#ffd700" font-weight="700" font-family="Exo 2">Ejemplo 1: Fuente 9V — ¿Qué resistencia necesita el LED rojo?</text>
+      <rect x="12" y="44" width="44" height="52" rx="6" fill="#1a3558" stroke="#ffd700" stroke-width="2"/>
+      <text x="34" y="65" text-anchor="middle" font-size="12" fill="#ffd700" font-weight="700" font-family="Exo 2">9V</text>
+      <text x="34" y="80" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.5)" font-family="Exo 2">BAT</text>
+      <text x="59" y="63" font-size="12" fill="#00c896" font-weight="700">+</text>
+      <text x="4" y="63" font-size="12" fill="#ff6b6b" font-weight="700">−</text>
+      <line x1="56" y1="70" x2="95" y2="70" stroke="#ffd700" stroke-width="2.5" marker-end="url(#arE1)"/>
+      <rect x="95" y="56" width="72" height="28" rx="6" fill="#5b21b6" stroke="#a78bfa" stroke-width="1.8"/>
+      <text x="131" y="74" text-anchor="middle" font-size="11" fill="#ffd700" font-weight="700" font-family="Share Tech Mono">R = ?</text>
+      <line x1="167" y1="70" x2="210" y2="70" stroke="#ffd700" stroke-width="2.5"/>
+      <polygon points="210,55 210,85 248,70" fill="#ef4444" stroke="#fca5a5" stroke-width="1.5"/>
+      <line x1="248" y1="55" x2="248" y2="85" stroke="#fca5a5" stroke-width="2.5"/>
+      <text x="229" y="104" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.65)" font-family="Exo 2">LED Rojo</text>
+      <text x="229" y="114" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.5)" font-family="Share Tech Mono">Vf=2.0V · 20mA</text>
+      <line x1="248" y1="70" x2="420" y2="70" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="420" y1="70" x2="420" y2="138" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="12" y1="138" x2="420" y2="138" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="12" y1="96" x2="12" y2="138" stroke="#ffd700" stroke-width="2.5"/>
+      <rect x="288" y="46" width="152" height="32" rx="5" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+      <text x="364" y="60" text-anchor="middle" font-size="9" fill="#ffd700" font-family="Share Tech Mono">R=(9−2.0)/0.020=350Ω</text>
+      <text x="364" y="71" text-anchor="middle" font-size="9" fill="#00c896" font-family="Share Tech Mono">→ usar 330Ω comercial ✅</text>
+    </svg></div>
+    <div class="fml">Paso 1 — Resistencia:
+  R = (Vs − Vf) / If = (9 − 2.0) / 0.020 = 350 Ω → 330 Ω comercial
+
+Paso 2 — Potencia disipada en la resistencia:
+  P = I² × R = (0.020)² × 350 = 0.14 W = 140 mW
+  → usar resistencia de 1/4 W (250 mW) o mayor ✅</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">🔬 Ejemplo 2 — Calcular la corriente total con 3 LEDs azules en paralelo (fuente 12V)</div>
+    <p>Tienes 3 LEDs azules (Vf = 3.2V) en paralelo a 12V, cada uno con su resistencia de 430Ω. ¿Cuánta corriente toma cada LED y cuál es la corriente total de la fuente?</p>
+    <div style="background:#0a1628;border-radius:10px;padding:12px;margin:8px 0;overflow-x:auto">
+    <svg viewBox="0 0 490 210" width="100%" style="min-width:320px;display:block;margin:0 auto">
+      <defs><marker id="arE2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M1 1L9 5L1 9" fill="none" stroke="#06b6d4" stroke-width="1.8" stroke-linecap="round"/></marker></defs>
+      <text x="245" y="13" text-anchor="middle" font-size="10" fill="#06b6d4" font-weight="700" font-family="Exo 2">Ejemplo 2: 3 LEDs azules en paralelo — ¿corriente por LED y total?</text>
+      <rect x="12" y="78" width="42" height="52" rx="6" fill="#1a3558" stroke="#ffd700" stroke-width="2"/>
+      <text x="33" y="99" text-anchor="middle" font-size="11" fill="#ffd700" font-weight="700" font-family="Exo 2">12V</text>
+      <text x="33" y="114" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.5)" font-family="Exo 2">FUENTE</text>
+      <text x="56" y="96" font-size="12" fill="#06b6d4" font-weight="700">+</text>
+      <text x="4" y="96" font-size="12" fill="#ff6b6b" font-weight="700">−</text>
+      <line x1="54" y1="92" x2="90" y2="92" stroke="#06b6d4" stroke-width="2.5"/>
+      <line x1="90" y1="38" x2="90" y2="186" stroke="#06b6d4" stroke-width="2.5"/>
+      <line x1="420" y1="38" x2="420" y2="186" stroke="#06b6d4" stroke-width="2.5"/>
+      <line x1="12" y1="130" x2="12" y2="196" stroke="#06b6d4" stroke-width="2.5"/>
+      <line x1="12" y1="196" x2="420" y2="196" stroke="#06b6d4" stroke-width="2.5"/>
+      <line x1="90" y1="50" x2="145" y2="50" stroke="#06b6d4" stroke-width="2" marker-end="url(#arE2)"/>
+      <rect x="145" y="37" width="50" height="26" rx="5" fill="#5b21b6" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="170" y="54" text-anchor="middle" font-size="9" fill="#fff" font-weight="700" font-family="Share Tech Mono">430Ω</text>
+      <line x1="195" y1="50" x2="235" y2="50" stroke="#06b6d4" stroke-width="2"/>
+      <polygon points="235,37 235,63 270,50" fill="#3b82f6" stroke="#93c5fd" stroke-width="1.5"/>
+      <line x1="270" y1="37" x2="270" y2="63" stroke="#93c5fd" stroke-width="2"/>
+      <line x1="270" y1="50" x2="420" y2="50" stroke="#06b6d4" stroke-width="2"/>
+      <text x="345" y="38" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.5)" font-family="Share Tech Mono">I=(12−3.2)/430 = 20.5mA</text>
+      <line x1="90" y1="110" x2="145" y2="110" stroke="#06b6d4" stroke-width="2" marker-end="url(#arE2)"/>
+      <rect x="145" y="97" width="50" height="26" rx="5" fill="#5b21b6" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="170" y="114" text-anchor="middle" font-size="9" fill="#fff" font-weight="700" font-family="Share Tech Mono">430Ω</text>
+      <line x1="195" y1="110" x2="235" y2="110" stroke="#06b6d4" stroke-width="2"/>
+      <polygon points="235,97 235,123 270,110" fill="#3b82f6" stroke="#93c5fd" stroke-width="1.5"/>
+      <line x1="270" y1="97" x2="270" y2="123" stroke="#93c5fd" stroke-width="2"/>
+      <line x1="270" y1="110" x2="420" y2="110" stroke="#06b6d4" stroke-width="2"/>
+      <text x="345" y="97" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.5)" font-family="Share Tech Mono">I=(12−3.2)/430 = 20.5mA</text>
+      <line x1="90" y1="170" x2="145" y2="170" stroke="#06b6d4" stroke-width="2" marker-end="url(#arE2)"/>
+      <rect x="145" y="157" width="50" height="26" rx="5" fill="#5b21b6" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="170" y="174" text-anchor="middle" font-size="9" fill="#fff" font-weight="700" font-family="Share Tech Mono">430Ω</text>
+      <line x1="195" y1="170" x2="235" y2="170" stroke="#06b6d4" stroke-width="2"/>
+      <polygon points="235,157 235,183 270,170" fill="#3b82f6" stroke="#93c5fd" stroke-width="1.5"/>
+      <line x1="270" y1="157" x2="270" y2="183" stroke="#93c5fd" stroke-width="2"/>
+      <line x1="270" y1="170" x2="420" y2="170" stroke="#06b6d4" stroke-width="2"/>
+      <text x="345" y="157" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.5)" font-family="Share Tech Mono">I=(12−3.2)/430 = 20.5mA</text>
+    </svg></div>
+    <div class="fml">Por cada LED (Ley de Ohm: I = V_R / R):
+  V_R = Vs − Vf = 12 − 3.2 = 8.8 V
+  I_rama = 8.8 / 430 = 0.02047 A ≈ 20.5 mA ✅
+
+Corriente total (Kirchhoff LCK):
+  I_total = 3 × 20.5 mA = 61.5 mA = 0.0615 A
+
+Potencia total:
+  P = Vs × I_total = 12 × 0.0615 = 0.738 W</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">🔢 Calculadora — Ley de Ohm</div>
+    <p style="font-size:11px;color:#94a3b8;margin-bottom:10px">Deja en blanco el valor que quieres calcular. Completa los otros dos.</p>
+    <div class="cf"><label>Voltaje V (Volts)</label>
+      <input type="number" id="ov" placeholder="Voltaje en Volts" inputmode="decimal" step="any"></div>
+    <div class="cf"><label>Corriente I (miliAmperes)</label>
+      <input type="number" id="oi" placeholder="Corriente en mA" inputmode="decimal" step="any"></div>
+    <div class="cf"><label>Resistencia R (Ohms)</label>
+      <input type="number" id="or" placeholder="Resistencia en Ω" inputmode="decimal" step="any"></div>
+    <button class="cbtn" onclick="calcOhm()">Calcular ⚡</button>
+    <div class="rbox" id="ohm-res" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ── F: KIRCHHOFF ── -->
+<div id="fF" class="tp">
+  <div class="card">
+    <div class="ct">🔗 Leyes de Kirchhoff</div>
+    <p>Las leyes de Kirchhoff son las herramientas fundamentales para analizar cualquier circuito. Hay una ley para los <strong>voltajes</strong> y otra para las <strong>corrientes</strong>.</p>
+  </div>
+
+  <div class="card">
+    <div class="ct">⚡ Ley de Voltajes de Kirchhoff (LVK)</div>
+    <p><strong>En cualquier lazo cerrado, la suma de todos los voltajes es cero.</strong> Lo que la fuente "sube" es igual a lo que los componentes "bajan".</p>
+    <div class="fml">Σ V_lazo = 0   →   V_fuente = V_R + V_LED₁ + V_LED₂ + ...</div>
+
+    <h4>LVK Ejemplo 1 — LED rojo + resistencia a 9V</h4>
+    <div style="background:#0a1628;border-radius:10px;padding:12px;margin:8px 0;overflow-x:auto">
+    <svg viewBox="0 0 490 148" width="100%" style="min-width:300px;display:block;margin:0 auto">
+      <defs><marker id="arF1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M1 1L9 5L1 9" fill="none" stroke="#ffd700" stroke-width="1.8" stroke-linecap="round"/></marker></defs>
+      <text x="245" y="13" text-anchor="middle" font-size="10" fill="#ffd700" font-weight="700" font-family="Exo 2">LVK Ej.1: +9V − 7V (R) − 2V (LED) = 0</text>
+      <rect x="12" y="42" width="44" height="52" rx="6" fill="#1a3558" stroke="#ffd700" stroke-width="2"/>
+      <text x="34" y="63" text-anchor="middle" font-size="12" fill="#ffd700" font-weight="700" font-family="Exo 2">9V</text>
+      <text x="34" y="78" text-anchor="middle" font-size="8" fill="#00c896" font-family="Share Tech Mono">↑ +9V</text>
+      <text x="58" y="61" font-size="11" fill="#00c896" font-weight="700">+</text>
+      <text x="4" y="61" font-size="11" fill="#ff6b6b" font-weight="700">−</text>
+      <line x1="56" y1="67" x2="95" y2="67" stroke="#ffd700" stroke-width="2.5" marker-end="url(#arF1)"/>
+      <rect x="95" y="53" width="70" height="28" rx="6" fill="#5b21b6" stroke="#a78bfa" stroke-width="1.8"/>
+      <text x="130" y="71" text-anchor="middle" font-size="10" fill="#fff" font-weight="700" font-family="Share Tech Mono">330Ω</text>
+      <text x="130" y="97" text-anchor="middle" font-size="8.5" fill="#a78bfa" font-family="Share Tech Mono">↓ −7V</text>
+      <line x1="165" y1="67" x2="210" y2="67" stroke="#ffd700" stroke-width="2.5"/>
+      <polygon points="210,53 210,81 248,67" fill="#ef4444" stroke="#fca5a5" stroke-width="1.5"/>
+      <line x1="248" y1="53" x2="248" y2="81" stroke="#fca5a5" stroke-width="2"/>
+      <text x="229" y="97" text-anchor="middle" font-size="8.5" fill="#fca5a5" font-family="Share Tech Mono">↓ −2V</text>
+      <line x1="248" y1="67" x2="430" y2="67" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="430" y1="67" x2="430" y2="135" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="12" y1="135" x2="430" y2="135" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="12" y1="94" x2="12" y2="135" stroke="#ffd700" stroke-width="2.5"/>
+      <rect x="295" y="46" width="130" height="30" rx="5" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+      <text x="360" y="60" text-anchor="middle" font-size="9" fill="#ffd700" font-family="Share Tech Mono">+9 − 7 − 2 = 0 ✅</text>
+      <text x="360" y="72" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,.55)" font-family="Exo 2">Fuente = R + LED</text>
+    </svg></div>
+    <div class="fml">Recorriendo el lazo en sentido de la corriente:
+  +9V (fuente) − V_R − 2.0V (LED) = 0
+  V_R = 9 − 2.0 = 7V  →  cae 7V en la resistencia
+
+  Verificación: I = V_R / R = 7 / 330 = 21.2 mA ✅</div>
+
+    <h4>LVK Ejemplo 2 — LED rojo + LED azul en serie a 12V</h4>
+    <div style="background:#0a1628;border-radius:10px;padding:12px;margin:8px 0;overflow-x:auto">
+    <svg viewBox="0 0 520 148" width="100%" style="min-width:340px;display:block;margin:0 auto">
+      <defs><marker id="arF2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M1 1L9 5L1 9" fill="none" stroke="#ffd700" stroke-width="1.8" stroke-linecap="round"/></marker></defs>
+      <text x="260" y="13" text-anchor="middle" font-size="10" fill="#ffd700" font-weight="700" font-family="Exo 2">LVK Ej.2: +12V − 6.8V(R) − 2.0V(rojo) − 3.2V(azul) = 0</text>
+      <rect x="12" y="42" width="44" height="52" rx="6" fill="#1a3558" stroke="#ffd700" stroke-width="2"/>
+      <text x="34" y="63" text-anchor="middle" font-size="11" fill="#ffd700" font-weight="700" font-family="Exo 2">12V</text>
+      <text x="34" y="78" text-anchor="middle" font-size="8" fill="#00c896" font-family="Share Tech Mono">↑+12V</text>
+      <text x="58" y="61" font-size="11" fill="#00c896" font-weight="700">+</text>
+      <text x="4" y="61" font-size="11" fill="#ff6b6b" font-weight="700">−</text>
+      <line x1="56" y1="67" x2="90" y2="67" stroke="#ffd700" stroke-width="2.5" marker-end="url(#arF2)"/>
+      <rect x="90" y="53" width="70" height="28" rx="6" fill="#5b21b6" stroke="#a78bfa" stroke-width="1.8"/>
+      <text x="125" y="71" text-anchor="middle" font-size="10" fill="#fff" font-weight="700" font-family="Share Tech Mono">330Ω</text>
+      <text x="125" y="97" text-anchor="middle" font-size="8" fill="#a78bfa" font-family="Share Tech Mono">↓−6.8V</text>
+      <line x1="160" y1="67" x2="200" y2="67" stroke="#ffd700" stroke-width="2.5"/>
+      <polygon points="200,53 200,81 237,67" fill="#ef4444" stroke="#fca5a5" stroke-width="1.5"/>
+      <line x1="237" y1="53" x2="237" y2="81" stroke="#fca5a5" stroke-width="2"/>
+      <text x="218" y="97" text-anchor="middle" font-size="8" fill="#fca5a5" font-family="Share Tech Mono">↓−2.0V</text>
+      <line x1="237" y1="67" x2="278" y2="67" stroke="#ffd700" stroke-width="2.5"/>
+      <polygon points="278,53 278,81 316,67" fill="#3b82f6" stroke="#93c5fd" stroke-width="1.5"/>
+      <line x1="316" y1="53" x2="316" y2="81" stroke="#93c5fd" stroke-width="2"/>
+      <text x="297" y="97" text-anchor="middle" font-size="8" fill="#93c5fd" font-family="Share Tech Mono">↓−3.2V</text>
+      <line x1="316" y1="67" x2="455" y2="67" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="455" y1="67" x2="455" y2="135" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="12" y1="135" x2="455" y2="135" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="12" y1="94" x2="12" y2="135" stroke="#ffd700" stroke-width="2.5"/>
+      <rect x="330" y="44" width="155" height="30" rx="5" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+      <text x="407" y="58" text-anchor="middle" font-size="9" fill="#ffd700" font-family="Share Tech Mono">+12−6.8−2.0−3.2=0 ✅</text>
+      <text x="407" y="70" text-anchor="middle" font-size="8.5" fill="rgba(255,255,255,.55)" font-family="Exo 2">R = (12−2.0−3.2)/0.02 = 330Ω</text>
+    </svg></div>
+    <div class="fml">Lazo: +12V − V_R − 2.0V(rojo) − 3.2V(azul) = 0
+  V_R = 12 − 2.0 − 3.2 = 6.8 V
+
+  R = V_R / If = 6.8 / 0.020 = 340 Ω → usar 330 Ω ✅
+  I = 20 mA (la misma corriente en toda la cadena serie)</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">⚡ Ley de Corrientes de Kirchhoff (LCK)</div>
+    <p><strong>En cualquier nodo (punto de unión), la corriente que entra es igual a la que sale.</strong> La corriente no se crea ni se destruye.</p>
+    <div class="fml">Σ I_entrada = Σ I_salida</div>
+
+    <h4>LCK Ejemplo 1 — Nodo bifurcado hacia 2 LEDs en paralelo</h4>
+    <div style="background:#0a1628;border-radius:10px;padding:12px;margin:8px 0;overflow-x:auto">
+    <svg viewBox="0 0 460 175" width="100%" style="min-width:300px;display:block;margin:0 auto">
+      <defs><marker id="arF3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M1 1L9 5L1 9" fill="none" stroke="#06b6d4" stroke-width="1.8" stroke-linecap="round"/></marker></defs>
+      <text x="230" y="13" text-anchor="middle" font-size="10" fill="#06b6d4" font-weight="700" font-family="Exo 2">LCK Ej.1: 40mA entran al nodo = 20mA + 20mA salen</text>
+      <rect x="12" y="70" width="42" height="48" rx="6" fill="#1a3558" stroke="#ffd700" stroke-width="2"/>
+      <text x="33" y="90" text-anchor="middle" font-size="11" fill="#ffd700" font-weight="700" font-family="Exo 2">12V</text>
+      <text x="33" y="105" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.5)" font-family="Exo 2">FUENTE</text>
+      <line x1="54" y1="94" x2="130" y2="94" stroke="#06b6d4" stroke-width="2.5" marker-end="url(#arF3)"/>
+      <text x="92" y="86" text-anchor="middle" font-size="9" fill="#ffd700" font-weight="700" font-family="Share Tech Mono">40mA</text>
+      <circle cx="140" cy="94" r="6" fill="#ffd700"/>
+      <text x="140" y="73" text-anchor="middle" font-size="9" fill="#ffd700" font-weight="700" font-family="Exo 2">NODO</text>
+      <line x1="140" y1="48" x2="140" y2="148" stroke="#06b6d4" stroke-width="2"/>
+      <line x1="140" y1="56" x2="195" y2="56" stroke="#06b6d4" stroke-width="2" marker-end="url(#arF3)"/>
+      <rect x="195" y="42" width="50" height="26" rx="5" fill="#5b21b6" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="220" y="59" text-anchor="middle" font-size="9" fill="#fff" font-weight="700" font-family="Share Tech Mono">430Ω</text>
+      <line x1="245" y1="56" x2="285" y2="56" stroke="#06b6d4" stroke-width="2"/>
+      <polygon points="285,43 285,69 320,56" fill="#3b82f6" stroke="#93c5fd" stroke-width="1.5"/>
+      <line x1="320" y1="43" x2="320" y2="69" stroke="#93c5fd" stroke-width="2"/>
+      <line x1="320" y1="56" x2="395" y2="56" stroke="#06b6d4" stroke-width="2"/>
+      <text x="265" y="33" text-anchor="middle" font-size="9" fill="#ffd700" font-family="Share Tech Mono">I₁=20mA →</text>
+      <line x1="140" y1="140" x2="195" y2="140" stroke="#06b6d4" stroke-width="2" marker-end="url(#arF3)"/>
+      <rect x="195" y="126" width="50" height="26" rx="5" fill="#5b21b6" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="220" y="143" text-anchor="middle" font-size="9" fill="#fff" font-weight="700" font-family="Share Tech Mono">430Ω</text>
+      <line x1="245" y1="140" x2="285" y2="140" stroke="#06b6d4" stroke-width="2"/>
+      <polygon points="285,127 285,153 320,140" fill="#3b82f6" stroke="#93c5fd" stroke-width="1.5"/>
+      <line x1="320" y1="127" x2="320" y2="153" stroke="#93c5fd" stroke-width="2"/>
+      <line x1="320" y1="140" x2="395" y2="140" stroke="#06b6d4" stroke-width="2"/>
+      <text x="265" y="116" text-anchor="middle" font-size="9" fill="#ffd700" font-family="Share Tech Mono">I₂=20mA →</text>
+      <line x1="395" y1="48" x2="395" y2="165" stroke="#06b6d4" stroke-width="2"/>
+      <line x1="12" y1="118" x2="12" y2="165" stroke="#06b6d4" stroke-width="2"/>
+      <line x1="12" y1="165" x2="395" y2="165" stroke="#06b6d4" stroke-width="2"/>
+    </svg></div>
+    <div class="fml">En el nodo (bifurcación):
+  I_entrada = 40 mA (de la fuente)
+  I₁ = 20 mA (rama LED superior)
+  I₂ = 20 mA (rama LED inferior)
+  I_entrada = I₁ + I₂ → 40 mA = 20 + 20 = 40 mA ✅</div>
+
+    <h4>LCK Ejemplo 2 — Tres ramas de colores distintos</h4>
+    <div class="fml">Fuente 12V alimenta 3 ramas en paralelo (cada una con su R):
+
+  Rama 1 — LED Rojo  (Vf=2.0V, R=470Ω):
+    I₁ = (12−2.0) / 470 = 21.3 mA
+
+  Rama 2 — LED Verde (Vf=2.1V, R=470Ω):
+    I₂ = (12−2.1) / 470 = 21.1 mA
+
+  Rama 3 — LED Azul  (Vf=3.2V, R=430Ω):
+    I₃ = (12−3.2) / 430 = 20.5 mA
+
+Aplicando LCK en el nodo positivo (+):
+  I_fuente = I₁ + I₂ + I₃
+  I_fuente = 21.3 + 21.1 + 20.5 = 62.9 mA ✅
+
+En el nodo negativo (GND) regresa esa misma corriente: 62.9 mA ✅</div>
+    <div class="al success">
+      <span class="al-i">💡</span>
+      <div><strong>LVK + LCK juntas:</strong> LVK dice cuánto voltaje cae en cada componente. LCK dice cómo se reparte la corriente en cada nodo. Juntas describen completamente cualquier circuito eléctrico.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">📐 Resistencias en serie y paralelo</div>
+    <div class="grid2">
+      <div class="al amber"><span class="al-i">🔗</span><div><strong>En serie:</strong> Rt = R1 + R2<br>Misma I en cada una. V se divide.</div></div>
+      <div class="al info"><span class="al-i">🔀</span><div><strong>En paralelo:</strong> 1/Rt = 1/R1 + 1/R2<br>Mismo V en cada rama. I se divide.</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── G: RESISTENCIA LED ── -->
+<div id="fG" class="tp">
+  <div class="card">
+    <div class="ct">🔒 Resistencia Limitadora para LED</div>
+    <p>Un LED <strong>no regula solo cuánta corriente toma</strong>. Sin resistencia limitadora el LED toma toda la corriente disponible y se quema en segundos. La resistencia es obligatoria siempre.</p>
+    <div class="fml">R = (Vs − Vf) / If
+<span class="cm">Vs = voltaje de la fuente
+Vf = voltaje directo del LED según su color
+If = corriente del LED en Amperes (0.020 A = 20 mA)</span></div>
+
+    <div style="background:#0a1628;border-radius:10px;padding:12px;margin:10px 0;overflow-x:auto">
+    <svg viewBox="0 0 480 160" width="100%" style="min-width:300px;display:block;margin:0 auto">
+      <defs><marker id="arG0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M1 1L9 5L1 9" fill="none" stroke="#ffd700" stroke-width="1.8" stroke-linecap="round"/></marker></defs>
+      <text x="240" y="14" text-anchor="middle" font-size="11" fill="#ffd700" font-weight="700" font-family="Exo 2">Circuito básico: Fuente → Resistencia → LED</text>
+      <rect x="12" y="52" width="44" height="52" rx="6" fill="#1a3558" stroke="#ffd700" stroke-width="2"/>
+      <text x="34" y="73" text-anchor="middle" font-size="12" fill="#ffd700" font-weight="700" font-family="Exo 2">12V</text>
+      <text x="34" y="88" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.5)" font-family="Exo 2">FUENTE</text>
+      <text x="59" y="70" font-size="13" fill="#00c896" font-weight="800" font-family="Exo 2">+</text>
+      <text x="3" y="70" font-size="13" fill="#ff6b6b" font-weight="800" font-family="Exo 2">−</text>
+      <line x1="56" y1="75" x2="98" y2="75" stroke="#ffd700" stroke-width="2.5" marker-end="url(#arG0)"/>
+      <rect x="98" y="61" width="72" height="28" rx="6" fill="#5b21b6" stroke="#a78bfa" stroke-width="1.8"/>
+      <text x="134" y="79" text-anchor="middle" font-size="11" fill="#fff" font-weight="700" font-family="Share Tech Mono">470 Ω</text>
+      <text x="134" y="108" text-anchor="middle" font-size="8" fill="#a78bfa" font-family="Exo 2">R=(12−2.0)/0.02=500→470Ω</text>
+      <line x1="170" y1="75" x2="215" y2="75" stroke="#ffd700" stroke-width="2.5"/>
+      <polygon points="215,59 215,91 255,75" fill="#ef4444" stroke="#fca5a5" stroke-width="1.5"/>
+      <line x1="255" y1="59" x2="255" y2="91" stroke="#fca5a5" stroke-width="2.5"/>
+      <line x1="262" y1="56" x2="273" y2="47" stroke="#fca5a5" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="268" y1="65" x2="280" y2="58" stroke="#fca5a5" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="200" y="54" font-size="8.5" fill="#00c896" font-family="Exo 2">Ánodo(+)</text>
+      <text x="252" y="54" font-size="8.5" fill="#ff6b6b" font-family="Exo 2">Cátodo(−)</text>
+      <text x="235" y="107" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.65)" font-family="Exo 2">LED Rojo · Vf=2.0V · 20mA</text>
+      <line x1="255" y1="75" x2="425" y2="75" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="425" y1="75" x2="425" y2="145" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="12" y1="145" x2="425" y2="145" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="12" y1="104" x2="12" y2="145" stroke="#ffd700" stroke-width="2.5"/>
+      <text x="240" y="140" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="Share Tech Mono">I = 20 mA en toda la cadena</text>
+    </svg></div>
+
+    <div class="al info">
+      <span class="al-i">🔍</span>
+      <div><strong>Identificación de terminales del LED por la muesca del encapsulado:</strong> La zona plana o muesca del cuerpo plástico del LED indica el <strong>cátodo (−)</strong>. Este método es confiable incluso si las patas han sido cortadas a la misma longitud. La pata más larga solo es un indicador auxiliar en LEDs nuevos sin cortar.</div>
+    </div>
+
+    <div class="tw"><table>
+      <tr><th>Color LED</th><th>Vf típico</th><th>R con 5V</th><th>R con 9V</th><th>R con 12V</th></tr>
+      <tr><td>🔴 Rojo</td><td>2.0 V</td><td>150 Ω</td><td>350→330 Ω</td><td>500→470 Ω</td></tr>
+      <tr><td>🟠 Naranja</td><td>2.1 V</td><td>145→150 Ω</td><td>345→330 Ω</td><td>495→470 Ω</td></tr>
+      <tr><td>🟡 Amarillo</td><td>2.2 V</td><td>140→150 Ω</td><td>340→330 Ω</td><td>490→470 Ω</td></tr>
+      <tr><td>🟢 Verde std</td><td>2.1 V</td><td>145→150 Ω</td><td>345→330 Ω</td><td>495→470 Ω</td></tr>
+      <tr><td>🔵 Azul</td><td>3.2 V*</td><td>90→82 Ω</td><td>290→270 Ω</td><td>440→430 Ω</td></tr>
+      <tr><td>⚪ Blanco</td><td>3.3 V*</td><td>85→82 Ω</td><td>285→270 Ω</td><td>435→430 Ω</td></tr>
+      <tr><td>🟣 Violeta</td><td>3.3 V*</td><td>85→82 Ω</td><td>285→270 Ω</td><td>435→430 Ω</td></tr>
+    </table></div>
+    <div class="al warn">
+      <span class="al-i">*</span>
+      <div>Los LEDs azul, blanco y violeta tienen un rango de Vf de <strong>3.0 V a 3.5 V</strong>. El valor de <strong>3.2 V (azul) y 3.3 V (blanco/violeta)</strong> son los valores típicos promedio usados para calcular la resistencia. Si usas el valor promedio y calculas la resistencia con él, el LED operará con buena protección en la mayoría de los casos dentro de ese rango.</div>
+    </div>
+    <div class="al warn">
+      <span class="al-i">⚠️</span>
+      <div>Usa siempre la resistencia comercial más cercana <strong>por encima</strong> del valor calculado. Valores estándar: 82, 100, 120, 150, 180, 220, 270, 330, 390, 430, 470, 510, 560, 680, 820, 1000 Ω.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">📐 Caso A — Varios LEDs en SERIE (misma resistencia)</div>
+    <p>En serie, todos los LEDs comparten la misma corriente y <strong>una sola resistencia</strong> controla toda la cadena.</p>
+    <div class="fml">R = (Vs − Vf × N) / If
+<span class="cm">N = número de LEDs en serie (todos del mismo color)</span>
+
+Ejemplo — 3 LEDs rojos en serie, fuente 12V:
+  R = (12 − 2.0×3) / 0.020 = (12−6) / 0.020 = 300Ω → 270Ω</div>
+
+    <div style="background:#0a1628;border-radius:10px;padding:12px;margin:8px 0;overflow-x:auto">
+    <svg viewBox="0 0 500 160" width="100%" style="min-width:340px;display:block;margin:0 auto">
+      <defs><marker id="arKa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M1 1L9 5L1 9" fill="none" stroke="#00c896" stroke-width="1.8" stroke-linecap="round"/></marker></defs>
+      <text x="250" y="14" text-anchor="middle" font-size="10" fill="#00c896" font-weight="700" font-family="Exo 2">Serie — 3 LEDs rojos + 1 resistencia a 12V</text>
+      <rect x="12" y="50" width="44" height="52" rx="6" fill="#1a3558" stroke="#ffd700" stroke-width="2"/>
+      <text x="34" y="71" text-anchor="middle" font-size="12" fill="#ffd700" font-weight="700" font-family="Exo 2">12V</text>
+      <text x="34" y="86" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.5)" font-family="Exo 2">FUENTE</text>
+      <text x="58" y="68" font-size="12" fill="#00c896" font-weight="700">+</text>
+      <text x="4" y="68" font-size="12" fill="#ff6b6b" font-weight="700">−</text>
+      <line x1="56" y1="73" x2="92" y2="73" stroke="#00c896" stroke-width="2.5" marker-end="url(#arKa)"/>
+      <rect x="92" y="59" width="55" height="28" rx="6" fill="#5b21b6" stroke="#a78bfa" stroke-width="1.8"/>
+      <text x="119" y="77" text-anchor="middle" font-size="10" fill="#fff" font-weight="700" font-family="Share Tech Mono">270Ω</text>
+      <line x1="147" y1="73" x2="178" y2="73" stroke="#00c896" stroke-width="2.5"/>
+      <polygon points="178,58 178,88 213,73" fill="#ef4444" stroke="#fca5a5" stroke-width="1.5"/>
+      <line x1="213" y1="58" x2="213" y2="88" stroke="#fca5a5" stroke-width="2"/>
+      <text x="195" y="108" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.6)" font-family="Exo 2">LED1·2V</text>
+      <line x1="213" y1="73" x2="248" y2="73" stroke="#00c896" stroke-width="2.5"/>
+      <polygon points="248,58 248,88 283,73" fill="#ef4444" stroke="#fca5a5" stroke-width="1.5"/>
+      <line x1="283" y1="58" x2="283" y2="88" stroke="#fca5a5" stroke-width="2"/>
+      <text x="265" y="108" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.6)" font-family="Exo 2">LED2·2V</text>
+      <line x1="283" y1="73" x2="318" y2="73" stroke="#00c896" stroke-width="2.5"/>
+      <polygon points="318,58 318,88 353,73" fill="#ef4444" stroke="#fca5a5" stroke-width="1.5"/>
+      <line x1="353" y1="58" x2="353" y2="88" stroke="#fca5a5" stroke-width="2"/>
+      <text x="335" y="108" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.6)" font-family="Exo 2">LED3·2V</text>
+      <line x1="353" y1="73" x2="458" y2="73" stroke="#00c896" stroke-width="2.5"/>
+      <line x1="458" y1="73" x2="458" y2="148" stroke="#00c896" stroke-width="2.5"/>
+      <line x1="12" y1="148" x2="458" y2="148" stroke="#00c896" stroke-width="2.5"/>
+      <line x1="12" y1="102" x2="12" y2="148" stroke="#00c896" stroke-width="2.5"/>
+      <text x="250" y="142" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="Share Tech Mono">I = 20 mA en toda la cadena</text>
+    </svg></div>
+
+    <div class="al warn">
+      <span class="al-i">⚠️</span>
+      <div>En serie, si un LED falla todos los demás se apagan. El voltaje de la fuente debe superar la suma de todos los Vf. <strong>No recomendado para letreros</strong> — usa paralelo.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">📐 Caso B — Varios LEDs en PARALELO (resistencia por rama)</div>
+    <p>En paralelo, cada LED tiene su propia resistencia y su propio camino. Si uno falla, los demás siguen funcionando.</p>
+    <div class="fml">Para cada rama: R_rama = (Vs − Vf_rama) / If
+Corriente total: I_total = N × If
+
+Ejemplo — 3 LEDs azules en paralelo, fuente 12V:
+  R = (12 − 3.2) / 0.020 = 440Ω → usar 430Ω
+  I_total = 3 × 20mA = 60mA</div>
+
+    <div style="background:#0a1628;border-radius:10px;padding:12px;margin:8px 0;overflow-x:auto">
+    <svg viewBox="0 0 490 220" width="100%" style="min-width:320px;display:block;margin:0 auto">
+      <defs><marker id="arKb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M1 1L9 5L1 9" fill="none" stroke="#06b6d4" stroke-width="1.8" stroke-linecap="round"/></marker></defs>
+      <text x="245" y="14" text-anchor="middle" font-size="10" fill="#06b6d4" font-weight="700" font-family="Exo 2">Paralelo — 3 LEDs azules, resistencia por LED, fuente 12V</text>
+      <rect x="12" y="88" width="44" height="52" rx="6" fill="#1a3558" stroke="#ffd700" stroke-width="2"/>
+      <text x="34" y="109" text-anchor="middle" font-size="11" fill="#ffd700" font-weight="700" font-family="Exo 2">12V</text>
+      <text x="34" y="124" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.5)" font-family="Exo 2">FUENTE</text>
+      <text x="58" y="106" font-size="12" fill="#06b6d4" font-weight="700">+</text>
+      <text x="4" y="106" font-size="12" fill="#ff6b6b" font-weight="700">−</text>
+      <line x1="56" y1="100" x2="88" y2="100" stroke="#06b6d4" stroke-width="2.5"/>
+      <line x1="88" y1="30" x2="88" y2="205" stroke="#06b6d4" stroke-width="2.5"/>
+      <line x1="430" y1="30" x2="430" y2="205" stroke="#06b6d4" stroke-width="2.5"/>
+      <line x1="12" y1="140" x2="12" y2="213" stroke="#06b6d4" stroke-width="2.5"/>
+      <line x1="12" y1="213" x2="430" y2="213" stroke="#06b6d4" stroke-width="2.5"/>
+      <text x="88" y="22" text-anchor="middle" font-size="9" fill="#06b6d4" font-family="Exo 2">+12V</text>
+      <text x="430" y="22" text-anchor="middle" font-size="9" fill="#ff6b6b" font-family="Exo 2">GND</text>
+      <line x1="88" y1="46" x2="145" y2="46" stroke="#06b6d4" stroke-width="2" marker-end="url(#arKb)"/>
+      <rect x="145" y="33" width="48" height="26" rx="5" fill="#5b21b6" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="169" y="50" text-anchor="middle" font-size="9" fill="#fff" font-weight="700" font-family="Share Tech Mono">430Ω</text>
+      <line x1="193" y1="46" x2="230" y2="46" stroke="#06b6d4" stroke-width="2"/>
+      <polygon points="230,33 230,59 265,46" fill="#3b82f6" stroke="#93c5fd" stroke-width="1.5"/>
+      <line x1="265" y1="33" x2="265" y2="59" stroke="#93c5fd" stroke-width="2"/>
+      <line x1="265" y1="46" x2="430" y2="46" stroke="#06b6d4" stroke-width="2"/>
+      <text x="350" y="34" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.5)" font-family="Share Tech Mono">Rama 1: 20mA</text>
+      <line x1="88" y1="115" x2="145" y2="115" stroke="#06b6d4" stroke-width="2" marker-end="url(#arKb)"/>
+      <rect x="145" y="102" width="48" height="26" rx="5" fill="#5b21b6" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="169" y="119" text-anchor="middle" font-size="9" fill="#fff" font-weight="700" font-family="Share Tech Mono">430Ω</text>
+      <line x1="193" y1="115" x2="230" y2="115" stroke="#06b6d4" stroke-width="2"/>
+      <polygon points="230,102 230,128 265,115" fill="#3b82f6" stroke="#93c5fd" stroke-width="1.5"/>
+      <line x1="265" y1="102" x2="265" y2="128" stroke="#93c5fd" stroke-width="2"/>
+      <line x1="265" y1="115" x2="430" y2="115" stroke="#06b6d4" stroke-width="2"/>
+      <text x="350" y="102" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.5)" font-family="Share Tech Mono">Rama 2: 20mA</text>
+      <line x1="88" y1="185" x2="145" y2="185" stroke="#06b6d4" stroke-width="2" marker-end="url(#arKb)"/>
+      <rect x="145" y="172" width="48" height="26" rx="5" fill="#5b21b6" stroke="#a78bfa" stroke-width="1.5"/>
+      <text x="169" y="189" text-anchor="middle" font-size="9" fill="#fff" font-weight="700" font-family="Share Tech Mono">430Ω</text>
+      <line x1="193" y1="185" x2="230" y2="185" stroke="#06b6d4" stroke-width="2"/>
+      <polygon points="230,172 230,198 265,185" fill="#3b82f6" stroke="#93c5fd" stroke-width="1.5"/>
+      <line x1="265" y1="172" x2="265" y2="198" stroke="#93c5fd" stroke-width="2"/>
+      <line x1="265" y1="185" x2="430" y2="185" stroke="#06b6d4" stroke-width="2"/>
+      <text x="350" y="172" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.5)" font-family="Share Tech Mono">Rama 3: 20mA</text>
+      <text x="245" y="208" text-anchor="middle" font-size="9" fill="#94a3b8" font-family="Share Tech Mono">I_total = 3×20mA = 60mA | V en cada LED = 12V</text>
+    </svg></div>
+
+    <div class="al success">
+      <span class="al-i">✅</span>
+      <div><strong>El paralelo es el circuito recomendado para letreros.</strong> Independencia total: si un LED falla, los demás siguen encendidos. Cada LED tiene su propia resistencia calculada.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">🔢 Calculadora — Resistencia Limitadora para LED</div>
+    <div class="cf"><label>Color del LED (autocarga Vf)</label>
+      <select id="led-color" onchange="setVf()">
+        <option value="2.0">🔴 Rojo (Vf = 2.0V)</option>
+        <option value="2.1">🟠 Naranja (Vf = 2.1V)</option>
+        <option value="2.2">🟡 Amarillo (Vf = 2.2V)</option>
+        <option value="2.1">🟢 Verde estándar (Vf = 2.1V)</option>
+        <option value="3.2">🟢 Verde puro (Vf = 3.2V)</option>
+        <option value="3.2">🔵 Azul (Vf = 3.2V — valor típico)</option>
+        <option value="3.3">⚪ Blanco (Vf = 3.3V — valor típico)</option>
+        <option value="3.3">🟣 Violeta (Vf = 3.3V — valor típico)</option>
+        <option value="2.0">🌈 Camaleón (usar Vf = 2.0V)</option>
+      </select></div>
+    <div class="cf"><label>Voltaje fuente Vs (V)</label>
+      <input type="number" id="led-vs" placeholder="Ej: 12" inputmode="decimal" step="any"></div>
+    <div class="cf"><label>Voltaje directo Vf (V) — autocargado</label>
+      <input type="number" id="led-vf" placeholder="Auto" inputmode="decimal" step="0.1"></div>
+    <div class="cf"><label>Corriente If (mA)</label>
+      <input type="number" id="led-if" value="20" inputmode="decimal"></div>
+    <button class="cbtn" onclick="calcLED()">Calcular ⚡</button>
+    <div class="rbox" id="led-res" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ── H: DIODOS RECTIFICADORES ── -->
+<div id="fH" class="tp">
+  <div class="card">
+    <div class="ct">🔶 Diodos Rectificadores para Reducir Voltaje con Baterías</div>
+    <p>Un <strong>diodo rectificador</strong> (1N4001 o 1N4007) tiene una caída fija de <strong>~0.7V</strong> por diodo. Colocados en serie antes del LED reducen el voltaje disponible sin necesidad de una resistencia adicional, cuando el voltaje resultante coincide con el Vf del LED.</p>
+    <div class="al amber">
+      <span class="al-i">🔶</span>
+      <div><strong>¿Cuándo conviene?</strong> Solo con baterías de bajo voltaje (3V–6V) donde el voltaje efectivo tras los diodos es cercano al Vf del LED. <strong>Con fuentes de 9V o más usa resistencia limitadora</strong> — es más eficiente y confiable.</div>
+    </div>
+    <div class="al info">
+      <span class="al-i">💡</span>
+      <div>La <strong>banda plateada</strong> del diodo indica el <strong>cátodo (−)</strong>. Conecta: fuente(+) → ánodo → diodo → cátodo → LED ánodo → LED cátodo → fuente(−).</div>
+    </div>
+    <div class="al info">
+      <span class="al-i">*</span>
+      <div><strong>Nota sobre voltaje típico de LEDs azul/blanco:</strong> El rango real del LED azul es <strong>3.0 V a 3.5 V</strong>. En los ejemplos y cálculos se usa <strong>3.2 V</strong> como valor típico (promedio del rango). Esto garantiza que la resistencia o el número de diodos calculados funcionen correctamente con la mayoría de los LEDs azules del mercado.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">📐 Ejemplo 1 — Batería 3.7V + 1 diodo + LED rojo</div>
+    <p>Batería Li-Ion 18650: 3.7V. Con 1 diodo: V_ef = 3.7 − 0.7 = <strong>3.0V</strong>. LED rojo (Vf=2.0V): margen = 1.0V. El LED enciende correctamente.</p>
+    <div style="background:#0a1628;border-radius:10px;padding:12px;margin:8px 0;overflow-x:auto">
+    <svg viewBox="0 0 480 148" width="100%" style="min-width:300px;display:block;margin:0 auto">
+      <defs><marker id="arH1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M1 1L9 5L1 9" fill="none" stroke="#ffd700" stroke-width="1.8" stroke-linecap="round"/></marker></defs>
+      <text x="240" y="13" text-anchor="middle" font-size="10" fill="#ffd700" font-weight="700" font-family="Exo 2">3.7V (Li-Ion 18650) + 1 diodo → LED rojo ✅</text>
+      <rect x="12" y="44" width="44" height="50" rx="6" fill="#1a3558" stroke="#ffd700" stroke-width="2"/>
+      <text x="34" y="64" text-anchor="middle" font-size="11" fill="#ffd700" font-weight="700" font-family="Exo 2">3.7V</text>
+      <text x="34" y="78" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.5)" font-family="Exo 2">18650</text>
+      <text x="58" y="62" font-size="12" fill="#00c896" font-weight="700">+</text>
+      <text x="4" y="62" font-size="12" fill="#ff6b6b" font-weight="700">−</text>
+      <line x1="56" y1="69" x2="100" y2="69" stroke="#ffd700" stroke-width="2.5" marker-end="url(#arH1)"/>
+      <polygon points="102,55 102,83 137,69" fill="#f59e0b" stroke="#fde68a" stroke-width="1.5"/>
+      <line x1="137" y1="55" x2="137" y2="83" stroke="#fde68a" stroke-width="2.5"/>
+      <text x="119" y="100" text-anchor="middle" font-size="8" fill="#fde68a" font-family="Exo 2">1N4007 −0.7V</text>
+      <line x1="137" y1="69" x2="188" y2="69" stroke="#ffd700" stroke-width="2.5"/>
+      <polygon points="188,55 188,83 226,69" fill="#ef4444" stroke="#fca5a5" stroke-width="1.5"/>
+      <line x1="226" y1="55" x2="226" y2="83" stroke="#fca5a5" stroke-width="2.5"/>
+      <line x1="233" y1="52" x2="243" y2="43" stroke="#fca5a5" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="239" y1="60" x2="251" y2="53" stroke="#fca5a5" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="207" y="100" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.65)" font-family="Exo 2">LED Rojo Vf=2.0V</text>
+      <line x1="226" y1="69" x2="420" y2="69" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="420" y1="69" x2="420" y2="135" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="12" y1="135" x2="420" y2="135" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="12" y1="94" x2="12" y2="135" stroke="#ffd700" stroke-width="2.5"/>
+      <rect x="295" y="46" width="138" height="28" rx="5" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+      <text x="364" y="59" text-anchor="middle" font-size="9" fill="#ffd700" font-family="Share Tech Mono">V_ef = 3.7−0.7 = 3.0V</text>
+      <text x="364" y="70" text-anchor="middle" font-size="9" fill="#00c896" font-family="Share Tech Mono">✅ LED rojo enciende bien</text>
+    </svg></div>
+  </div>
+
+  <div class="card">
+    <div class="ct">📐 Ejemplo 2 — Batería 4.5V + 2 diodos + 2 LEDs rojos en paralelo</div>
+    <p>Batería 3×AA (4.5V). Con 2 diodos: V_ef = 4.5 − 1.4 = <strong>3.1V</strong>. Dos LEDs rojos (Vf=2.0V) en paralelo. Margen por LED = 1.1V. Ambos LEDs encienden correctamente.</p>
+    <div style="background:#0a1628;border-radius:10px;padding:12px;margin:8px 0;overflow-x:auto">
+    <svg viewBox="0 0 500 200" width="100%" style="min-width:320px;display:block;margin:0 auto">
+      <defs><marker id="arH2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M1 1L9 5L1 9" fill="none" stroke="#ffd700" stroke-width="1.8" stroke-linecap="round"/></marker></defs>
+      <text x="250" y="13" text-anchor="middle" font-size="10" fill="#ffd700" font-weight="700" font-family="Exo 2">4.5V (3×AA) + 2 diodos → 2 LEDs rojos en paralelo ✅</text>
+      <rect x="12" y="74" width="42" height="50" rx="6" fill="#1a3558" stroke="#ffd700" stroke-width="2"/>
+      <text x="33" y="94" text-anchor="middle" font-size="11" fill="#ffd700" font-weight="700" font-family="Exo 2">4.5V</text>
+      <text x="33" y="108" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.5)" font-family="Exo 2">3×AA</text>
+      <text x="57" y="92" font-size="12" fill="#00c896" font-weight="700">+</text>
+      <text x="4" y="92" font-size="12" fill="#ff6b6b" font-weight="700">−</text>
+      <line x1="54" y1="99" x2="88" y2="99" stroke="#ffd700" stroke-width="2.5" marker-end="url(#arH2)"/>
+      <polygon points="90,85 90,113 122,99" fill="#f59e0b" stroke="#fde68a" stroke-width="1.5"/>
+      <line x1="122" y1="85" x2="122" y2="113" stroke="#fde68a" stroke-width="2.5"/>
+      <text x="106" y="126" text-anchor="middle" font-size="7.5" fill="#fde68a" font-family="Exo 2">D1 −0.7V</text>
+      <line x1="122" y1="99" x2="148" y2="99" stroke="#ffd700" stroke-width="2.5"/>
+      <polygon points="150,85 150,113 182,99" fill="#f59e0b" stroke="#fde68a" stroke-width="1.5"/>
+      <line x1="182" y1="85" x2="182" y2="113" stroke="#fde68a" stroke-width="2.5"/>
+      <text x="166" y="126" text-anchor="middle" font-size="7.5" fill="#fde68a" font-family="Exo 2">D2 −0.7V</text>
+      <line x1="182" y1="99" x2="218" y2="99" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="218" y1="48" x2="218" y2="172" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="398" y1="48" x2="398" y2="172" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="218" y1="63" x2="255" y2="63" stroke="#ffd700" stroke-width="2" marker-end="url(#arH2)"/>
+      <polygon points="257,50 257,76 292,63" fill="#ef4444" stroke="#fca5a5" stroke-width="1.5"/>
+      <line x1="292" y1="50" x2="292" y2="76" stroke="#fca5a5" stroke-width="2"/>
+      <line x1="292" y1="63" x2="398" y2="63" stroke="#ffd700" stroke-width="2"/>
+      <text x="325" y="48" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.55)" font-family="Exo 2">LED1 Rojo 2.0V</text>
+      <line x1="218" y1="148" x2="255" y2="148" stroke="#ffd700" stroke-width="2" marker-end="url(#arH2)"/>
+      <polygon points="257,135 257,161 292,148" fill="#ef4444" stroke="#fca5a5" stroke-width="1.5"/>
+      <line x1="292" y1="135" x2="292" y2="161" stroke="#fca5a5" stroke-width="2"/>
+      <line x1="292" y1="148" x2="398" y2="148" stroke="#ffd700" stroke-width="2"/>
+      <text x="325" y="133" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.55)" font-family="Exo 2">LED2 Rojo 2.0V</text>
+      <line x1="12" y1="124" x2="12" y2="185" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="12" y1="185" x2="398" y2="185" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="398" y1="172" x2="398" y2="185" stroke="#ffd700" stroke-width="2.5"/>
+      <rect x="305" y="86" width="148" height="28" rx="5" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+      <text x="379" y="99" text-anchor="middle" font-size="9" fill="#ffd700" font-family="Share Tech Mono">V_ef=4.5−1.4=3.1V</text>
+      <text x="379" y="109" text-anchor="middle" font-size="9" fill="#00c896" font-family="Share Tech Mono">✅ 2 LEDs rojos OK</text>
+    </svg></div>
+  </div>
+
+  <div class="card">
+    <div class="ct">📐 Ejemplo 3 — Batería 4.8V + 2 diodos + LED azul (Vf típico = 3.2V)</div>
+    <p>Batería 4×NiMH (4.8V). Con <strong>2 diodos</strong>: V_ef = 4.8 − 1.4 = <strong>3.4V</strong>. LED azul (Vf = 3.2V): margen = 0.2V. El LED azul enciende.</p>
+    <div class="al warn">
+      <span class="al-i">⚠️</span>
+      <div><strong>¿Por qué 2 diodos y no 1?</strong> Con 1 solo diodo: V_ef = 4.8 − 0.7 = 4.1V → margen = 4.1 − 3.2 = 0.9V sobre el Vf del LED azul sin resistencia. Ese exceso de voltaje haría circular corriente excesiva, <strong>sobrecalentando y quemando el LED azul</strong>. Con 2 diodos: V_ef = 3.4V → margen = 0.2V → corriente bajo control.</div>
+    </div>
+    <div style="background:#0a1628;border-radius:10px;padding:12px;margin:8px 0;overflow-x:auto">
+    <svg viewBox="0 0 490 148" width="100%" style="min-width:300px;display:block;margin:0 auto">
+      <defs><marker id="arH3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+        <path d="M1 1L9 5L1 9" fill="none" stroke="#ffd700" stroke-width="1.8" stroke-linecap="round"/></marker></defs>
+      <text x="245" y="13" text-anchor="middle" font-size="10" fill="#ffd700" font-weight="700" font-family="Exo 2">4.8V (4×NiMH) + 2 diodos → LED azul ✅</text>
+      <rect x="12" y="44" width="44" height="50" rx="6" fill="#1a3558" stroke="#ffd700" stroke-width="2"/>
+      <text x="34" y="64" text-anchor="middle" font-size="11" fill="#ffd700" font-weight="700" font-family="Exo 2">4.8V</text>
+      <text x="34" y="78" text-anchor="middle" font-size="7.5" fill="rgba(255,255,255,.5)" font-family="Exo 2">4×NiMH</text>
+      <text x="58" y="62" font-size="12" fill="#00c896" font-weight="700">+</text>
+      <text x="4" y="62" font-size="12" fill="#ff6b6b" font-weight="700">−</text>
+      <line x1="56" y1="69" x2="92" y2="69" stroke="#ffd700" stroke-width="2.5" marker-end="url(#arH3)"/>
+      <polygon points="94,55 94,83 126,69" fill="#f59e0b" stroke="#fde68a" stroke-width="1.5"/>
+      <line x1="126" y1="55" x2="126" y2="83" stroke="#fde68a" stroke-width="2.5"/>
+      <text x="110" y="99" text-anchor="middle" font-size="7.5" fill="#fde68a" font-family="Exo 2">D1 −0.7V</text>
+      <line x1="126" y1="69" x2="150" y2="69" stroke="#ffd700" stroke-width="2.5"/>
+      <polygon points="152,55 152,83 184,69" fill="#f59e0b" stroke="#fde68a" stroke-width="1.5"/>
+      <line x1="184" y1="55" x2="184" y2="83" stroke="#fde68a" stroke-width="2.5"/>
+      <text x="168" y="99" text-anchor="middle" font-size="7.5" fill="#fde68a" font-family="Exo 2">D2 −0.7V</text>
+      <line x1="184" y1="69" x2="230" y2="69" stroke="#ffd700" stroke-width="2.5"/>
+      <polygon points="230,55 230,83 268,69" fill="#3b82f6" stroke="#93c5fd" stroke-width="1.5"/>
+      <line x1="268" y1="55" x2="268" y2="83" stroke="#93c5fd" stroke-width="2.5"/>
+      <line x1="275" y1="52" x2="285" y2="43" stroke="#93c5fd" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="281" y1="60" x2="293" y2="53" stroke="#93c5fd" stroke-width="1.5" stroke-linecap="round"/>
+      <text x="249" y="99" text-anchor="middle" font-size="8" fill="rgba(255,255,255,.65)" font-family="Exo 2">LED Azul 3.2V (típico)</text>
+      <line x1="268" y1="69" x2="430" y2="69" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="430" y1="69" x2="430" y2="135" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="12" y1="135" x2="430" y2="135" stroke="#ffd700" stroke-width="2.5"/>
+      <line x1="12" y1="94" x2="12" y2="135" stroke="#ffd700" stroke-width="2.5"/>
+      <rect x="295" y="46" width="152" height="28" rx="5" fill="rgba(255,255,255,.06)" stroke="rgba(255,255,255,.15)" stroke-width="1"/>
+      <text x="371" y="59" text-anchor="middle" font-size="9" fill="#ffd700" font-family="Share Tech Mono">V_ef=4.8−1.4=3.4V</text>
+      <text x="371" y="70" text-anchor="middle" font-size="9" fill="#00c896" font-family="Share Tech Mono">✅ LED azul enciende OK</text>
+    </svg></div>
+  </div>
+
+  <div class="card">
+    <div class="ct">📊 Tabla de Compatibilidad — Batería + Diodos + Color de LED</div>
+    <div class="tw"><table>
+      <tr><th>Fuente</th><th>Diodos</th><th>V efectivo</th><th>🔴 Rojo (2.0V)</th><th>🟡 Nar/Amar/Verde (2.1V)</th><th>🔵 Azul/Blanco (3.2V*)</th></tr>
+      <tr><td rowspan="2"><strong>3.0V</strong><br><small>2×AA</small></td>
+        <td>0</td><td>3.0V</td>
+        <td style="color:#15803d">✅ Bien</td><td style="color:#15803d">✅ Bien</td><td style="color:#b45309">⚠️ Bajo brillo</td></tr>
+      <tr><td>1</td><td>2.3V</td>
+        <td style="color:#b45309">⚠️ Bajo</td><td style="color:#b45309">⚠️ Bajo</td><td style="color:#991b1b">❌ No enciende</td></tr>
+      <tr><td rowspan="2"><strong>3.6V</strong><br><small>3×NiMH</small></td>
+        <td>0</td><td>3.6V</td>
+        <td style="color:#15803d">✅ Bien</td><td style="color:#15803d">✅ Bien</td><td style="color:#b45309">⚠️ Bajo</td></tr>
+      <tr><td>1</td><td>2.9V</td>
+        <td style="color:#15803d">✅ Bien</td><td style="color:#15803d">✅ Bien</td><td style="color:#991b1b">❌</td></tr>
+      <tr><td rowspan="2"><strong>3.7V</strong><br><small>Li-Ion 18650</small></td>
+        <td>0</td><td>3.7V</td>
+        <td style="color:#15803d">✅ Bien</td><td style="color:#15803d">✅ Bien</td><td style="color:#b45309">⚠️ Bajo</td></tr>
+      <tr><td>1</td><td>3.0V</td>
+        <td style="color:#15803d">✅ Bien</td><td style="color:#15803d">✅ Bien</td><td style="color:#991b1b">❌</td></tr>
+      <tr><td rowspan="2"><strong>4.5V</strong><br><small>3×AA</small></td>
+        <td>1</td><td>3.8V</td>
+        <td style="color:#15803d">✅ Bien</td><td style="color:#15803d">✅ Bien</td><td style="color:#b45309">⚠️ Bajo</td></tr>
+      <tr><td>2</td><td>3.1V</td>
+        <td style="color:#15803d">✅ Bien</td><td style="color:#15803d">✅ Bien</td><td style="color:#991b1b">❌</td></tr>
+      <tr><td rowspan="2"><strong>4.8V</strong><br><small>4×NiMH</small></td>
+        <td>1</td><td>4.1V</td>
+        <td style="color:#15803d">✅ Bien</td><td style="color:#15803d">✅ Bien</td><td style="color:#b45309">⚠️ ¡1 diodo es insuf. para azul!</td></tr>
+      <tr><td>2</td><td>3.4V</td>
+        <td style="color:#15803d">✅ Bien</td><td style="color:#15803d">✅ Bien</td><td style="color:#15803d">✅ LED azul OK con 2 diodos</td></tr>
+    </table></div>
+    <div class="al info">
+      <span class="al-i">*</span>
+      <div>LED azul: rango Vf = 3.0–3.5V. Se usa <strong>3.2V</strong> como valor típico promedio. Margen mínimo recomendado: ≥ 0.3V entre V_efectivo y Vf. Menos de 0.3V → posible sobrecalentamiento.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">🔢 Calculadora — Batería + Diodos + LED</div>
+    <div class="cf"><label>Voltaje de la batería (V)</label>
+      <select id="bat-v">
+        <option value="3.0">3.0V — 2 pilas AA</option>
+        <option value="3.6">3.6V — 3 pilas NiMH</option>
+        <option value="3.7">3.7V — Li-Ion 18650</option>
+        <option value="4.5">4.5V — 3 pilas AA</option>
+        <option value="4.8">4.8V — 4 pilas NiMH</option>
+        <option value="5.0">5.0V — USB / Power bank</option>
+      </select></div>
+    <div class="cf"><label>Diodos 1N4007 en serie</label>
+      <select id="bat-diodos">
+        <option value="0">0 diodos</option>
+        <option value="1">1 diodo (−0.7V)</option>
+        <option value="2">2 diodos (−1.4V)</option>
+        <option value="3">3 diodos (−2.1V)</option>
+      </select></div>
+    <div class="cf"><label>Color del LED</label>
+      <select id="bat-color">
+        <option value="2.0">🔴 Rojo (Vf = 2.0V)</option>
+        <option value="2.1">🟠🟡🟢 Naranja/Amarillo/Verde (Vf = 2.1V)</option>
+        <option value="3.2">🔵🟣 Azul/Violeta (Vf = 3.2V típico)</option>
+        <option value="3.3">⚪ Blanco (Vf = 3.3V típico)</option>
+      </select></div>
+    <button class="cbtn" onclick="calcBat()">Calcular ⚡</button>
+    <div class="rbox" id="bat-res" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ── I: CALCULADORA ── -->
+<div id="fI" class="tp">
+  <div class="card" style="background:linear-gradient(135deg,#1e3a5f,#0f3460);border:none">
+    <div style="font-size:14px;font-weight:700;color:#fff;margin-bottom:5px">🔢 Todas las calculadoras en un solo lugar</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.65)">También puedes encontrar cada calculadora integrada en su pestaña temática correspondiente.</div>
+  </div>
+
+  <div class="card">
+    <div class="ct">⚡ Ley de Ohm</div>
+    <p style="font-size:11px;color:#94a3b8;margin-bottom:10px">Deja en blanco el valor a calcular.</p>
+    <div class="cf"><label>Voltaje V (Volts)</label>
+      <input type="number" id="ov2" placeholder="V" inputmode="decimal" step="any"></div>
+    <div class="cf"><label>Corriente I (miliAmperes)</label>
+      <input type="number" id="oi2" placeholder="mA" inputmode="decimal" step="any"></div>
+    <div class="cf"><label>Resistencia R (Ohms)</label>
+      <input type="number" id="or2" placeholder="Ω" inputmode="decimal" step="any"></div>
+    <button class="cbtn" onclick="calcOhm2()">Calcular ⚡</button>
+    <div class="rbox" id="ohm-res2" style="display:none"></div>
+  </div>
+
+  <div class="card">
+    <div class="ct">💥 Potencia Eléctrica</div>
+    <p style="font-size:11px;color:#94a3b8;margin-bottom:10px">Ingresa los valores disponibles (mínimo dos).</p>
+    <div class="cf"><label>Voltaje V (Volts)</label>
+      <input type="number" id="pv2" placeholder="V" inputmode="decimal" step="any"></div>
+    <div class="cf"><label>Corriente I (miliAmperes)</label>
+      <input type="number" id="pi2" placeholder="mA" inputmode="decimal" step="any"></div>
+    <div class="cf"><label>Resistencia R (Ohms)</label>
+      <input type="number" id="pr2" placeholder="Ω" inputmode="decimal" step="any"></div>
+    <button class="cbtn" onclick="calcPot2()">Calcular potencia ⚡</button>
+    <div class="rbox" id="pot-res2" style="display:none"></div>
+  </div>
+
+  <div class="card">
+    <div class="ct">🔒 Resistencia Limitadora para LED</div>
+    <div class="cf"><label>Color del LED</label>
+      <select id="lc2" onchange="setVf2()">
+        <option value="2.0">🔴 Rojo (2.0V)</option>
+        <option value="2.1">🟠 Naranja (2.1V)</option>
+        <option value="2.2">🟡 Amarillo (2.2V)</option>
+        <option value="2.1">🟢 Verde std (2.1V)</option>
+        <option value="3.2">🔵 Azul (3.2V típico)</option>
+        <option value="3.3">⚪ Blanco (3.3V típico)</option>
+        <option value="3.3">🟣 Violeta (3.3V típico)</option>
+        <option value="2.0">🌈 Camaleón (usar 2.0V)</option>
+      </select></div>
+    <div class="cf"><label>Voltaje fuente Vs (V)</label>
+      <input type="number" id="lvs2" placeholder="Ej: 12" inputmode="decimal" step="any"></div>
+    <div class="cf"><label>Vf del LED (V)</label>
+      <input type="number" id="lvf2" placeholder="Auto" inputmode="decimal" step="0.1"></div>
+    <div class="cf"><label>Corriente If (mA)</label>
+      <input type="number" id="lif2" value="20" inputmode="decimal"></div>
+    <button class="cbtn" onclick="calcLED2()">Calcular ⚡</button>
+    <div class="rbox" id="led-res2" style="display:none"></div>
+  </div>
+
+  <div class="card">
+    <div class="ct">🔶 Batería + Diodos + LED</div>
+    <div class="cf"><label>Voltaje batería</label>
+      <select id="bv2">
+        <option value="3.0">3.0V — 2×AA</option>
+        <option value="3.6">3.6V — 3×NiMH</option>
+        <option value="3.7">3.7V — 18650</option>
+        <option value="4.5">4.5V — 3×AA</option>
+        <option value="4.8">4.8V — 4×NiMH</option>
+        <option value="5.0">5.0V — USB</option>
+      </select></div>
+    <div class="cf"><label>Diodos 1N4007 en serie</label>
+      <select id="bd2">
+        <option value="0">0 diodos</option>
+        <option value="1">1 diodo (−0.7V)</option>
+        <option value="2">2 diodos (−1.4V)</option>
+        <option value="3">3 diodos (−2.1V)</option>
+      </select></div>
+    <div class="cf"><label>Color del LED</label>
+      <select id="bc2">
+        <option value="2.0">🔴 Rojo (2.0V)</option>
+        <option value="2.1">🟠🟡🟢 Nar/Amar/Verde (2.1V)</option>
+        <option value="3.2">🔵 Azul/Violeta (3.2V típico)</option>
+        <option value="3.3">⚪ Blanco (3.3V típico)</option>
+      </select></div>
+    <button class="cbtn" onclick="calcBat2()">Calcular ⚡</button>
+    <div class="rbox" id="bat-res2" style="display:none"></div>
+  </div>
+
+  <div class="card">
+    <div class="ct">⚡ Fuente 5V para LEDs en paralelo</div>
+    <div class="cf"><label>LEDs Rojos (Vf 2.0V)</label>
+      <input type="number" id="f5r2" value="0" min="0" inputmode="numeric"></div>
+    <div class="cf"><label>LEDs Naranja/Amarillo/Verde (Vf 2.1V)</label>
+      <input type="number" id="f5n2" value="0" min="0" inputmode="numeric"></div>
+    <div class="cf"><label>LEDs Azul/Violeta (Vf 3.2V)</label>
+      <input type="number" id="f5b2" value="0" min="0" inputmode="numeric"></div>
+    <div class="cf"><label>LEDs Blanco (Vf 3.3V)</label>
+      <input type="number" id="f5w2" value="0" min="0" inputmode="numeric"></div>
+    <div class="cf"><label>LEDs Camaleón (usar Vf 2.0V)</label>
+      <input type="number" id="f5c2" value="0" min="0" inputmode="numeric"></div>
+    <button class="cbtn" onclick="calcF5b()">Calcular fuente ⚡</button>
+    <div class="rbox" id="f5-res2" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════════
+     J — TABLA COMPLETA DE COLORES DE LED
+══════════════════════════════════════════════════════════════ -->
+<div id="fJ" class="tp">
+  <div class="card">
+    <div class="ct">🎨 Tabla Completa de Colores de LED y Voltajes</div>
+    <p>Cada color de LED está fabricado con un material semiconductor diferente, lo que determina su voltaje directo (Vf) y corriente de operación. La tabla siguiente incluye todos los tipos relevantes para proyectos de letreros.</p>
+
+    <div class="tw"><table>
+      <tr><th>Color</th><th>Vf mín.</th><th>Vf máx.</th><th>If típica</th><th>Material semiconductor</th><th>Notas</th></tr>
+      <tr><td>🔴 Rojo</td><td>1.8 V</td><td>2.2 V</td><td>20 mA</td><td>AlGaAs / GaAsP</td><td>El más común y económico</td></tr>
+      <tr><td>🟠 Naranja</td><td>2.0 V</td><td>2.2 V</td><td>20 mA</td><td>GaAsP</td><td>Similar al rojo en consumo</td></tr>
+      <tr><td>🟡 Amarillo</td><td>2.0 V</td><td>2.4 V</td><td>20 mA</td><td>GaAsP / GaP</td><td>Alta visibilidad diurna</td></tr>
+      <tr><td>🟢 Verde estándar</td><td>2.0 V</td><td>2.4 V</td><td>20 mA</td><td>GaP</td><td>Verde "clásico" de baja eficiencia</td></tr>
+      <tr><td>🟢 Verde puro</td><td>3.0 V</td><td>3.5 V</td><td>20 mA</td><td>InGaN</td><td>Verde brillante de alta eficiencia</td></tr>
+      <tr><td>🔵 Azul</td><td>3.0 V</td><td>3.5 V</td><td>20 mA</td><td>InGaN</td><td>Requiere mayor voltaje que rojo/verde</td></tr>
+      <tr><td>⚪ Blanco frío</td><td>3.0 V</td><td>3.6 V</td><td>20 mA</td><td>InGaN + fósforo amarillo</td><td>Tono azulado, 6000–8000 K</td></tr>
+      <tr><td>🤍 Blanco neutro</td><td>3.0 V</td><td>3.5 V</td><td>20 mA</td><td>InGaN + fósforo</td><td>Tono equilibrado, 4000–5000 K</td></tr>
+      <tr><td>🟡 Blanco cálido</td><td>2.8 V</td><td>3.4 V</td><td>20 mA</td><td>InGaN + fósforo naranja</td><td>Tono amarillento, 2700–3500 K</td></tr>
+      <tr><td>🟣 Violeta</td><td>3.0 V</td><td>3.5 V</td><td>20 mA</td><td>InGaN</td><td>Decoración, efectos</td></tr>
+      <tr><td>🌑 UV (ultravioleta)</td><td>3.2 V</td><td>3.8 V</td><td>20 mA</td><td>InGaN / AlGaN</td><td>"Luz negra", 365–405 nm, fluorescente</td></tr>
+      <tr><td>🔴 Infrarrojo (IR)</td><td>1.2 V</td><td>1.8 V</td><td>20–100 mA</td><td>GaAlAs / GaAs</td><td>Invisible al ojo humano, controles remotos</td></tr>
+      <tr><td style="background:#fff5e6">🌈 Camaleón lento</td><td>2.0 V</td><td>3.2 V</td><td>20 mA</td><td>InGaN RGB + oscilador</td><td>Ciclo de color cada 1–3 seg, sin control externo</td></tr>
+      <tr><td style="background:#fff5e6">🌈 Camaleón rápido</td><td>2.0 V</td><td>3.2 V</td><td>20 mA</td><td>InGaN RGB + oscilador</td><td>Ciclo de color cada 0.1–0.3 seg, efecto estroboscópico</td></tr>
+      <tr><td style="background:#f0fff4">💡 Alto brillo (HP) rojo</td><td>1.8 V</td><td>2.4 V</td><td>20–50 mA</td><td>AlInGaP</td><td>10–100× más brillo que estándar, mayor If</td></tr>
+      <tr><td style="background:#f0fff4">💡 Alto brillo (HP) azul/blanco</td><td>3.0 V</td><td>3.6 V</td><td>20–50 mA</td><td>InGaN</td><td>Requiere disipación de calor adecuada</td></tr>
+      <tr><td style="background:#f0fff4">💡 Alta potencia 1W</td><td>3.0 V</td><td>3.8 V</td><td>300–350 mA</td><td>InGaN / AlInGaP</td><td>Requiere disipador de calor obligatorio</td></tr>
+      <tr><td style="background:#f0fff4">💡 Alta potencia 3W</td><td>3.2 V</td><td>3.8 V</td><td>700–750 mA</td><td>InGaN / AlInGaP</td><td>Disipador grande, no apto para principiantes</td></tr>
+    </table></div>
+
+    <div class="al amber">
+      <span class="al-i">⚠️</span>
+      <div>Para los <strong>LEDs de alto brillo y alta potencia</strong>, la corriente máxima es mayor — usa siempre la hoja de datos (datasheet) del fabricante para calcular la resistencia correcta, ya que el Vf varía con la temperatura.</div>
+    </div>
+
+    <div class="al info">
+      <span class="al-i">📚</span>
+      <div><strong>Referencias de consulta:</strong>
+        <br>• <a href="https://www.vishay.com/leds/" target="_blank" style="color:#06b6d4">Vishay — Datasheets de LEDs</a>
+        <br>• <a href="https://www.kingbright.com/index.php" target="_blank" style="color:#06b6d4">Kingbright — Fabricante de LEDs estándar</a>
+        <br>• <a href="https://components101.com/articles/led-datasheet-explained-pin-configuration-features-voltage-current-specifications" target="_blank" style="color:#06b6d4">Components101 — Cómo leer un datasheet de LED</a>
+        <br>• <a href="https://www.electronics-tutorials.ws/diode/diode_8.html" target="_blank" style="color:#06b6d4">Electronics Tutorials — LEDs en detalle (inglés)</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     K — RESISTENCIA COMO LIMITADORA EN CIRCUITOS CON LEDs
+══════════════════════════════════════════════════════════════ -->
+
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     L — DIODOS + BATERÍAS DE BAJO VOLTAJE
+══════════════════════════════════════════════════════════════ -->
+
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     M — LED CAMALEÓN
+══════════════════════════════════════════════════════════════ -->
+<div id="fM" class="tp">
+  <div class="card">
+    <div class="ct">🌈 ¿Qué es un LED Camaleón?</div>
+    <p>Un <strong>LED camaleón</strong> (RGB de cambio automático, "magic LED" o "color changing LED") cambia de color por sí solo, sin ningún controlador externo. En su interior contiene un <strong>chip oscilador integrado</strong> que activa los canales rojo, verde y azul en una secuencia programada de fábrica.</p>
+    <div style="background:#0a1628;border-radius:10px;padding:14px;margin:10px 0;overflow-x:auto">
+    <svg viewBox="0 0 480 130" width="100%" style="display:block;margin:0 auto">
+      <text x="240" y="15" text-anchor="middle" font-size="11" fill="#ffd700" font-weight="700" font-family="Exo 2">Secuencia de cambio de color — ciclos automáticos</text>
+      <text x="20" y="42" font-size="9" fill="#fde68a" font-family="Exo 2">Lento (1–3 seg/color):</text>
+      <rect x="20" y="48" width="28" height="16" rx="3" fill="#ef4444"/>
+      <rect x="52" y="48" width="28" height="16" rx="3" fill="#22c55e"/>
+      <rect x="84" y="48" width="28" height="16" rx="3" fill="#3b82f6"/>
+      <rect x="116" y="48" width="28" height="16" rx="3" fill="#a855f7"/>
+      <rect x="148" y="48" width="28" height="16" rx="3" fill="#fbbf24"/>
+      <rect x="180" y="48" width="28" height="16" rx="3" fill="#06b6d4"/>
+      <text x="215" y="59" font-size="9" fill="rgba(255,255,255,.4)" font-family="Exo 2">→ ciclo continuo ...</text>
+      <text x="20" y="86" font-size="9" fill="#fde68a" font-family="Exo 2">Rápido (0.1–0.3 seg/color):</text>
+      <rect x="20" y="92" width="12" height="14" rx="2" fill="#ef4444"/>
+      <rect x="35" y="92" width="12" height="14" rx="2" fill="#22c55e"/>
+      <rect x="50" y="92" width="12" height="14" rx="2" fill="#3b82f6"/>
+      <rect x="65" y="92" width="12" height="14" rx="2" fill="#a855f7"/>
+      <rect x="80" y="92" width="12" height="14" rx="2" fill="#fbbf24"/>
+      <rect x="95" y="92" width="12" height="14" rx="2" fill="#06b6d4"/>
+      <rect x="110" y="92" width="12" height="14" rx="2" fill="#ef4444"/>
+      <rect x="125" y="92" width="12" height="14" rx="2" fill="#22c55e"/>
+      <rect x="140" y="92" width="12" height="14" rx="2" fill="#3b82f6"/>
+      <rect x="155" y="92" width="12" height="14" rx="2" fill="#a855f7"/>
+      <text x="175" y="103" font-size="9" fill="rgba(255,255,255,.4)" font-family="Exo 2">→ ...</text>
+      <!-- Chip interno -->
+      <rect x="300" y="30" width="155" height="72" rx="8" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.12)" stroke-width="1.2"/>
+      <text x="377" y="48" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.6)" font-family="Exo 2">Estructura interna</text>
+      <rect x="314" y="55" width="36" height="30" rx="3" fill="#1e3a5f" stroke="#60a5fa" stroke-width="1.2"/>
+      <text x="332" y="66" text-anchor="middle" font-size="7" fill="#ef4444" font-weight="700" font-family="Share Tech Mono">R</text>
+      <text x="332" y="75" text-anchor="middle" font-size="7" fill="#22c55e" font-weight="700" font-family="Share Tech Mono">G</text>
+      <text x="332" y="84" text-anchor="middle" font-size="7" fill="#60a5fa" font-weight="700" font-family="Share Tech Mono">B</text>
+      <rect x="355" y="59" width="22" height="22" rx="3" fill="#5b21b6" stroke="#a78bfa" stroke-width="1.2"/>
+      <text x="366" y="73" text-anchor="middle" font-size="6" fill="#fff" font-family="Share Tech Mono">OSC</text>
+      <text x="390" y="62" font-size="8" fill="rgba(255,255,255,.55)" font-family="Exo 2">Chip RGB</text>
+      <text x="390" y="73" font-size="8" fill="rgba(255,255,255,.55)" font-family="Exo 2">+ oscilador</text>
+      <text x="390" y="84" font-size="8" fill="rgba(255,255,255,.55)" font-family="Exo 2">integrado</text>
+    </svg></div>
+  </div>
+
+  <div class="card">
+    <div class="ct">🔍 Cómo Identificar las Terminales del LED Camaleón</div>
+    <div class="al warn">
+      <span class="al-i">⚠️</span>
+      <div><strong>El método correcto de identificación es la muesca o zona plana del encapsulado</strong>, no la longitud de las patas. Las patas pueden haber sido cortadas a la misma longitud — en ese caso la longitud ya no sirve como referencia. La muesca siempre está presente.</div>
+    </div>
+
+    <div style="background:#0a1628;border-radius:10px;padding:14px;margin:10px 0;overflow-x:auto">
+    <svg viewBox="0 0 480 230" width="100%" style="display:block;margin:0 auto">
+      <text x="240" y="16" text-anchor="middle" font-size="11" fill="#ffd700" font-weight="700" font-family="Exo 2">Identificación de terminales — LED Camaleón 5mm</text>
+
+      <!-- Vista lateral -->
+      <text x="100" y="36" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,.65)" font-family="Exo 2">Vista lateral</text>
+      <ellipse cx="100" cy="73" rx="30" ry="40" fill="rgba(200,200,200,.10)" stroke="#ccc" stroke-width="1.5"/>
+      <!-- Muesca/zona plana en el lado del cátodo -->
+      <line x1="72" y1="58" x2="72" y2="88" stroke="#ff6b6b" stroke-width="4" stroke-linecap="round"/>
+      <!-- Patas -->
+      <line x1="88" y1="113" x2="88" y2="158" stroke="#ccc" stroke-width="4"/>
+      <line x1="112" y1="113" x2="112" y2="150" stroke="#ccc" stroke-width="4"/>
+      <!-- Flecha y etiqueta muesca -->
+      <line x1="40" y1="73" x2="68" y2="73" stroke="#ff6b6b" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="38" y="65" text-anchor="end" font-size="9" fill="#ff6b6b" font-weight="700" font-family="Exo 2">Muesca/zona</text>
+      <text x="38" y="76" text-anchor="end" font-size="9" fill="#ff6b6b" font-weight="700" font-family="Exo 2">plana = Cátodo(−)</text>
+      <!-- Etiquetas patas -->
+      <text x="88" y="172" text-anchor="middle" font-size="8.5" fill="#94a3b8" font-family="Exo 2">(aux.)</text>
+      <text x="112" y="168" text-anchor="middle" font-size="8.5" fill="#94a3b8" font-family="Exo 2">(aux.)</text>
+
+      <!-- Vista desde abajo -->
+      <text x="340" y="36" text-anchor="middle" font-size="9.5" fill="rgba(255,255,255,.65)" font-family="Exo 2">Vista desde la base (mirando hacia arriba)</text>
+      <ellipse cx="340" cy="110" rx="55" ry="55" fill="rgba(200,200,200,.07)" stroke="#aaa" stroke-width="1.5"/>
+      <!-- Zona plana visible desde abajo -->
+      <line x1="287" y1="88" x2="287" y2="132" stroke="#ff6b6b" stroke-width="4" stroke-linecap="round"/>
+      <!-- Chip RGB -->
+      <rect x="322" y="94" width="36" height="32" rx="4" fill="#1e3a5f" stroke="#60a5fa" stroke-width="1.2"/>
+      <text x="340" y="107" text-anchor="middle" font-size="7" fill="#ef4444" font-weight="700" font-family="Share Tech Mono">R</text>
+      <text x="340" y="116" text-anchor="middle" font-size="7" fill="#22c55e" font-weight="700" font-family="Share Tech Mono">G</text>
+      <text x="340" y="125" text-anchor="middle" font-size="7" fill="#60a5fa" font-weight="700" font-family="Share Tech Mono">B</text>
+      <!-- Flecha cátodo -->
+      <line x1="258" y1="110" x2="283" y2="110" stroke="#ff6b6b" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="256" y="105" text-anchor="end" font-size="9" fill="#ff6b6b" font-weight="700" font-family="Exo 2">Zona plana</text>
+      <text x="256" y="116" text-anchor="end" font-size="9" fill="#ff6b6b" font-weight="700" font-family="Exo 2">= Cátodo (−)</text>
+      <!-- Flecha ánodo lado curvo -->
+      <line x1="398" y1="110" x2="393" y2="110" stroke="#00c896" stroke-width="1.5" stroke-dasharray="3,2"/>
+      <text x="400" y="105" font-size="9" fill="#00c896" font-weight="700" font-family="Exo 2">Lado curvo</text>
+      <text x="400" y="116" font-size="9" fill="#00c896" font-weight="700" font-family="Exo 2">= Ánodo (+)</text>
+
+      <!-- Leyenda -->
+      <text x="240" y="188" text-anchor="middle" font-size="9" fill="#ffd700" font-weight="700" font-family="Exo 2">Regla definitiva: Zona plana del encapsulado = Cátodo (−) = Negativo</text>
+      <text x="240" y="202" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.55)" font-family="Exo 2">Las patas son solo referencia auxiliar en LEDs nuevos sin cortar</text>
+    </svg></div>
+
+    <div class="tw"><table>
+      <tr><th>Método</th><th>Ánodo (+)</th><th>Cátodo (−)</th><th>Confiabilidad</th></tr>
+      <tr><td>🥇 Muesca/zona plana del encapsulado</td><td>Lado curvo del lente</td><td>Lado plano/muesca del lente</td><td style="color:#15803d;font-weight:600">Alta — funciona siempre</td></tr>
+      <tr><td>🥈 Reborde interno del lente</td><td>Sin reborde prominente</td><td>Con reborde visible</td><td style="color:#15803d">Alta — funciona siempre</td></tr>
+      <tr><td>🥉 Longitud de pata (solo aux.)</td><td>Pata más larga</td><td>Pata más corta</td><td style="color:#b45309">Baja — no sirve si las patas fueron cortadas</td></tr>
+      <tr><td>🔬 Multímetro (continuidad/diodo)</td><td>Punta roja</td><td>Punta negra</td><td style="color:#15803d">Alta — siempre confiable</td></tr>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <div class="ct">🔍 Tipos de LED Camaleón</div>
+    <div class="tw"><table>
+      <tr><th>Tipo</th><th>Ciclo por color</th><th>Efecto visual</th><th>Ideal para</th></tr>
+      <tr><td>🌈 Lento (Slow Flash)</td><td>1–3 seg</td><td>Cada color visible con claridad</td><td>Decoración, escaparates</td></tr>
+      <tr><td>⚡ Rápido (Fast Flash)</td><td>0.1–0.3 seg</td><td>Estroboscópico</td><td>Atención, festivo</td></tr>
+      <tr><td>🎨 Gradual (Fade)</td><td>2–5 seg</td><td>Transición suave sin parpadeo</td><td>Ambientación relajante</td></tr>
+    </table></div>
+    <h4>Voltaje y resistencia — usa siempre Vf del rojo (peor caso)</h4>
+    <div class="fml">R = (Vs − 2.0) / 0.020  ← Vf mínimo = rojo = 2.0V
+
+Ejemplo con fuente 9V:
+  R = (9 − 2.0) / 0.020 = 350 Ω → usar 330 Ω
+  Con 330Ω: rojo activo → 21mA ✅ · azul activo → 17.6mA ✅</div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════════════════════
+     N — FUENTE COMERCIAL DE 5V
+══════════════════════════════════════════════════════════════ -->
+<div id="fN" class="tp">
+  <div class="card">
+    <div class="ct">⚡ Fuente Electrónica Comercial de 5V DC para LEDs</div>
+    <p>Una <strong>fuente regulada de 5V DC</strong> es una excelente opción para proyectos con LEDs en el aula: es segura, estable, económica y disponible en múltiples formatos comerciales.</p>
+
+    <div class="tw"><table>
+      <tr><th>Tipo de fuente 5V</th><th>Corriente máx.</th><th>Potencia máx.</th><th>Ideal para</th><th>Precio aprox. MX</th></tr>
+      <tr><td>Adaptador USB 5V</td><td>0.5–2.4 A</td><td>2.5–12 W</td><td>1–60 LEDs (depende del ampere)</td><td>$50–$150</td></tr>
+      <tr><td>Power bank USB</td><td>1–3 A</td><td>5–15 W</td><td>Proyectos portátiles, hasta ~75 LEDs</td><td>$150–$500</td></tr>
+      <tr><td>Fuente DC regulada 5V/2A</td><td>2 A</td><td>10 W</td><td>Hasta 100 LEDs, proyectos medianos</td><td>$80–$200</td></tr>
+      <tr><td>Fuente DC regulada 5V/5A</td><td>5 A</td><td>25 W</td><td>Hasta 250 LEDs, letreros</td><td>$150–$350</td></tr>
+      <tr><td>Fuente DC regulada 5V/10A</td><td>10 A</td><td>50 W</td><td>Hasta 500 LEDs, instalaciones</td><td>$250–$600</td></tr>
+    </table></div>
+
+    <h4>¿Por qué 5V y no 3.3V o 9V?</h4>
+    <ul>
+      <li>5V es el voltaje estándar USB — fuentes y cables son universales y económicos.</li>
+      <li>Funciona con LEDs de todos los colores comunes (rojo, naranja, amarillo, verde: Vf ~2.0–2.4V; azul/blanco: Vf ~3.2V).</li>
+      <li>La resistencia limitadora siempre tiene un valor práctico — no demasiado grande ni demasiado pequeña.</li>
+      <li>Es completamente seguro para trabajar en el aula con estudiantes.</li>
+    </ul>
+
+    <div class="al amber">
+      <span class="al-i">💡</span>
+      <div><strong>Regla del 80%:</strong> Nunca cargues la fuente a su máxima capacidad. Usa como máximo el 80% de su corriente nominal. Una fuente de 5V/2A debe alimentar un máximo de 1.6A de carga para mayor durabilidad.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="ct">🔢 Calculadora — Fuente 5V para LEDs en Paralelo</div>
+    <p style="font-size:11px;color:#94a3b8;margin-bottom:10px">Ingresa cuántos LEDs de cada color necesitas. La calculadora determina la resistencia, corriente y fuente necesaria.</p>
+
+    <div class="cf"><label>LEDs Rojos (Vf 2.0V)</label>
+      <input type="number" id="f5-r" value="0" min="0" inputmode="numeric"></div>
+    <div class="cf"><label>LEDs Naranja / Amarillo / Verde std (Vf 2.1V)</label>
+      <input type="number" id="f5-n" value="0" min="0" inputmode="numeric"></div>
+    <div class="cf"><label>LEDs Azul / Violeta (Vf 3.2V)</label>
+      <input type="number" id="f5-b" value="0" min="0" inputmode="numeric"></div>
+    <div class="cf"><label>LEDs Blanco (Vf 3.3V)</label>
+      <input type="number" id="f5-w" value="0" min="0" inputmode="numeric"></div>
+    <div class="cf"><label>LEDs Camaleón (usar Vf 2.0V)</label>
+      <input type="number" id="f5-c" value="0" min="0" inputmode="numeric"></div>
+    <button class="cbtn" onclick="calcF5()">Calcular fuente 5V ⚡</button>
+    <div class="rbox" id="f5-res" style="display:none"></div>
+  </div>
+</div>
+
+
+</div><!-- /ft -->
+</div><!-- /main -->
+
+<script>
+function switchTab(btn,gid,pid){
+  document.getElementById(gid).querySelectorAll('.tp').forEach(p=>p.classList.remove('active'));
+  document.getElementById(pid).classList.add('active');
+  btn.closest('.tabs').querySelectorAll('.tb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function setVf(){
+  document.getElementById('led-vf').value = document.getElementById('led-color').value;
+}
+
+function comercial(r){
+  const v=[10,12,15,18,22,27,33,39,47,56,68,82,100,120,150,180,220,270,330,390,430,470,510,560,680,820,1000,1200,1500,1800,2200];
+  return v.reduce((best,x)=>Math.abs(x-r)<Math.abs(best-r)?x:best,v[0]);
+}
+
+function calcOhm(){
+  const v=parseFloat(document.getElementById('ov').value)||0;
+  const i=parseFloat(document.getElementById('oi').value)||0;
+  const r=parseFloat(document.getElementById('or').value)||0;
+  const res=document.getElementById('ohm-res');
+  res.style.display='block';
+  let out='',pw='—';
+  if(v&&i&&!r){out='R = '+(v/(i/1000)).toFixed(2)+' Ω  →  comercial: '+comercial(v/(i/1000))+' Ω';pw=(v*(i/1000)*1000).toFixed(2)+' mW';}
+  else if(v&&r&&!i){out='I = '+((v/r)*1000).toFixed(3)+' mA';pw=(v*v/r*1000).toFixed(2)+' mW';}
+  else if(i&&r&&!v){out='V = '+((i/1000)*r).toFixed(3)+' V';pw=(Math.pow(i/1000,2)*r*1000).toFixed(2)+' mW';}
+  else{res.innerHTML='<div class="rl" style="color:#ff6b6b">Deja en blanco solo el valor que buscas</div>';return;}
+  res.innerHTML=`<div class="rl"><strong style="color:#ffd700;font-size:15px">${out}</strong></div>
+<div class="rl"><span class="rlb">Potencia P = V × I: </span>${pw}</div>`;
+}
+
+function calcLED(){
+  const Vs=parseFloat(document.getElementById('led-vs').value)||0;
+  const Vf=parseFloat(document.getElementById('led-vf').value)||parseFloat(document.getElementById('led-color').value)||0;
+  const If=parseFloat(document.getElementById('led-if').value)||20;
+  const res=document.getElementById('led-res');
+  res.style.display='block';
+  if(!Vs||!Vf){res.innerHTML='<div class="rl" style="color:#ff6b6b">⚠ Completa todos los campos</div>';return;}
+  if(Vs<=Vf){res.innerHTML='<div class="rl" style="color:#ff6b6b">⚠ El voltaje de la fuente debe ser mayor que el Vf del LED</div>';return;}
+  const R=(Vs-Vf)/(If/1000);
+  const Pr=Math.pow(If/1000,2)*R;
+  const Fmin=(If/1000)/0.8;
+  res.innerHTML=`<div class="rl"><span class="rlb">Resistencia calculada: </span><strong style="color:#ffd700">${R.toFixed(1)} Ω</strong></div>
+<div class="rl"><span class="rlb">Resistencia comercial: </span><strong style="color:#ffd700">${comercial(R)} Ω</strong></div>
+<div class="rl"><span class="rlb">Potencia en resistencia: </span>${(Pr*1000).toFixed(1)} mW → usar resistencia de <strong>1/4W (250mW)</strong> o mayor</div>
+<div class="rl"><span class="rlb">Corriente del circuito: </span>${If.toFixed(0)} mA</div>`;
+}
+
+function calcPot(){
+  const v=parseFloat(document.getElementById('pv').value)||0;
+  const i=parseFloat(document.getElementById('pi').value)||0;
+  const r=parseFloat(document.getElementById('pr').value)||0;
+  const res=document.getElementById('pot-res');
+  res.style.display='block';
+  const p1=v&&i?`<div class="rl"><span class="rlb">P = V × I = </span><strong style="color:#ffd700">${(v*(i/1000)*1000).toFixed(3)} mW = ${(v*(i/1000)).toFixed(6)} W</strong></div>`:'';
+  const p2=i&&r?`<div class="rl"><span class="rlb">P = I² × R = </span><strong style="color:#ffd700">${(Math.pow(i/1000,2)*r*1000).toFixed(3)} mW</strong></div>`:'';
+  const p3=v&&r?`<div class="rl"><span class="rlb">P = V² / R = </span><strong style="color:#ffd700">${(v*v/r*1000).toFixed(3)} mW</strong></div>`:'';
+  if(!p1&&!p2&&!p3){res.innerHTML='<div class="rl" style="color:#ff6b6b">Ingresa al menos dos valores</div>';return;}
+  res.innerHTML=p1+p2+p3;
+}
+
+function calcBat() {
+  const Vs = parseFloat(document.getElementById('bat-v').value)||0;
+  const nd = parseFloat(document.getElementById('bat-diodos').value)||0;
+  const Vf = parseFloat(document.getElementById('bat-color').value)||0;
+  const If = parseFloat(document.getElementById('bat-if').value)||20;
+  const Vef = Vs - (nd * 0.7);
+  const res = document.getElementById('bat-res');
+  res.style.display = 'block';
+  const margen = Vef - Vf;
+  let status = '';
+  if (margen < 0) status = '<div class="rl" style="color:#ff6b6b">❌ Voltaje insuficiente — el LED no enciende</div>';
+  else if (margen < 0.5) status = '<div class="rl" style="color:#f97316">⚠️ Voltaje muy justo — el LED puede encender con brillo muy bajo</div>';
+  else status = '<div class="rl" style="color:#00c896">✅ Combinación funciona bien</div>';
+  if (margen > 0) {
+    const R = margen / (If/1000);
+    const Rc = comercial(R);
+    res.innerHTML = `${status}
+<div class="rl"><span class="rlb">V efectivo: </span><strong style="color:#ffd700">${Vs.toFixed(1)}V − ${(nd*0.7).toFixed(1)}V = ${Vef.toFixed(2)}V</strong></div>
+<div class="rl"><span class="rlb">Margen para resistencia: </span>${margen.toFixed(2)}V</div>
+<div class="rl"><span class="rlb">Resistencia calculada: </span>${R.toFixed(1)} Ω → comercial <strong>${Rc} Ω</strong></div>
+<div class="rl"><span class="rlb">Corriente real con ${Rc}Ω: </span>${(margen/Rc*1000).toFixed(1)} mA</div>`;
+  } else {
+    res.innerHTML = status;
+  }
+}
+
+function calcF5() {
+  const grupos = [
+    {id:'f5-r', nm:'Rojos',   vf:2.0},
+    {id:'f5-n', nm:'Nar/Amar/Verde', vf:2.1},
+    {id:'f5-b', nm:'Azul/Violeta', vf:3.2},
+    {id:'f5-w', nm:'Blanco',  vf:3.3},
+    {id:'f5-c', nm:'Camaleón',vf:2.0},
+  ];
+  const Vs = 5.0;
+  const res = document.getElementById('f5-res');
+  res.style.display='block';
+  let total_n=0, total_i=0, detail='';
+  grupos.forEach(g=>{
+    const n = parseInt(document.getElementById(g.id).value)||0;
+    if(n>0){
+      const R = (Vs-g.vf)/0.020;
+      const Rc = comercial(R);
+      const I = n*20;
+      total_n += n; total_i += I;
+      detail += `<div class="rl"><span class="rlb">${g.nm} ×${n}: </span>R=${Rc}Ω · ${I}mA</div>`;
+    }
+  });
+  if(!total_n){res.innerHTML='<div class="rl" style="color:#ff6b6b">Ingresa al menos un LED</div>';return;}
+  const Fmin = total_i/1000/0.8;
+  const fuente = Fmin<=0.5?'5V / 0.5A (USB mínimo)':Fmin<=1?'5V / 1A (cargador de celular)':Fmin<=2?'5V / 2A':Fmin<=3?'5V / 3A':Fmin<=5?'5V / 5A':'5V / '+Math.ceil(Fmin)+'A';
+  res.innerHTML = detail +
+    `<div style="border-top:1px solid #334;margin:7px 0;padding-top:7px">
+    <div class="rl"><span class="rlb">Total LEDs: </span><strong style="color:#ffd700">${total_n}</strong></div>
+    <div class="rl"><span class="rlb">Corriente total: </span><strong style="color:#ffd700">${total_i} mA = ${(total_i/1000).toFixed(3)} A</strong></div>
+    <div class="rl"><span class="rlb">Fuente mínima (80%): </span>${Fmin.toFixed(3)} A</div>
+    <div class="rl"><span class="rlb">Fuente recomendada: </span><strong style="color:#00c896">${fuente} ✅</strong></div>
+    <div class="rl"><span class="rlb">Potencia total: </span>${(total_i/1000*5).toFixed(2)} W</div></div>`;
+}
+
+
+// ── Duplicate calculators in fI (Calculadoras tab) ──────────────────────
+function calcOhm2(){
+  const v=parseFloat(document.getElementById('ov2').value)||0;
+  const i=parseFloat(document.getElementById('oi2').value)||0;
+  const r=parseFloat(document.getElementById('or2').value)||0;
+  const res=document.getElementById('ohm-res2');
+  res.style.display='block';
+  let out='';
+  if(v&&i&&!r) out='R = '+(v/(i/1000)).toFixed(2)+' Ω → comercial: '+comercial(v/(i/1000))+' Ω';
+  else if(v&&r&&!i) out='I = '+((v/r)*1000).toFixed(3)+' mA';
+  else if(i&&r&&!v) out='V = '+((i/1000)*r).toFixed(3)+' V';
+  else{res.innerHTML='<div class="rl" style="color:#ff6b6b">Deja en blanco solo el valor a calcular</div>';return;}
+  const pw=v&&i?(v*(i/1000)*1000).toFixed(2)+' mW':'—';
+  res.innerHTML='<div class="rl"><strong style="color:#ffd700;font-size:15px">'+out+'</strong></div>'
+    +'<div class="rl"><span class="rlb">Potencia P=VI: </span>'+pw+'</div>';
+}
+function calcPot2(){
+  const v=parseFloat(document.getElementById('pv2').value)||0;
+  const i=parseFloat(document.getElementById('pi2').value)||0;
+  const r=parseFloat(document.getElementById('pr2').value)||0;
+  const res=document.getElementById('pot-res2');
+  res.style.display='block';
+  const p1=v&&i?'<div class="rl"><span class="rlb">P=V×I: </span><strong style="color:#ffd700">'+(v*(i/1000)*1000).toFixed(3)+' mW</strong></div>':'';
+  const p2=i&&r?'<div class="rl"><span class="rlb">P=I²×R: </span><strong style="color:#ffd700">'+(Math.pow(i/1000,2)*r*1000).toFixed(3)+' mW</strong></div>':'';
+  const p3=v&&r?'<div class="rl"><span class="rlb">P=V²/R: </span><strong style="color:#ffd700">'+(v*v/r*1000).toFixed(3)+' mW</strong></div>':'';
+  if(!p1&&!p2&&!p3){res.innerHTML='<div class="rl" style="color:#ff6b6b">Ingresa al menos dos valores</div>';return;}
+  res.innerHTML=p1+p2+p3;
+}
+function setVf2(){document.getElementById('lvf2').value=document.getElementById('lc2').value;}
+function calcLED2(){
+  const Vs=parseFloat(document.getElementById('lvs2').value)||0;
+  const Vf=parseFloat(document.getElementById('lvf2').value)||parseFloat(document.getElementById('lc2').value)||0;
+  const If=parseFloat(document.getElementById('lif2').value)||20;
+  const res=document.getElementById('led-res2');
+  res.style.display='block';
+  if(!Vs||!Vf){res.innerHTML='<div class="rl" style="color:#ff6b6b">⚠ Completa todos los campos</div>';return;}
+  if(Vs<=Vf){res.innerHTML='<div class="rl" style="color:#ff6b6b">⚠ Vs debe ser mayor que Vf</div>';return;}
+  const R=(Vs-Vf)/(If/1000);const Rc=comercial(R);const Pr=Math.pow(If/1000,2)*R;
+  res.innerHTML='<div class="rl"><span class="rlb">R calculada: </span><strong style="color:#ffd700">'+R.toFixed(1)+' Ω</strong></div>'
+    +'<div class="rl"><span class="rlb">R comercial: </span><strong style="color:#ffd700">'+Rc+' Ω</strong></div>'
+    +'<div class="rl"><span class="rlb">Potencia en R: </span>'+(Pr*1000).toFixed(1)+' mW → usar 1/4W (250mW)</div>';
+}
+function calcBat2(){
+  const Vs=parseFloat(document.getElementById('bv2').value)||0;
+  const nd=parseFloat(document.getElementById('bd2').value)||0;
+  const Vf=parseFloat(document.getElementById('bc2').value)||0;
+  const Vef=Vs-(nd*0.7);
+  const res=document.getElementById('bat-res2');
+  res.style.display='block';
+  const margen=Vef-Vf;
+  let status='';
+  if(margen<0) status='<div class="rl" style="color:#ff6b6b">❌ Voltaje insuficiente</div>';
+  else if(margen<0.3) status='<div class="rl" style="color:#f97316">⚠️ Margen muy bajo — riesgo de sobrecalentamiento</div>';
+  else status='<div class="rl" style="color:#00c896">✅ Combinación funciona bien</div>';
+  const Rval=margen>0?(margen/(20/1000)).toFixed(0)+' Ω (protección recomendada)':'—';
+  res.innerHTML=status
+    +'<div class="rl"><span class="rlb">V efectivo: </span><strong style="color:#ffd700">'+Vef.toFixed(2)+'V</strong></div>'
+    +'<div class="rl"><span class="rlb">Margen: </span>'+margen.toFixed(2)+'V</div>'
+    +(margen>0?'<div class="rl"><span class="rlb">R protección (opcional): </span>'+Rval+'</div>':'');
+}
+function calcF5b(){
+  const grupos=[
+    {id:'f5r2',nm:'Rojos',vf:2.0},{id:'f5n2',nm:'Nar/Amar/Verde',vf:2.1},
+    {id:'f5b2',nm:'Azul/Violeta',vf:3.2},{id:'f5w2',nm:'Blanco',vf:3.3},
+    {id:'f5c2',nm:'Camaleón',vf:2.0}
+  ];
+  const Vs=5.0; const res=document.getElementById('f5-res2');
+  res.style.display='block';
+  let nt=0,it=0,det='';
+  grupos.forEach(g=>{
+    const n=parseInt(document.getElementById(g.id).value)||0;
+    if(n>0){const R=(Vs-g.vf)/0.020;const Rc=comercial(R);const I=n*20;
+      nt+=n;it+=I;det+='<div class="rl"><span class="rlb">'+g.nm+'×'+n+': </span>R='+Rc+'Ω · '+I+'mA</div>';}
+  });
+  if(!nt){res.innerHTML='<div class="rl" style="color:#ff6b6b">Ingresa al menos un LED</div>';return;}
+  const Fmin=it/1000/0.8;
+  const fn=Fmin<=0.5?'5V/0.5A (USB mín.)':Fmin<=1?'5V/1A (cargador celular)':Fmin<=2?'5V/2A':Fmin<=3?'5V/3A':Fmin<=5?'5V/5A':'5V/'+Math.ceil(Fmin)+'A';
+  res.innerHTML=det+'<div style="border-top:1px solid #334;margin:7px 0;padding-top:7px">'
+    +'<div class="rl"><span class="rlb">Total: </span><strong style="color:#ffd700">'+nt+' LEDs · '+it+'mA</strong></div>'
+    +'<div class="rl"><span class="rlb">Fuente recomendada: </span><strong style="color:#00c896">'+fn+' ✅</strong></div></div>';
+}
+
+</script>
+</body>
+</html>
