@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<meta name="theme-color" content="#0a2240">
+<title>El LED — Qué es y Cómo Funciona | CEMEY</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Exo 2',sans-serif;background:#f0f4f8;color:#1e293b;min-height:100vh}
+.back-bar{background:#071830;padding:8px 14px;display:flex;align-items:center;
+  border-bottom:3px solid #eab308;position:sticky;top:0;z-index:200}
+.back-btn{display:inline-flex;align-items:center;gap:7px;color:#ffd700;font-size:13px;
+  font-weight:700;text-decoration:none;padding:6px 12px;
+  background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);
+  border-radius:8px;transition:all .2s;touch-action:manipulation}
+.back-btn:hover{background:rgba(255,215,0,.2)}
+.back-bar-title{margin-left:12px;font-size:12px;color:rgba(255,255,255,.45);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr{background:linear-gradient(135deg,#0a2240 0%,#0f3460 55%,#1a4a7a 100%);
+  padding:10px 14px;display:flex;align-items:center;gap:12px;
+  box-shadow:0 2px 12px rgba(0,0,0,.4)}
+.hdr-logo{width:48px;height:48px;border-radius:50%;flex-shrink:0;
+  border:2px solid rgba(255,215,0,.55);overflow:hidden;background:rgba(255,255,255,.05)}
+.hdr-logo img{width:100%;height:100%;object-fit:contain}
+.hdr-text{flex:1;min-width:0}
+.hdr-inst{font-size:13px;color:#ffd700;font-weight:700;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-proj{font-size:14px;color:#fff;font-weight:700;line-height:1.25;margin-top:1px}
+.hdr-sub{font-size:9px;color:rgba(255,255,255,.48);margin-top:2px}
+.cbar{background:#071830;padding:5px 14px;display:flex;flex-wrap:wrap;
+  gap:2px 20px;border-bottom:1px solid rgba(255,255,255,.07)}
+.cr{font-size:10.5px;color:rgba(255,255,255,.45);white-space:nowrap}
+.cr-label{font-size:9.5px;font-style:italic;color:rgba(255,255,255,.3)}
+.cr strong{color:rgba(255,255,255,.9);font-weight:700;font-size:11px}
+.mod-hero{background:linear-gradient(135deg,#713f12,#a16207,#ca8a04);
+  padding:22px 16px 18px;text-align:center;border-bottom:4px solid #fde68a}
+.mod-icon{font-size:42px;margin-bottom:8px}
+.mod-title{font-size:clamp(18px,5vw,26px);font-weight:800;color:#fff;line-height:1.2}
+.mod-sub{font-size:12px;color:rgba(255,255,255,.7);margin-top:6px;line-height:1.5}
+.main{max-width:860px;margin:0 auto;padding:18px 13px 50px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;padding-bottom:2px}
+.tb{padding:9px 15px;border:2px solid transparent;border-radius:20px;cursor:pointer;
+  font-family:'Exo 2',sans-serif;font-size:12px;font-weight:600;white-space:nowrap;
+  background:#e2e8f0;color:#475569;touch-action:manipulation;transition:all .15s;flex-shrink:0}
+.tb:hover{background:#fef9c3;color:#a16207}
+.tb.active{background:#ca8a04;color:#fff;border-color:#a16207}
+.tp{display:none}.tp.active{display:block}
+.card{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;
+  box-shadow:0 1px 8px rgba(15,52,96,.08);border:1px solid #e2e8f0}
+.ct{font-size:14px;font-weight:700;margin-bottom:10px;color:#a16207}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:8px 0;border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:11.5px;min-width:280px}
+th{background:#ca8a04;color:#fff;padding:8px 10px;text-align:left;font-size:11.5px}
+td{padding:7px 10px;border-bottom:1px solid #e2e8f0;font-size:11.5px;line-height:1.5}
+tr:nth-child(even) td{background:#fefce8}
+tr:hover td{background:#fef9c3}
+.fml{background:#1e293b;color:#7dd3fc;border-radius:8px;padding:12px 14px;
+  margin:8px 0;font-family:'Share Tech Mono',monospace;font-size:12px;
+  border-left:4px solid #06b6d4;overflow-x:auto;white-space:pre;line-height:1.75}
+.cm{color:#64748b;font-size:10.5px}
+.al{border-radius:8px;padding:10px 12px;margin:8px 0;font-size:12px;
+  display:flex;gap:8px;align-items:flex-start;line-height:1.55}
+.al-i{font-size:16px;flex-shrink:0;margin-top:1px}
+.info{background:#e0f2fe;border-left:4px solid #06b6d4;color:#0c4a6e}
+.warn{background:#fff7ed;border-left:4px solid #f97316;color:#7c2d12}
+.success{background:#dcfce7;border-left:4px solid #00c896;color:#14532d}
+.danger{background:#fee2e2;border-left:4px solid #dc2626;color:#7f1d1d}
+.amber{background:#fffbeb;border-left:4px solid #eab308;color:#713f12}
+.purple{background:#ede9fe;border-left:4px solid #7c3aed;color:#4c1d95}
+.circ{background:#0a1628;border-radius:10px;padding:10px;overflow-x:auto;margin:10px 0}
+.circ svg{min-width:300px;display:block;margin:0 auto}
+.ig{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:8px 0}
+.ic{background:#f8fafc;border-radius:10px;padding:11px 9px;
+  text-align:center;border:1px solid #e2e8f0}
+.ic-em{font-size:20px;margin-bottom:4px}
+.ic-t{font-size:12px;font-weight:700;color:#a16207}
+.ic-d{font-size:11px;color:#64748b;margin-top:3px;line-height:1.4}
+.steps{list-style:none}
+.steps li{display:flex;gap:11px;padding:10px 0;
+  border-bottom:1px solid #f1f5f9;align-items:flex-start}
+.steps li:last-child{border-bottom:none}
+.sn{width:26px;height:26px;border-radius:50%;background:#ca8a04;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;font-weight:700;flex-shrink:0;margin-top:2px}
+.st{font-size:12.5px;line-height:1.6;color:#475569}
+.st strong{color:#1e293b}
+.cf{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
+.cf label{font-size:11.5px;font-weight:700;color:#64748b}
+.cf input,.cf select{padding:10px 11px;border:1.5px solid #e2e8f0;
+  border-radius:8px;font-size:15px;font-family:'Exo 2',sans-serif;
+  width:100%;background:#fff;-webkit-appearance:none}
+.cf input:focus,.cf select:focus{outline:none;border-color:#ca8a04}
+.cbtn{background:#ca8a04;color:#fff;border:none;border-radius:8px;
+  padding:13px;font-size:15px;font-weight:700;cursor:pointer;
+  font-family:'Exo 2',sans-serif;width:100%;min-height:48px;touch-action:manipulation}
+.cbtn:active{background:#a16207}
+.rbox{background:#1e293b;color:#00c896;border-radius:8px;
+  padding:13px;margin-top:9px;font-family:'Share Tech Mono',monospace;display:none}
+.rl{margin:4px 0;font-size:13px}
+.rlb{color:#94a3b8}
+.led-swatch{display:inline-block;width:14px;height:14px;border-radius:50%;
+  vertical-align:middle;margin-right:4px;box-shadow:0 0 4px currentColor}
+p{line-height:1.7;font-size:12.5px;color:#475569;margin-bottom:7px}
+h4{font-size:13.5px;font-weight:700;color:#a16207;margin:12px 0 7px}
+ul,ol{padding-left:17px;font-size:12.5px;color:#475569;line-height:1.8}
+li{margin-bottom:3px}
+strong{color:#1e293b}
+@media(max-width:480px){.ig{grid-template-columns:repeat(2,1fr)}.hdr-inst{font-size:11px}}
+@media(min-width:681px){.main{padding:22px 20px 50px}}
+</style>
+</head>
+<body>
+
+<div class="back-bar">
+  <a class="back-btn" href="https://coordsanjose-glitch.github.io/simulador-cemey/">&#8592; Volver al Men&uacute;</a>
+  <span class="back-bar-title">El LED &mdash; Qu&eacute; es y C&oacute;mo Funciona</span>
+</div>
+
+<header class="hdr">
+  <div class="hdr-logo"><img src="data:image/png;base64,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" alt="CEMEY"></div>
+  <div class="hdr-text">
+    <div class="hdr-inst">Centro Escolar Manuel Espinosa Yglesias &mdash; CEMEY Puebla</div>
+    <div class="hdr-proj">Un Futuro Brillante para Todos</div>
+    <div class="hdr-sub">Simulador T&eacute;cnico de Electr&oacute;nica &bull; 3&deg; de Secundaria</div>
+  </div>
+</header>
+
+<div class="cbar">
+  <span class="cr"><span class="cr-label">Docente titular &nbsp;</span><strong>Reyna Cordera P&eacute;rez</strong></span>
+  <span class="cr"><span class="cr-label">Asesor tecnol&oacute;gico y creador &nbsp;</span><strong>Ing. Rodolfo Fernando Porras S&aacute;nchez</strong></span>
+</div>
+
+<div class="mod-hero">
+  <div class="mod-icon">💡</div>
+  <div class="mod-title">El LED &mdash; Qu&eacute; es y C&oacute;mo Funciona</div>
+  <div class="mod-sub">Historia &bull; Partes f&iacute;sicas &bull; Unión PN &bull; Colores &bull; Tipos &bull; LED Camale&oacute;n &bull; C&oacute;mo conectar &bull; Calculadora</div>
+</div>
+
+<div class="main">
+
+<div class="tabs">
+  <button class="tb active" onclick="switchTab(this,'mt','t3a')">💡 ¿Qué es?</button>
+  <button class="tb" onclick="switchTab(this,'mt','t3b')">🔍 Partes físicas</button>
+  <button class="tb" onclick="switchTab(this,'mt','t3c')">🔎 Identificar terminales</button>
+  <button class="tb" onclick="switchTab(this,'mt','t3d')">⚛️ Unión PN</button>
+  <button class="tb" onclick="switchTab(this,'mt','t3e')">⚡ Funcionamiento eléctrico</button>
+  <button class="tb" onclick="switchTab(this,'mt','t3f')">🎨 Colores y voltajes</button>
+  <button class="tb" onclick="switchTab(this,'mt','t3g')">📊 LED vs foco tradicional</button>
+  <button class="tb" onclick="switchTab(this,'mt','t3h')">🔦 Tipos por encapsulado</button>
+  <button class="tb" onclick="switchTab(this,'mt','t3i')">🏷️ Tipos por función</button>
+  <button class="tb" onclick="switchTab(this,'mt','t3j')">🌈 LED Camaleón</button>
+  <button class="tb" onclick="switchTab(this,'mt','t3k')">⚡ Circuito y Calculadora</button>
+</div>
+
+<div id="mt">
+  <div id="t3a" class="tp active">
+<div class="card">
+  <div class="ct">💡 ¿Qué es un LED?</div>
+  <p><strong>LED</strong> son las siglas en inglés de <strong>Light Emitting Diode</strong> (Diodo Emisor de Luz). Es un componente electrónico semiconductor que convierte la electricidad directamente en luz de forma muy eficiente, sin filamentos, sin gas y sin calor excesivo.</p>
+  <div class="al amber"><span class="al-i">📖</span><div><strong>En español:</strong> Diodo Emisor de Luz — aunque en México y en el mundo técnico hispanohablante se usa universalmente el término LED tal cual, sin traducirse.</div></div>
+
+  <h4>Un poco de historia</h4>
+  <ul class="steps">
+    <li><div class="sn">1907</div><div class="st"><strong>Primer indicio:</strong> Henry Joseph Round observa emisión de luz en carburo de silicio al aplicar electricidad — sin entender el fenómeno.</div></li>
+    <li><div class="sn">1961</div><div class="st"><strong>Primera patente:</strong> Robert Biard y Gary Pittman (Texas Instruments) documentan emisión infrarroja en diodos de germanio.</div></li>
+    <li><div class="sn">1962</div><div class="st"><strong>Primer LED visible:</strong> <strong>Nick Holonyak Jr.</strong> (General Electric) crea el primer LED rojo visible. Es considerado el "padre del LED".</div></li>
+    <li><div class="sn">1972</div><div class="st"><strong>LED amarillo y verde:</strong> M. George Craford desarrolla LEDs verde y amarillo de mayor eficiencia.</div></li>
+    <li><div class="sn">1993</div><div class="st"><strong>LED azul — el gran salto:</strong> <strong>Shuji Nakamura</strong> (Nichia, Japón) logra el LED azul brillante de InGaN. Permite crear luz blanca mezclando RGB. Premio Nobel de Física 2014.</div></li>
+    <li><div class="sn">2000s</div><div class="st"><strong>Revolución luminosa:</strong> Los LEDs reemplazan focos, semáforos, pantallas de celular, televisiones y la iluminación arquitectónica mundial.</div></li>
+  </ul>
+
+  <h4>¿Por qué el LED revolucionó la iluminación?</h4>
+  <div class="ig">
+    <div class="ic"><div class="ic-em">⚡</div><div class="ic-t">Eficiencia</div><div class="ic-d">Convierte hasta el 90% de la energía en luz. El foco tradicional solo aprovecha el 5%.</div></div>
+    <div class="ic"><div class="ic-em">⏱️</div><div class="ic-t">Durabilidad</div><div class="ic-d">25,000–50,000 horas de vida útil frente a las ~1,000 horas del foco incandescente.</div></div>
+    <div class="ic"><div class="ic-em">❄️</div><div class="ic-t">Poca temperatura</div><div class="ic-d">Opera a 50–60°C frente a los 200°C del filamento incandescente.</div></div>
+    <div class="ic"><div class="ic-em">🔋</div><div class="ic-t">Bajo voltaje</div><div class="ic-d">Funciona con 1.8–3.6V DC — compatible con baterías y puertos USB.</div></div>
+    <div class="ic"><div class="ic-em">🌈</div><div class="ic-t">Colores puros</div><div class="ic-d">Emite un color específico sin necesidad de filtros — cada material produce su color naturalmente.</div></div>
+    <div class="ic"><div class="ic-em">📏</div><div class="ic-t">Tamaño mínimo</div><div class="ic-d">El chip puede ser de menos de 1mm² — permite pantallas de ultra alta resolución.</div></div>
+  </div>
+</div>
+</div>
+  <div id="t3b" class="tp">
+<div class="card">
+  <div class="ct">🔍 Partes Físicas Externas del LED</div>
+  <div style="background:#0a1628;border-radius:10px;padding:14px;text-align:center;margin:10px 0"><img src="data:image/jpeg;base64,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cjpfjzrZIWpxRCCiNLYecAIBOpS0oDp3ka6DqPbOLHLviLKmI4wgwLxGnO81RGrbaiVBOgPa69NdB9NASKlKUBCXvLtG/Zh7/NNUxzyzZl6qtP8AimVtF2OWriUzkocY8DRZ3IJRuPM5inkLB00026JPn1181LTY5cTiBf8AIHHGDFuMKDHZQlR3pUyZBWVDTQA81OmhPce7zga7h1+dPEP9pG/9LgVM6j+KWSVabzlU2Q4ytu8XdM2OGySUoEOMxorUDRW5hZ6ajQjrrqBIKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBSlKAUpSgFKUoBUd4n+TXKPU8v2K6kVR3if5Nco9Ty/YrqVmRVkzhGlKVucg2tnyXI7NGVFtF/utuYUsuKaizHGkFRABUQkga6ADX6BWb495x88si+03vvUpSCbz1Hj3nHzyyL7Te+9Tx7zj55ZF9pvfepSkC89R495x88si+03vvU8e84+eWRfab33qUpAvPUePecfPLIvtN771PHvOPnlkX2m996lKQLz1Hj3nHzyyL7Te+9Tx7zj55ZF9pvfepSkC89R495x88si+03vvU8e84+eWRfab33qUpAvPUePecfPLIvtN771PHvOPnlkX2m996lKQLz1Hj3nHzyyL7Te+9Tx7zj55ZF9pvfepSkC89R495x88si+03vvU8e84+eWRfab33qUpAvPUePecfPLIvtN771PHvOPnlkX2m996lKQLz1Hj3nHzyyL7Te+9Tx7zj55ZF9pvfepSkC89R495x88si+03vvU8e84+eWRfab33qUpAvPUePecfPLIvtN771PHvOPnlkX2m996lKQLz1Hj3nHzyyL7Te+9Tx7zj55ZF9pvfepSkC89R495x88si+03vvU8e84+eWRfab33qUpAvPUePecfPLIvtN771PHvOPnlkX2m996lKQLz1Hj3nHzyyL7Te+9Tx7zj55ZF9pvfepSkC89R495x88si+03vvU8e84+eWRfab33qUpAvPUePecfPLIvtN771PHvOPnlkX2m996lKQLz1Hj3nHzyyL7Te+9Tx7zj55ZF9pvfepSkC89R495x88si+03vvU8e84+eWRfab33qUpAvPUePecfPLIvtN771PHvOPnlkX2m996lKQLz1Hj3nHzyyL7Te+9Tx7zj55ZF9pvfepSkC89R495x88si+03vvU8e84+eWRfab33qUpAvPUePecfPLIvtN771ecrNMxlRnYsrLL8+w8gtutOXF1SFpI0KSCrQgjoQaUpAvPU0NKUoQf//Z" alt="Partes físicas del LED 5mm — diagrama técnico" style="max-width:100%;width:420px;border-radius:6px;display:inline-block"/><div style="font-size:10px;color:#64748b;margin-top:8px;font-family:Exo 2,sans-serif">Ilustración técnica de corte transversal — LED 5mm estándar</div></div>
+  <div class="tw"><table>
+    <tr><th>Parte</th><th>Descripción</th><th>Función</th></tr>
+    <tr><td><strong>Lente / Capuchón</strong></td><td>Parte transparente o de color en la parte superior</td><td>Protege el chip semiconductor y dirige la luz. Su color puede coincidir o no con el color emitido.</td></tr>
+    <tr><td><strong>Cuerpo plástico</strong></td><td>Cilindro rígido que da forma al LED</td><td>Sostiene el chip y actúa como reflector interno. Define el ángulo de emisión (típico: 30°–60°).</td></tr>
+    <tr><td><strong>Ánodo (+)</strong></td><td>Pata <em>larga</em></td><td>Terminal positivo. Aquí entra la corriente. Siempre conectar hacia el (+) de la fuente o la resistencia.</td></tr>
+    <tr><td><strong>Cátodo (−)</strong></td><td>Pata <em>corta</em></td><td>Terminal negativo. Por aquí sale la corriente. Conectar al (−) o GND de la fuente.</td></tr>
+    <tr><td><strong>Zona plana del lente</strong></td><td>Achaflanado en un lado del capuchón</td><td>Indica visualmente el cátodo (−) — el lado plano corresponde siempre al cátodo.</td></tr>
+  </table></div>
+  <div class="al info"><span class="al-i">💡</span><div><strong>Dato clave:</strong> El ángulo de emisión del LED 5mm estándar es de 30°–60°. Para aplicaciones que requieren mayor ángulo de dispersión se usan LEDs con lente difuso o tipo "wide angle" de 120°.</div></div>
+</div>
+</div>
+  <div id="t3c" class="tp">
+<div class="card">
+  <div class="ct">🔎 Cómo Identificar el Ánodo y el Cátodo</div>
+  <p>Antes de conectar cualquier LED es imprescindible identificar correctamente sus terminales. Conectarlo al revés no lo daña (simplemente no enciende), pero conectarlo sin resistencia sí lo quema en segundos.</p>
+
+  <div class="tw"><table>
+    <tr><th>#</th><th>Método de identificación</th><th>Cómo se ve</th><th>Confiabilidad</th></tr>
+    <tr>
+      <td><strong>1</strong></td>
+      <td>Longitud de las patas</td>
+      <td>Pata <strong>larga = Ánodo (+)</strong> · Pata <strong>corta = Cátodo (−)</strong></td>
+      <td>✅ Alta — en LEDs nuevos sin cortar</td>
+    </tr>
+    <tr>
+      <td><strong>2</strong></td>
+      <td>Zona plana / muesca del encapsulado</td>
+      <td>El lado plano (achaflanado) del cuerpo cilíndrico indica el <strong>Cátodo (−)</strong></td>
+      <td>✅ Muy alta — funciona aunque las patas estén cortadas</td>
+    </tr>
+    <tr>
+      <td><strong>3</strong></td>
+      <td>Reborde interno del lente (LED transparente)</td>
+      <td>Al mirar desde arriba: el <strong>poste pequeño = Ánodo (+)</strong> · el <strong>copa grande = Cátodo (−)</strong></td>
+      <td>⚠️ Media — requiere lente claro y buena iluminación</td>
+    </tr>
+    <tr>
+      <td><strong>4</strong></td>
+      <td>Multímetro en modo diodo o continuidad</td>
+      <td>El multímetro indica continuidad (o voltaje 1.5–3V) cuando la punta roja (+) toca el <strong>Ánodo</strong></td>
+      <td>✅ Muy alta — definitivo aunque no se vea nada</td>
+    </tr>
+  </table></div>
+
+  <div class="al success"><span class="al-i">✅</span><div><strong>Método recomendado en clase:</strong> Combina métodos 1 y 2. Primero identifica la pata larga como ánodo (+), luego confirma con la zona plana del cuerpo. Si las patas fueron cortadas, usa el método 2 o el 4.</div></div>
+
+  <div class="al warn"><span class="al-i">⚠️</span><div>Si conectas el LED con polaridad invertida: <strong>simplemente no enciende</strong>, no se daña. Basta con girar el LED 180° y volver a intentar.</div></div>
+</div>
+</div>
+  <div id="t3d" class="tp">
+<div class="card">
+  <div class="ct">⚛️ Funcionamiento Físico — La Unión PN</div>
+  <h4>¿Qué es un semiconductor?</h4>
+  <p>Un <strong>semiconductor</strong> es un material que no es buen conductor ni buen aislante — está en el punto medio. Su resistencia eléctrica puede <em>controlarse</em> añadiendo pequeñas cantidades de otros elementos (proceso llamado <strong>dopado</strong>). Los semiconductores más comunes en electrónica son el silicio (Si), el germanio (Ge) y el arseniuro de galio (GaAs).</p>
+
+  <div class="circ"><svg viewBox="0 0 480 230" width="100%" style="min-width:320px;display:block;margin:0 auto">
+  <rect width="480" height="230" fill="#0a1628" rx="10"/>
+
+  <!-- Title -->
+  <text x="240" y="22" text-anchor="middle" font-size="13" fill="#ffd700"
+    font-weight="700" font-family="Exo 2,sans-serif">Unión PN — Cómo genera luz un LED</text>
+
+  <!-- N Layer -->
+  <rect x="30" y="40" width="180" height="100" rx="8" fill="#1e3a5f" stroke="#3b82f6" stroke-width="2"/>
+  <text x="120" y="68" text-anchor="middle" font-size="14" fill="#93c5fd"
+    font-weight="700" font-family="Exo 2">Capa N</text>
+  <text x="120" y="84" text-anchor="middle" font-size="10" fill="#60a5fa"
+    font-family="Exo 2">Electrones en exceso (−)</text>
+  <!-- Electrons as dots -->
+  <circle cx="65"  cy="108" r="6" fill="#3b82f6"/><text x="65"  y="113" text-anchor="middle" font-size="8" fill="#fff">e⁻</text>
+  <circle cx="95"  cy="108" r="6" fill="#3b82f6"/><text x="95"  y="113" text-anchor="middle" font-size="8" fill="#fff">e⁻</text>
+  <circle cx="125" cy="108" r="6" fill="#3b82f6"/><text x="125" y="113" text-anchor="middle" font-size="8" fill="#fff">e⁻</text>
+  <circle cx="155" cy="108" r="6" fill="#3b82f6"/><text x="155" y="113" text-anchor="middle" font-size="8" fill="#fff">e⁻</text>
+  <circle cx="185" cy="108" r="6" fill="#3b82f6"/><text x="185" y="113" text-anchor="middle" font-size="8" fill="#fff">e⁻</text>
+
+  <!-- P Layer -->
+  <rect x="270" y="40" width="180" height="100" rx="8" fill="#3b1c1c" stroke="#ef4444" stroke-width="2"/>
+  <text x="360" y="68" text-anchor="middle" font-size="14" fill="#fca5a5"
+    font-weight="700" font-family="Exo 2">Capa P</text>
+  <text x="360" y="84" text-anchor="middle" font-size="10" fill="#f87171"
+    font-family="Exo 2">Huecos (ausencia de e⁻)</text>
+  <!-- Holes as circles -->
+  <circle cx="295" cy="108" r="6" fill="none" stroke="#ef4444" stroke-width="2"/><text x="295" y="113" text-anchor="middle" font-size="9" fill="#ef4444">○</text>
+  <circle cx="325" cy="108" r="6" fill="none" stroke="#ef4444" stroke-width="2"/>
+  <circle cx="355" cy="108" r="6" fill="none" stroke="#ef4444" stroke-width="2"/>
+  <circle cx="385" cy="108" r="6" fill="none" stroke="#ef4444" stroke-width="2"/>
+  <circle cx="415" cy="108" r="6" fill="none" stroke="#ef4444" stroke-width="2"/>
+
+  <!-- Junction line -->
+  <line x1="210" y1="35" x2="210" y2="148" stroke="#ffd700" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <line x1="270" y1="35" x2="270" y2="148" stroke="#ffd700" stroke-width="2.5" stroke-dasharray="6,3"/>
+  <rect x="210" y="40" width="60" height="100" fill="rgba(255,215,0,.08)"/>
+  <text x="240" y="68" text-anchor="middle" font-size="10" fill="#ffd700"
+    font-weight="700" font-family="Exo 2">JUNTURA</text>
+  <text x="240" y="82" text-anchor="middle" font-size="9" fill="#fde68a"
+    font-family="Exo 2">PN</text>
+
+  <!-- Arrows showing electron movement -->
+  <defs>
+    <marker id="arPN" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1 1L9 5L1 9" fill="none" stroke="#ffd700" stroke-width="2" stroke-linecap="round"/>
+    </marker>
+  </defs>
+  <line x1="190" y1="90" x2="248" y2="90" stroke="#ffd700" stroke-width="2"
+    marker-end="url(#arPN)"/>
+  <text x="220" y="84" text-anchor="middle" font-size="8" fill="#fde68a"
+    font-family="Exo 2">V+</text>
+
+  <!-- Photon burst -->
+  <circle cx="240" cy="110" r="10" fill="rgba(253,224,71,.3)" stroke="#fde047" stroke-width="1.5"/>
+  <text x="240" y="115" text-anchor="middle" font-size="11" fill="#fde047">✦</text>
+  <!-- Light rays -->
+  <line x1="240" y1="95"  x2="240" y2="82"  stroke="#fde047" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="250" y1="98"  x2="259" y2="88"  stroke="#fde047" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="230" y1="98"  x2="221" y2="88"  stroke="#fde047" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="253" y1="110" x2="266" y2="110" stroke="#fde047" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="227" y1="110" x2="214" y2="110" stroke="#fde047" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Labels below -->
+  <text x="120" y="162" text-anchor="middle" font-size="10" fill="#60a5fa"
+    font-family="Exo 2">Semiconductor tipo N</text>
+  <text x="120" y="175" text-anchor="middle" font-size="9" fill="#64748b"
+    font-family="Exo 2">GaAs, GaAsP, InGaN...</text>
+  <text x="360" y="162" text-anchor="middle" font-size="10" fill="#f87171"
+    font-family="Exo 2">Semiconductor tipo P</text>
+  <text x="360" y="175" text-anchor="middle" font-size="9" fill="#64748b"
+    font-family="Exo 2">mismo material dopado</text>
+  <text x="240" y="162" text-anchor="middle" font-size="10" fill="#fde047"
+    font-weight="700" font-family="Exo 2">Fotón = LUZ</text>
+  <text x="240" y="175" text-anchor="middle" font-size="9" fill="#fde68a"
+    font-family="Exo 2">energía liberada al</text>
+  <text x="240" y="187" text-anchor="middle" font-size="9" fill="#fde68a"
+    font-family="Exo 2">recombinarse e⁻ + hueco</text>
+
+  <!-- Bottom explanation -->
+  <text x="240" y="215" text-anchor="middle" font-size="9.5" fill="#94a3b8"
+    font-family="Exo 2">El color depende del material semiconductor y la energía del fotón emitido</text>
+</svg></div>
+
+  <h4>Cómo funciona la unión PN:</h4>
+  <ul class="steps">
+    <li><div class="sn">1</div><div class="st"><strong>Capa N:</strong> El semiconductor se dopa con átomos que tienen un electrón "de más". Resultado: zona rica en electrones con carga negativa (N = negativo).</div></li>
+    <li><div class="sn">2</div><div class="st"><strong>Capa P:</strong> El semiconductor se dopa con átomos que tienen un electrón "de menos". Resultado: zona con "huecos" — espacios donde podría haber un electrón (P = positivo).</div></li>
+    <li><div class="sn">3</div><div class="st"><strong>Unión PN:</strong> Al unir ambas capas se forma una zona de transición. Sin voltaje externo, los electrones y huecos cerca de la frontera se recombinan y crean una zona de deplexión (barrera natural).</div></li>
+    <li><div class="sn">4</div><div class="st"><strong>Aplicar voltaje directo:</strong> Al conectar (+) al ánodo (capa P) y (−) al cátodo (capa N), la barrera se reduce y los electrones de la capa N cruzan hacia los huecos de la capa P.</div></li>
+    <li><div class="sn">5</div><div class="st"><strong>Emisión de fotones:</strong> Cuando un electrón "cae" en un hueco, libera su energía en forma de un <strong>fotón de luz</strong>. El color del fotón depende de la diferencia de energía entre los niveles — y eso depende del material semiconductor.</div></li>
+  </ul>
+
+  <div class="al amber"><span class="al-i">💡</span><div><strong>Por eso el LED es eficiente:</strong> La conversión electricidad → luz es casi directa. No pasa por calor como en un filamento. Por eso el LED es frío y dura tanto.</div></div>
+</div>
+</div>
+  <div id="t3e" class="tp">
+<div class="card">
+  <div class="ct">⚡ Funcionamiento Eléctrico del LED</div>
+  <h4>Voltaje directo — Vf (Forward Voltage)</h4>
+  <p>Todo LED tiene un <strong>voltaje mínimo umbral</strong> necesario para reducir la barrera de la unión PN y permitir el paso de corriente. Este voltaje se llama <strong>voltaje directo (Vf)</strong>:</p>
+  <ul>
+    <li>Si el voltaje aplicado es <strong>menor que Vf</strong> → el LED no enciende.</li>
+    <li>Si el voltaje aplicado supera el Vf con la resistencia correcta → <strong>LED enciende normalmente</strong>.</li>
+    <li>Si se aplica voltaje sin resistencia → el LED toma toda la corriente disponible y <strong>se quema en menos de 1 segundo</strong>.</li>
+  </ul>
+
+  <h4>Corriente nominal — If (Forward Current)</h4>
+  <p>La corriente de operación recomendada. Para LEDs estándar de 5mm es <strong>20 mA (0.020 A)</strong>. Más corriente = más brillo pero más calor y menor vida útil. Menos corriente = más tenue pero mayor durabilidad.</p>
+
+  <div class="fml">Potencia disipada por el LED:
+P = Vf × If = 2.0V × 0.020A = 0.040W = 40 mW
+<span class="cm">Un LED rojo estándar consume solo 40 miliWatts — menos que 1 watt</span></div>
+
+  <h4>¿Por qué el LED necesita siempre una resistencia?</h4>
+  <div class="al danger"><span class="al-i">🔥</span><div><strong>Un LED NO regula su propia corriente.</strong> Una vez que el voltaje supera el Vf, el LED se comporta como un circuito casi cortocircuito — la corriente sube sin límite hasta quemar el chip. La resistencia es el elemento que limita y controla la corriente a los 20 mA seguros.</div></div>
+
+  <div class="tw"><table>
+    <tr><th>Condición</th><th>¿Qué pasa?</th></tr>
+    <tr><td>V &lt; Vf (ej. 1V en LED rojo)</td><td>El LED no enciende — barrera PN no se vence</td></tr>
+    <tr><td>V = Vf + caída en R (correcto)</td><td>✅ LED enciende con 20 mA — brillo normal y vida útil completa</td></tr>
+    <tr><td>V &gt; Vf sin resistencia</td><td>⚠️ Corriente sube exponencialmente — quemadura del chip en &lt;1s</td></tr>
+    <tr><td>Polaridad invertida (V negativo)</td><td>El LED simplemente no conduce — sin daño (hasta ~5V inverso)</td></tr>
+  </table></div>
+</div>
+</div>
+  <div id="t3f" class="tp">
+<div class="card">
+  <div class="ct">🎨 Colores y Voltajes de Funcionamiento</div>
+  <p>Cada color de LED corresponde a un material semiconductor diferente que determina la energía del fotón emitido y, por tanto, el <strong>voltaje directo (Vf)</strong> necesario para que conduzca.</p>
+  <div class="fml">R = (Vs − Vf) / If     con If = 20 mA = 0.020 A
+<span class="cm">R = resistencia limitadora (Ω)
+Vs = voltaje de la fuente   Vf = voltaje directo del LED</span></div>
+  <div class="tw"><table>
+    <tr><th>Color LED</th><th>Vf típico</th><th>Rango Vf</th><th>Material semiconductor</th><th>R con 5V</th><th>R con 9V</th><th>R con 12V</th></tr>
+    <tr>
+      <td><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#ef4444;margin-right:4px;vertical-align:middle"></span><strong>Rojo</strong></td>
+      <td>2.0 V</td><td>1.8–2.2 V</td><td>AlGaAs</td>
+      <td>150 Ω</td><td>350→330 Ω</td><td>500→470 Ω</td>
+    </tr>
+    <tr>
+      <td><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#f97316;margin-right:4px;vertical-align:middle"></span><strong>Naranja</strong></td>
+      <td>2.1 V</td><td>2.0–2.2 V</td><td>GaAsP</td>
+      <td>145→150 Ω</td><td>345→330 Ω</td><td>495→470 Ω</td>
+    </tr>
+    <tr>
+      <td><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#eab308;margin-right:4px;vertical-align:middle"></span><strong>Amarillo</strong></td>
+      <td>2.2 V</td><td>2.0–2.4 V</td><td>GaAsP</td>
+      <td>140→150 Ω</td><td>340→330 Ω</td><td>490→470 Ω</td>
+    </tr>
+    <tr>
+      <td><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#22c55e;margin-right:4px;vertical-align:middle"></span><strong>Verde estándar</strong></td>
+      <td>2.1 V</td><td>2.0–2.4 V</td><td>GaP</td>
+      <td>145→150 Ω</td><td>345→330 Ω</td><td>495→470 Ω</td>
+    </tr>
+    <tr>
+      <td><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#16a34a;margin-right:4px;vertical-align:middle"></span><strong>Verde puro</strong></td>
+      <td>3.2 V</td><td>3.0–3.5 V</td><td>InGaN</td>
+      <td>90→82 Ω</td><td>290→270 Ω</td><td>440→430 Ω</td>
+    </tr>
+    <tr>
+      <td><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#3b82f6;margin-right:4px;vertical-align:middle"></span><strong>Azul</strong></td>
+      <td>3.2 V</td><td>3.0–3.5 V</td><td>InGaN</td>
+      <td>90→82 Ω</td><td>290→270 Ω</td><td>440→430 Ω</td>
+    </tr>
+    <tr>
+      <td><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#e2e8f0;margin-right:4px;vertical-align:middle;border:1px solid #94a3b8"></span><strong>Blanco</strong></td>
+      <td>3.3 V</td><td>3.0–3.6 V</td><td>InGaN + fósforo</td>
+      <td>85→82 Ω</td><td>285→270 Ω</td><td>435→430 Ω</td>
+    </tr>
+    <tr>
+      <td><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#a855f7;margin-right:4px;vertical-align:middle"></span><strong>Violeta / UV</strong></td>
+      <td>3.3 V</td><td>3.0–3.5 V</td><td>InGaN</td>
+      <td>85→82 Ω</td><td>285→270 Ω</td><td>435→430 Ω</td>
+    </tr>
+    <tr>
+      <td><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:#450a0a;margin-right:4px;vertical-align:middle;border:1px solid #991b1b"></span><strong>Infrarrojo IR</strong></td>
+      <td>1.5 V</td><td>1.2–1.8 V</td><td>GaAlAs</td>
+      <td>175→180 Ω</td><td>375→390 Ω</td><td>525→510 Ω</td>
+    </tr>
+    <tr>
+      <td><span style="display:inline-block;width:12px;height:12px;border-radius:50%;background:linear-gradient(135deg,#ef4444,#3b82f6);margin-right:4px;vertical-align:middle"></span><strong>Camaleón</strong></td>
+      <td>~3.2 V</td><td>2.0–3.2 V</td><td>RGB interno + oscilador</td>
+      <td>90→82 Ω</td><td>290→270 Ω</td><td>440→430 Ω</td>
+    </tr>
+  </table></div>
+  <div class="al warn"><span class="al-i">⚠️</span>
+    <div>Los valores de R en la tabla son los <strong>valores comerciales recomendados</strong> (→) para la R calculada exacta. Nunca uses una R menor al valor calculado — reduce vida útil del LED. Para el <strong>LED camaleón</strong> usa siempre Vf = 3.2V (peor caso) para que funcione en todos sus colores.</div>
+  </div>
+  <div class="al info"><span class="al-i">💡</span>
+    <div><strong>¿Por qué el blanco no tiene material propio?</strong> Los LEDs blancos son en realidad un chip azul InGaN cubierto con una capa de <em>fósforo</em> que convierte la luz azul en blanca. Por eso su Vf es prácticamente igual al azul.</div>
+  </div>
+</div>
+</div>
+
+<div id="t3g" class="tp">
+<div class="card">
+  <div class="ct">📊 Comparativa — LED vs Foco Incandescente vs Foco Ahorrador</div>
+  <div class="tw"><table>
+    <tr><th>Característica</th><th>Foco incandescente</th><th>Foco fluorescente (ahorrador)</th><th>LED ✅</th></tr>
+    <tr><td>Eficiencia luminosa</td><td>~10 lm/W (5% luz, 95% calor)</td><td>~50–80 lm/W</td><td><strong>80–200+ lm/W</strong></td></tr>
+    <tr><td>Temperatura en operación</td><td>~200–300°C (filamento)</td><td>~60–80°C (tubo)</td><td><strong>~50–70°C (carcasa)</strong></td></tr>
+    <tr><td>Vida útil promedio</td><td>~1,000 horas</td><td>~8,000 horas</td><td><strong>25,000–50,000 horas</strong></td></tr>
+    <tr><td>Voltaje de operación</td><td>110–220 V AC</td><td>110–220 V AC</td><td><strong>1.8–3.6 V DC</strong> (chip)</td></tr>
+    <tr><td>Tiempo de calentamiento</td><td>Instantáneo (pero el vidrio tarda)</td><td>~1–3 segundos</td><td><strong>Instantáneo</strong></td></tr>
+    <tr><td>Contiene mercurio</td><td>No</td><td>Sí ⚠️ (tubo fluorescente)</td><td><strong>No ✅</strong></td></tr>
+    <tr><td>Costo de compra</td><td>Muy bajo</td><td>Medio</td><td>Bajo–Medio</td></tr>
+    <tr><td>Costo de operación</td><td>Alto</td><td>Bajo</td><td><strong>Muy bajo</strong></td></tr>
+    <tr><td>Fragilidad</td><td>Alta (filamento frágil)</td><td>Media (tubo de vidrio)</td><td><strong>Muy baja (estado sólido)</strong></td></tr>
+    <tr><td>Forma del haz</td><td>Omnidireccional</td><td>Omnidireccional difuso</td><td><strong>Controlable (30°–360°)</strong></td></tr>
+  </table></div>
+  <div class="al success"><span class="al-i">💚</span><div><strong>Costo de operación real (ejemplo):</strong> Un foco incandescente de 60W encendido 8h/día gasta 175 kWh al año. Un LED equivalente de 8W gasta solo 23 kWh — un <strong>87% menos de electricidad</strong> para la misma cantidad de luz.</div></div>
+</div>
+</div>
+  <div id="t3h" class="tp">
+<div class="card">
+  <div class="ct">🔦 Tipos de LED por Encapsulado</div>
+  <div class="tw"><table>
+    <tr><th>Tipo</th><th>Diámetro o tamaño</th><th>Ángulo visión</th><th>Brillo relativo</th><th>Uso ideal</th></tr>
+    <tr><td><strong>LED 3mm</strong></td><td>3 mm</td><td>30°–45°</td><td>⭐⭐</td><td>Indicadores en paneles, proyectos en protoboard, diseños compactos</td></tr>
+    <tr><td><strong>LED 5mm ✅</strong></td><td>5 mm</td><td>30°–60°</td><td>⭐⭐⭐</td><td>Letreros medianos, proyectos escolares — el más común y fácil de usar</td></tr>
+    <tr><td><strong>LED 10mm</strong></td><td>10 mm</td><td>60°–120°</td><td>⭐⭐⭐⭐</td><td>Letreros visibles desde lejos, indicadores grandes, decoración</td></tr>
+    <tr><td><strong>SMD 3528</strong></td><td>3.5 × 2.8 mm</td><td>120°</td><td>⭐⭐</td><td>Tiras LED delgadas, iluminación bajo gabinetes, retroiluminación</td></tr>
+    <tr><td><strong>SMD 5050</strong></td><td>5.0 × 5.0 mm</td><td>120°</td><td>⭐⭐⭐⭐</td><td>Tiras LED brillantes, RGB posible (3 chips en uno), decoración</td></tr>
+    <tr><td><strong>Alta potencia 1W</strong></td><td>Varios</td><td>120°–140°</td><td>⭐⭐⭐⭐</td><td>Lámparas de escritorio, linterna, focos domésticos — requiere disipador</td></tr>
+    <tr><td><strong>Alta potencia 3W</strong></td><td>Varios</td><td>120°–140°</td><td>⭐⭐⭐⭐⭐</td><td>Reflectores, luminarias — obligatorio disipador de aluminio</td></tr>
+    <tr><td><strong>Alta potencia 10W</strong></td><td>Varios</td><td>120°–140°</td><td>★★★★★</td><td>Proyectores, alumbrado público, focos de gran potencia</td></tr>
+  </table></div>
+  <div class="al info"><span class="al-i">💡</span><div><strong>SMD</strong> = Surface Mount Device (Dispositivo de Montaje Superficial). No tienen patas — se sueldan directamente sobre la superficie de la placa de circuito. Son los LEDs que usan los celulares, televisores y tiras LED modernas.</div></div>
+  <div class="al warn"><span class="al-i">⚠️</span><div>Los LEDs de <strong>alta potencia (1W en adelante)</strong> generan calor significativo. Sin un disipador metálico adecuado se sobrecalientan y fallan rápidamente. Para este curso usamos LEDs de 5mm que no requieren disipador.</div></div>
+</div>
+</div>
+  <div id="t3i" class="tp">
+<div class="card">
+  <div class="ct">🏷️ Tipos de LED por Función</div>
+  <div class="tw"><table>
+    <tr><th>Tipo funcional</th><th>Descripción</th><th>Aplicaciones comunes</th></tr>
+    <tr>
+      <td><strong>Indicadores luminosos</strong></td>
+      <td>LEDs simples de 3mm o 5mm usados para señalizar estados ON/OFF</td>
+      <td>Paneles de control, computadoras, electrodomésticos, equipos médicos</td>
+    </tr>
+    <tr>
+      <td><strong>Tiras LED SMD</strong></td>
+      <td>Serie de LEDs SMD soldados en una cinta flexible adhesiva con resistencias integradas</td>
+      <td>Retroiluminación de muebles, decoración arquitectónica, bajo-mesadas</td>
+    </tr>
+    <tr>
+      <td><strong>Matrices LED</strong></td>
+      <td>Conjunto de LEDs organizados en filas y columnas, controlados individualmente</td>
+      <td>Pantallas de información en aeropuertos, estadios, señales de tráfico</td>
+    </tr>
+    <tr>
+      <td><strong>Display 7 segmentos</strong></td>
+      <td>7 LEDs en forma de segmentos que forman dígitos del 0 al 9</td>
+      <td>Relojes digitales, medidores, marcadores deportivos</td>
+    </tr>
+    <tr>
+      <td><strong>LED RGB</strong></td>
+      <td>Tres chips LED (Rojo, Verde, Azul) en un solo encapsulado — pueden producir cualquier color</td>
+      <td>Iluminación ambiental controlada, letreros de color dinámico, decoración</td>
+    </tr>
+    <tr>
+      <td><strong>LED Infrarrojo (IR)</strong></td>
+      <td>Emite luz en el espectro infrarrojo, invisible al ojo humano</td>
+      <td>Controles remotos de TV, sensores de movimiento, cámaras nocturnas</td>
+    </tr>
+    <tr>
+      <td><strong>LED UV (Ultravioleta)</strong></td>
+      <td>Emite luz ultravioleta que hace brillar ciertos materiales</td>
+      <td>"Luz negra", detección de billetes falsos, curado de resinas, efectos especiales</td>
+    </tr>
+    <tr>
+      <td><strong>Neón Flex LED</strong></td>
+      <td>LEDs SMD integrados en tubo de silicona flexible que actúa como difusor</td>
+      <td>Letreros luminosos, decoración arquitectónica, rótulos comerciales</td>
+    </tr>
+  </table></div>
+</div>
+</div>
+  <div id="t3j" class="tp">
+<div class="card">
+  <div class="ct">🌈 LEDs Camaleón — Multicolor de Cambio Automático</div>
+  <div class="al purple"><span class="al-i">🌈</span><div>Un <strong>LED camaleón</strong> contiene en su interior un <strong>chip oscilador RGB</strong> que activa los colores rojo, verde y azul en secuencia automática, sin necesitar ningún controlador externo. Se conecta exactamente igual que un LED estándar.</div></div>
+
+  <h4>¿Cómo funcionan internamente?</h4>
+  <p>Dentro del encapsulado hay tres chips LED (R, G, B) más un <strong>circuito oscilador integrado</strong> (similar a un microcontrolador muy pequeño) que activa cada color en secuencia según una programación de fábrica. Este circuito es tan pequeño que cabe dentro del mismo capuchón que un LED 5mm normal.</p>
+
+  <h4>Los tres tipos principales:</h4>
+  <div class="tw"><table>
+    <tr><th>Tipo</th><th>Velocidad de cambio</th><th>Efecto visual</th><th>Ideal para</th></tr>
+    <tr>
+      <td><strong>Fast Flash</strong><br><small>(parpadeo rápido)</small></td>
+      <td>~0.1–0.3 seg/color</td>
+      <td>Estroboscópico, muy llamativo, casi hipnótico a distancia</td>
+      <td>Decoración de movimiento, atracciones de atención, letreros de emergencia decorativos</td>
+    </tr>
+    <tr>
+      <td><strong>Slow Flash</strong><br><small>(parpadeo lento)</small></td>
+      <td>~1–3 seg/color</td>
+      <td>Transición visible y suave, relajado, agradable</td>
+      <td>Letreros decorativos, ambientación de interiores, señalización festiva</td>
+    </tr>
+    <tr>
+      <td><strong>Fade</strong><br><small>(cambio gradual)</small></td>
+      <td>~2–5 seg/transición</td>
+      <td>Sin parpadeo visible, colores que fluyen suavemente entre sí</td>
+      <td>Iluminación ambiental premium, escaparates, instalaciones artísticas</td>
+    </tr>
+  </table></div>
+
+  <h4>¿Cómo identificarlos al comprar?</h4>
+  <ul>
+    <li>Busca etiquetas como: <strong>"RGB Fast Flash"</strong>, <strong>"RGB Slow Flash"</strong>, <strong>"Color Changing LED"</strong>, <strong>"Magic LED"</strong>, <strong>"Chameleon LED"</strong>.</li>
+    <li>A simple vista son idénticos a un LED estándar — el lente suele tener una ligera tonalidad <strong>grisácea o plateada</strong> que los diferencia cuando no están encendidos.</li>
+    <li>Prueba rápida: aplica brevemente 3V con una pila — si cambia de color solo, es camaleón.</li>
+  </ul>
+
+  <h4>Parámetros eléctricos — idénticos al LED estándar:</h4>
+  <div class="fml">Vf ≈ 2.0–3.2V (varía según el color dominante activo en ese momento)
+If = 20 mA (igual que cualquier LED estándar)
+
+Para el cálculo de la resistencia → usar Vf = 3.2V (peor caso, color azul dominante):
+R = (Vs − 3.2) / 0.020
+
+Ejemplo con fuente 9V:
+R = (9 − 3.2) / 0.020 = 290 Ω → usar 270 Ω o 330 Ω</div>
+
+  <div class="al info"><span class="al-i">💡</span><div><strong>¿Por qué usar Vf = 3.2V como diseño?</strong> Cuando el LED camaleón activa el color azul o verde puro, el Vf sube a ~3.2V. Si diseñamos la resistencia para el peor caso (mayor Vf), el LED siempre tendrá corriente suficiente sin importar qué color esté activo en ese momento.</div></div>
+
+  <h4>Aplicaciones en letreros luminosos:</h4>
+  <ul>
+    <li><strong>Bordes dinámicos:</strong> contorno del letrero con LEDs camaleón fast flash para atraer atención.</li>
+    <li><strong>Decoración festiva:</strong> sin controlador — enchufa y ya cambia solo.</li>
+    <li><strong>Señalización dinámica:</strong> más llamativo que un color fijo sin el costo de un controlador RGB.</li>
+    <li><strong>Separadores visuales</strong> entre secciones del letrero.</li>
+  </ul>
+
+  <div class="al warn"><span class="al-i">⚠️</span><div><strong>Limitación importante:</strong> No puedes elegir el color ni sincronizarlo con otros LEDs camaleón — cada uno cambia de forma independiente según su oscilador de fábrica. Si necesitas colores controlados, usa LEDs RGB con controlador externo.</div></div>
+</div>
+</div>
+  <div id="t3k" class="tp">
+<div class="card">
+  <div class="ct">🔌 Cómo Conectar un LED Correctamente</div>
+  <p>El circuito básico de un LED siempre tiene <strong>tres elementos:</strong> fuente de voltaje + resistencia limitadora + LED. Sin la resistencia, el LED se quema en menos de un segundo.</p>
+
+  <div class="circ"><svg viewBox="0 0 480 190" width="100%" style="min-width:300px;display:block;margin:0 auto">
+  <rect width="480" height="190" fill="#0a1628" rx="10"/>
+  <defs>
+    <marker id="arL" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1 1L9 5L1 9" fill="none" stroke="#00c896" stroke-width="1.8" stroke-linecap="round"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="240" y="20" text-anchor="middle" font-size="12" fill="#ffd700"
+    font-weight="700" font-family="Exo 2">Circuito básico de un LED — siempre con resistencia</text>
+
+  <!-- Source -->
+  <rect x="14" y="55" width="48" height="60" rx="7" fill="#1a3558" stroke="#ffd700" stroke-width="2"/>
+  <text x="38" y="78" text-anchor="middle" font-size="12" fill="#ffd700"
+    font-weight="800" font-family="Exo 2">9V</text>
+  <text x="38" y="95" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.5)"
+    font-family="Exo 2">FUENTE</text>
+  <text x="63" y="78" font-size="14" fill="#00c896" font-weight="800">+</text>
+  <text x="4"  y="78" font-size="14" fill="#ff6b6b" font-weight="800">−</text>
+
+  <!-- Wire: source+ to resistor -->
+  <line x1="62" y1="85" x2="108" y2="85" stroke="#00c896" stroke-width="2.5"
+    marker-end="url(#arL)"/>
+
+  <!-- Resistor -->
+  <rect x="110" y="68" width="68" height="34" rx="7" fill="#5b21b6" stroke="#a78bfa" stroke-width="2"/>
+  <text x="144" y="89" text-anchor="middle" font-size="11" fill="#fff"
+    font-weight="700" font-family="Share Tech Mono">350 Ω</text>
+
+  <!-- Wire: resistor to LED -->
+  <line x1="178" y1="85" x2="224" y2="85" stroke="#00c896" stroke-width="2.5"/>
+
+  <!-- LED symbol -->
+  <!-- Anode left x=226, Cathode right x=276, center y=85 -->
+  <polygon points="226,67 226,103 276,85" fill="#f59e0b" stroke="#fde68a" stroke-width="1.8"/>
+  <!-- Cathode bar -->
+  <line x1="276" y1="67" x2="276" y2="103" stroke="#fde68a" stroke-width="2.8"/>
+  <!-- Light rays -->
+  <line x1="283" y1="64" x2="295" y2="53" stroke="#fde68a" stroke-width="1.8"
+    stroke-linecap="round"/>
+  <line x1="288" y1="75" x2="302" y2="67" stroke="#fde68a" stroke-width="1.8"
+    stroke-linecap="round"/>
+  <line x1="284" y1="85" x2="298" y2="85" stroke="#fde68a" stroke-width="1.2"
+    stroke-linecap="round" stroke-dasharray="2,3"/>
+
+  <!-- LED Labels -->
+  <text x="251" y="118" text-anchor="middle" font-size="9.5" fill="#fde68a"
+    font-family="Exo 2">LED rojo</text>
+  <text x="226" y="130" text-anchor="middle" font-size="8.5" fill="#00c896"
+    font-family="Exo 2">Ánodo (+)</text>
+  <text x="276" y="130" text-anchor="middle" font-size="8.5" fill="#ff6b6b"
+    font-family="Exo 2">Cátodo (−)</text>
+
+  <!-- Wire: LED to return -->
+  <line x1="276" y1="85" x2="440" y2="85" stroke="#00c896" stroke-width="2.5"/>
+  <!-- Return wire: right down -->
+  <line x1="440" y1="85" x2="440" y2="155" stroke="#00c896" stroke-width="2.5"/>
+  <!-- Return wire: bottom -->
+  <line x1="14"  y1="155" x2="440" y2="155" stroke="#00c896" stroke-width="2.5"/>
+  <!-- Return wire: source− side -->
+  <line x1="14"  y1="115" x2="14"  y2="155" stroke="#00c896" stroke-width="2.5"/>
+
+  <!-- Formula annotation -->
+  <rect x="320" y="42" width="150" height="36" rx="6"
+    fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
+  <text x="328" y="57" font-size="9.5" fill="rgba(255,255,255,.7)"
+    font-family="Share Tech Mono">R = (9 − 2.0) / 0.020</text>
+  <text x="328" y="72" font-size="9.5" fill="#ffd700"
+    font-family="Share Tech Mono">  = 350 Ω → usar 330 Ω</text>
+
+  <!-- Current direction label -->
+  <text x="335" y="100" text-anchor="middle" font-size="9" fill="#00c896"
+    font-family="Exo 2">If = 20 mA →</text>
+</svg></div>
+
+  <h4>Regla de polaridad — nunca la olvides:</h4>
+  <div class="fml">Fuente (+) → Resistencia → Ánodo LED (+) → Cátodo LED (−) → Fuente (−)
+
+Ánodo (+) = pata LARGA → hacia la resistencia y el (+) de la fuente
+Cátodo (−) = pata CORTA → hacia el (−) / GND de la fuente</div>
+
+  <ul class="steps">
+    <li><div class="sn">1</div><div class="st"><strong>Calcula la resistencia</strong> con la fórmula R = (Vs − Vf) / If. Usa la Calculadora de la pestaña siguiente si lo prefieres.</div></li>
+    <li><div class="sn">2</div><div class="st"><strong>Identifica el ánodo (+)</strong> del LED por la pata larga o la zona plana del encapsulado.</div></li>
+    <li><div class="sn">3</div><div class="st"><strong>Conecta la resistencia en serie</strong> entre el polo (+) de la fuente y el ánodo del LED.</div></li>
+    <li><div class="sn">4</div><div class="st"><strong>Conecta el cátodo (−)</strong> directamente al polo (−) / GND de la fuente.</div></li>
+    <li><div class="sn">5</div><div class="st"><strong>Verifica antes de encender:</strong> no haya cables pelados en contacto entre sí, polaridad correcta, resistencia del valor calculado.</div></li>
+  </ul>
+
+  <div class="al success"><span class="al-i">✅</span><div>Si conectas el LED con polaridad invertida: <strong>simplemente no enciende</strong> — no se daña. Voltéalo y vuelve a intentar. Si no enciende con la polaridad correcta, verifica que la resistencia no sea demasiado grande o que el voltaje de la fuente sea mayor que el Vf del LED.</div></div>
+</div>
+</div>
+
+<div style="border-top:2px dashed #e2e8f0;margin:4px 0 12px"></div>
+
+<div class="card">
+  <div class="ct">🔢 Calculadora — Resistencia para LED Individual</div>
+  <div class="fml">R = (Vs − Vf) / If</div>
+  <div class="circ" style="margin-bottom:14px">
+<svg viewBox="0 0 480 175" width="100%" style="min-width:300px;display:block;margin:0 auto">
+  <rect width="480" height="175" fill="#0a1628" rx="8"/>
+  <defs>
+    <marker id="arC" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M1 1L9 5L1 9" fill="none" stroke="#00c896" stroke-width="1.8" stroke-linecap="round"/>
+    </marker>
+  </defs>
+  <text x="240" y="18" text-anchor="middle" font-size="11.5" fill="#ffd700"
+    font-weight="700" font-family="Exo 2">Circuito que estás calculando</text>
+
+  <!-- Source -->
+  <rect x="14" y="42" width="46" height="54" rx="6" fill="#1a3558" stroke="#ffd700" stroke-width="2"/>
+  <text x="37" y="63"  text-anchor="middle" font-size="11" fill="#ffd700" font-weight="800" font-family="Exo 2">Vs</text>
+  <text x="37" y="78"  text-anchor="middle" font-size="9"  fill="rgba(255,255,255,.5)" font-family="Exo 2">FUENTE</text>
+  <text x="61" y="64" font-size="13" fill="#00c896" font-weight="800">+</text>
+  <text x="4"  y="64" font-size="13" fill="#ff6b6b" font-weight="800">−</text>
+
+  <!-- Wire + to R -->
+  <line x1="60" y1="69" x2="104" y2="69" stroke="#00c896" stroke-width="2.5" marker-end="url(#arC)"/>
+
+  <!-- Resistor -->
+  <rect x="106" y="54" width="72" height="30" rx="7" fill="#5b21b6" stroke="#a78bfa" stroke-width="2"/>
+  <text x="142" y="73" text-anchor="middle" font-size="11" fill="#fff" font-weight="700" font-family="Share Tech Mono">R = ?</text>
+
+  <!-- Wire R to LED -->
+  <line x1="178" y1="69" x2="220" y2="69" stroke="#00c896" stroke-width="2.5"/>
+
+  <!-- LED symbol (anode left, cathode right) -->
+  <polygon points="220,52 220,86 266,69" fill="#f59e0b" stroke="#fde68a" stroke-width="1.8"/>
+  <line x1="266" y1="52" x2="266" y2="86" stroke="#fde68a" stroke-width="2.8"/>
+  <!-- rays -->
+  <line x1="272" y1="50" x2="282" y2="40" stroke="#fde68a" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="277" y1="61" x2="290" y2="54" stroke="#fde68a" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Labels -->
+  <text x="243" y="104" text-anchor="middle" font-size="9.5" fill="#fde68a" font-family="Exo 2">LED (Vf)</text>
+  <text x="220" y="115" text-anchor="middle" font-size="8.5" fill="#00c896" font-family="Exo 2">Ánodo (+)</text>
+  <text x="266" y="115" text-anchor="middle" font-size="8.5" fill="#ff6b6b" font-family="Exo 2">Cátodo (−)</text>
+
+  <!-- Wire LED to right -->
+  <line x1="266" y1="69" x2="438" y2="69" stroke="#00c896" stroke-width="2.5"/>
+
+  <!-- Return (right side down) -->
+  <line x1="438" y1="69"  x2="438" y2="138" stroke="#00c896" stroke-width="2.5"/>
+  <!-- Return (bottom) -->
+  <line x1="14"  y1="138" x2="438" y2="138" stroke="#00c896" stroke-width="2.5"/>
+  <!-- Return (left up to source−) -->
+  <line x1="14"  y1="96"  x2="14"  y2="138" stroke="#00c896" stroke-width="2.5"/>
+
+  <!-- Formula annotation box -->
+  <rect x="308" y="28" width="162" height="36" rx="5"
+    fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.12)" stroke-width="1"/>
+  <text x="316" y="43" font-size="9.5" fill="rgba(255,255,255,.65)" font-family="Share Tech Mono">R = (Vs − Vf) / If</text>
+  <text x="316" y="58" font-size="9.5" fill="#ffd700" font-family="Share Tech Mono">If = 20 mA = 0.020 A</text>
+
+  <!-- Current label -->
+  <text x="340" y="86" text-anchor="middle" font-size="9" fill="#00c896" font-family="Exo 2">If = 20 mA →</text>
+</svg>
+</div>
+
+<div class="cf"><label>Color del LED (carga Vf automáticamente)</label>
+    <select id="lc" onchange="setLedVf()">
+      <option value="2.0">🔴 Rojo — Vf = 2.0 V</option>
+      <option value="2.1">🟠 Naranja — Vf = 2.1 V</option>
+      <option value="2.2">🟡 Amarillo — Vf = 2.2 V</option>
+      <option value="2.1">🟢 Verde estándar — Vf = 2.1 V</option>
+      <option value="3.2">🟢 Verde puro — Vf = 3.2 V</option>
+      <option value="3.2">🔵 Azul — Vf = 3.2 V</option>
+      <option value="3.3">⚪ Blanco — Vf = 3.3 V</option>
+      <option value="3.3">🟣 Violeta / UV — Vf = 3.3 V</option>
+      <option value="3.2">🌈 Camaleón (usar Vf peor caso) — 3.2 V</option>
+      <option value="1.5">🔴 Infrarrojo IR — Vf = 1.5 V</option>
+    </select>
+  </div>
+  <div class="cf"><label>Voltaje de la fuente Vs (V)</label>
+    <input type="number" id="lvs" placeholder="Ej: 9" inputmode="decimal" step="any">
+  </div>
+  <div class="cf"><label>Voltaje directo del LED Vf (V) — se carga automático</label>
+    <input type="number" id="lvf" placeholder="Automático" inputmode="decimal" step="0.1">
+  </div>
+  <div class="cf"><label>Corriente If (mA) — estándar: 20 mA</label>
+    <input type="number" id="lif" value="20" inputmode="decimal">
+  </div>
+  <button class="cbtn" onclick="calcLedR()">Calcular resistencia ⚡</button>
+  <div class="rbox" id="lr"></div>
+
+  <div class="al warn" style="margin-top:10px"><span class="al-i">⚠️</span>
+    <div>Usa siempre la <strong>resistencia comercial más cercana</strong> al valor calculado. Valores estándar (Ω): 82 · 100 · 120 · 150 · 180 · 220 · 270 · 330 · 390 · 430 · 470 · 560 · 680 · 820 · 1000.</div>
+  </div>
+</div>
+</div>
+
+
+</div>
+
+</div>
+
+<script>
+function switchTab(btn,gid,pid){
+  document.getElementById(gid).querySelectorAll('.tp').forEach(p=>p.classList.remove('active'));
+  document.getElementById(pid).classList.add('active');
+  btn.closest('.tabs').querySelectorAll('.tb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById(gid).parentElement.scrollTop=0;
+}
+
+function setLedVf(){
+  document.getElementById('lvf').value = document.getElementById('lc').value;
+}
+
+function comercial(r){
+  const v=[10,12,15,18,22,27,33,39,47,56,68,82,100,120,150,180,220,270,330,390,430,470,510,560,680,820,1000,1200,1500,1800,2200];
+  return v.reduce((b,x)=>Math.abs(x-r)<Math.abs(b-r)?x:b,v[0]);
+}
+
+function calcLedR(){
+  const Vs = parseFloat(document.getElementById('lvs').value)||0;
+  const Vf = parseFloat(document.getElementById('lvf').value)||parseFloat(document.getElementById('lc').value)||0;
+  const If = parseFloat(document.getElementById('lif').value)||20;
+  const res = document.getElementById('lr');
+  res.style.display='block';
+  if(!Vs||!Vf){ res.innerHTML='<div class="rl" style="color:#f87171">⚠ Completa voltaje de la fuente (Vs)</div>'; return; }
+  if(Vs<=Vf){ res.innerHTML='<div class="rl" style="color:#f87171">⚠ El voltaje de la fuente debe ser mayor que el Vf del LED</div>'; return; }
+  const R = (Vs-Vf)/(If/1000);
+  const Rc = comercial(R);
+  const Pr = Math.pow(If/1000,2)*R;
+  const If_real = (Vs-Vf)/Rc*1000;
+  res.innerHTML=`
+    <div class="rl"><span class="rlb">Resistencia calculada: </span><strong style="color:#ffd700">${R.toFixed(1)} Ω</strong></div>
+    <div class="rl"><span class="rlb">Resistencia comercial: </span><strong style="color:#ffd700">${Rc} Ω</strong></div>
+    <div class="rl"><span class="rlb">Corriente real con R comercial: </span>${If_real.toFixed(1)} mA</div>
+    <div class="rl"><span class="rlb">Potencia en resistencia: </span>${(Pr*1000).toFixed(1)} mW → usar resistencia de <strong>¼W (250 mW)</strong> o mayor</div>
+    <div class="rl" style="margin-top:6px;color:#64748b;font-size:10px">Fórmula: R = (${Vs} − ${Vf}) / ${(If/1000).toFixed(3)} = ${R.toFixed(1)} Ω</div>`;
+}
+</script>
+</body>
+</html>
