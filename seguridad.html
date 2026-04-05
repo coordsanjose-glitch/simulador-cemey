@@ -276,6 +276,7 @@ li{margin-bottom:3px}
     <button class="tb" onclick="switchTab(this,'tabs','t6')">🔧 Al soldar</button>
     <button class="tb" onclick="switchTab(this,'tabs','t7')">🩺 Primeros auxilios</button>
     <button class="tb" onclick="switchTab(this,'tabs','t8')">📝 Quiz</button>
+  <button class="tb" onclick="switchTab(this,'tabs','t9')">📚 Referencias</button>
   </div>
 
   <div id="tabs">
@@ -289,7 +290,8 @@ li{margin-bottom:3px}
         <tr><th>Corriente</th><th>Efecto en el cuerpo humano</th></tr>
         <tr><td><strong>1 mA</strong></td><td>Hormigueo apenas perceptible</td></tr>
         <tr><td><strong>5 mA</strong></td><td>Choque leve, molesto pero no peligroso</td></tr>
-        <tr><td><strong>10–20 mA</strong></td><td>Contracción muscular — posible no poder soltar el cable</td></tr>
+        <tr><td><strong>10–20 mA</strong></td><td>Tetanización muscular — la persona no puede soltar el cable por contracción involuntaria</td></tr>
+        <tr><td><strong>25–30 mA</strong></td><td>Riesgo de asfixia — la corriente afecta el centro nervioso respiratorio (IEC 60479-1)</td></tr>
         <tr><td><strong>50–100 mA</strong></td><td style="color:#991b1b;font-weight:600">⚠️ Fibrilación ventricular — paro cardíaco posible</td></tr>
         <tr><td><strong>&gt; 100 mA</strong></td><td style="color:#7f1d1d;font-weight:700">☠️ Muerte probable</td></tr>
         <tr><td><strong>&gt; 200 mA</strong></td><td style="color:#7f1d1d;font-weight:700">☠️ Quemaduras internas graves, muerte segura</td></tr>
@@ -432,7 +434,7 @@ li{margin-bottom:3px}
   <div id="t6" class="tp">
     <div class="card">
       <div class="ct">🔧 Seguridad al Soldar — Qué HACER</div>
-      <div class="sr"><span class="sr-i">💨</span><div class="sr-t"><strong>Trabajar en área ventilada</strong>El humo del flux y del estaño es irritante para los pulmones y los ojos. Abre ventanas o trabaja cerca de un extractor de aire.</div></div>
+      <div class="sr"><span class="sr-i">💨</span><div class="sr-t"><strong>Trabajar en área ventilada — obligatorio</strong>El humo del flux contiene resina de colofonia que, según OSHA y NIOSH, puede causar irritación respiratoria crónica y, con exposición repetida, asma ocupacional. El plomo del estaño es tóxico por inhalación e ingestión. Abre ventanas, trabaja bajo extractor o usa un ventilador pequeño que aleje el humo de tu cara.</div></div>
       <div class="sr"><span class="sr-i">🥽</span><div class="sr-t"><strong>Usar gafas de protección siempre</strong>El estaño líquido puede salpicar pequeñas gotas calientes hacia los ojos. Las gafas son obligatorias durante toda la soldadura.</div></div>
       <div class="sr"><span class="sr-i">🦾</span><div class="sr-t"><strong>Usar la "tercera mano"</strong>Las piezas se calientan durante la soldadura — nunca las sostengas con los dedos directamente. Usa un sujetador o "tercera mano".</div></div>
       <div class="sr"><span class="sr-i">🧼</span><div class="sr-t"><strong>Lavarse las manos al terminar</strong>El estaño con plomo (Sn60/Pb40) es tóxico si se ingiere. Lávate siempre las manos con agua y jabón antes de tocar tu cara o comer.</div></div>
@@ -528,6 +530,73 @@ li{margin-bottom:3px}
       <div id="quiz-result" style="display:none;margin-top:10px"></div>
     </div>
   </div>
+
+
+  <!-- T9: REFERENCIAS -->
+  <div id="t9" class="tp">
+    <div class="card">
+      <div class="ct">📚 Referencias Bibliográficas — Formato APA 7ª edición</div>
+      <p style="font-size:11.5px;color:#64748b;margin-bottom:14px">
+        Las siguientes fuentes sustentan el contenido de las ocho secciones de este módulo. 
+        Se citan con fines educativos y de verificación. Se recomienda consultarlas directamente 
+        para profundizar en cada tema.
+      </p>
+
+      <h4 style="color:#991b1b;margin-top:6px">⚡ Efectos de la electricidad en el cuerpo humano</h4>
+
+      <div style="background:#fef2f2;border-radius:8px;padding:11px 13px;margin:6px 0;font-size:11.5px;line-height:1.85;color:#475569">
+        <p>International Electrotechnical Commission. (2016). <em>Effects of current on human beings and livestock — Part 1: General aspects</em> (IEC 60479-1:2016). IEC.</p>
+        <p>Instituto Nacional de Seguridad e Higiene en el Trabajo [INSST]. (1996). <em>NTP 400: Corriente eléctrica: efectos al atravesar el organismo humano</em>. INSST. <a href="https://www.insst.es/documentacion/colecciones-tecnicas/ntp-notas-tecnicas-de-prevencion/11-serie-ntp-numeros-366-a-400-ano-1996/ntp-400-corriente-electrica-efectos-al-atravesar-el-organismo-humano" target="_blank" style="color:#991b1b;word-break:break-all">https://www.insst.es/ntp-400</a></p>
+        <p>Occupational Safety and Health Administration [OSHA]. (2002). <em>Controlling electrical hazards</em> (OSHA 3075, 2nd ed.). U.S. Department of Labor. <a href="https://www.osha.gov/Publications/osha3075.pdf" target="_blank" style="color:#991b1b">https://www.osha.gov/Publications/osha3075.pdf</a></p>
+        <p>National Institute for Occupational Safety and Health [NIOSH]. (1998). <em>Worker deaths by electrocution: A summary of NIOSH surveillance and investigative findings</em> (DHHS/NIOSH Publication No. 98-131). CDC/NIOSH. <a href="https://www.cdc.gov/niosh/docs/98-131/" target="_blank" style="color:#991b1b">https://www.cdc.gov/niosh/docs/98-131/</a></p>
+        <p>Universidad de Zaragoza, Unidad de Prevención de Riesgos Laborales. (s.f.). <em>Efectos de la corriente eléctrica en el cuerpo humano</em>. <a href="https://uprl.unizar.es/seguridad-laboral/efectos-de-la-corriente-electrica-en-el-cuerpo-humano" target="_blank" style="color:#991b1b;word-break:break-all">https://uprl.unizar.es/seguridad-laboral/efectos-de-la-corriente-electrica-en-el-cuerpo-humano</a></p>
+        <p>Instituto Nacional de Seguridad e Higiene en el Trabajo [INSST]. (s.f.). <em>Tema 9. Riesgos debidos a la electricidad (I)</em>. INSST. <a href="https://www.insst.es/documents/94886/4155694/Tema%209.%20Riesgos%20debidos%20a%20la%20electricidad%20(I).pdf" target="_blank" style="color:#991b1b">https://www.insst.es (Tema 9)</a></p>
+      </div>
+
+      <h4 style="color:#991b1b">🔥 Primeros auxilios en quemaduras</h4>
+
+      <div style="background:#fef2f2;border-radius:8px;padding:11px 13px;margin:6px 0;font-size:11.5px;line-height:1.85;color:#475569">
+        <p>Instituto Nacional de Seguridad e Higiene en el Trabajo [INSST]. (2000). <em>NTP 524: Primeros auxilios: quemaduras</em>. INSST. <a href="https://www.insst.es/documentacion/colecciones-tecnicas/ntp-notas-tecnicas-de-prevencion/15-serie-ntp-numeros-506-a-540-ano-2000/ntp-524-primeros-auxilios-quemaduras" target="_blank" style="color:#991b1b;word-break:break-all">https://www.insst.es/ntp-524</a></p>
+        <p>Mayo Clinic Staff. (2023). <em>Burns: First aid</em>. Mayo Clinic. <a href="https://www.mayoclinic.org/es/first-aid/first-aid-burns/basics/art-20056649" target="_blank" style="color:#991b1b;word-break:break-all">https://www.mayoclinic.org/es/first-aid/first-aid-burns/basics/art-20056649</a></p>
+        <p>National Library of Medicine. (2024). <em>Burns</em> [Enciclopedia médica]. MedlinePlus. <a href="https://medlineplus.gov/spanish/ency/article/000030.htm" target="_blank" style="color:#991b1b">https://medlineplus.gov/spanish/ency/article/000030.htm</a></p>
+        <p>National Library of Medicine. (2024). <em>Atención postratamiento para quemaduras leves</em> [Instrucciones para el paciente]. MedlinePlus. <a href="https://medlineplus.gov/spanish/ency/patientinstructions/000662.htm" target="_blank" style="color:#991b1b;word-break:break-all">https://medlineplus.gov/spanish/ency/patientinstructions/000662.htm</a></p>
+        <p>Cruz Roja Española. (2008). <em>Prevención en el hogar: Quemaduras — Primeros auxilios</em>. Cruz Roja. <a href="https://www.cruzroja.es/prevencion/hogar_08.html" target="_blank" style="color:#991b1b">https://www.cruzroja.es/prevencion/hogar_08.html</a></p>
+      </div>
+
+      <h4 style="color:#991b1b">🔧 Riesgos y seguridad en soldadura</h4>
+
+      <div style="background:#fef2f2;border-radius:8px;padding:11px 13px;margin:6px 0;font-size:11.5px;line-height:1.85;color:#475569">
+        <p>Occupational Safety and Health Administration [OSHA]. (2001). <em>Health effects of occupational lead exposure — Soldering</em>. U.S. Department of Labor. <a href="https://www.osha.gov" target="_blank" style="color:#991b1b">https://www.osha.gov</a></p>
+        <p>Sentry Air Systems. (s.f.). <em>Los peligros del humo de soldadura con estaño</em>. Sentry Air Systems. <a href="https://sentryair.com.mx/solder-fumes.htm" target="_blank" style="color:#991b1b">https://sentryair.com.mx/solder-fumes.htm</a></p>
+        <p>Grupo Microanálisis. (2024, 24 de abril). <em>Plomo en el ambiente laboral: riesgos y prevenciones</em>. <a href="https://grupo-microanalisis.com/plomo-en-el-ambiente-laboral/" target="_blank" style="color:#991b1b;word-break:break-all">https://grupo-microanalisis.com/plomo-en-el-ambiente-laboral/</a></p>
+        <p>National Library of Medicine. (2024). <em>Intoxicación con soldadura</em> [Enciclopedia médica]. MedlinePlus. <a href="https://medlineplus.gov/spanish/ency/article/002822.htm" target="_blank" style="color:#991b1b;word-break:break-all">https://medlineplus.gov/spanish/ency/article/002822.htm</a></p>
+        <p>Nederman México. (s.f.). <em>La soldadura eléctrica y sus riesgos a la salud</em>. Nederman. <a href="https://www.nederman.com/es-mx/industry-solutions/welding-and-cutting/health-and-safety" target="_blank" style="color:#991b1b;word-break:break-all">https://www.nederman.com/es-mx/industry-solutions/welding-and-cutting/health-and-safety</a></p>
+      </div>
+
+      <h4 style="color:#991b1b">🇲🇽 Normatividad mexicana aplicable</h4>
+
+      <div style="background:#fef2f2;border-radius:8px;padding:11px 13px;margin:6px 0;font-size:11.5px;line-height:1.85;color:#475569">
+        <p>Secretaría de Energía [SENER]. (2012). <em>Norma Oficial Mexicana NOM-001-SEDE-2012, Instalaciones Eléctricas (utilización)</em>. Diario Oficial de la Federación. <a href="https://dof.gob.mx/nota_detalle_popup.php?codigo=5280607" target="_blank" style="color:#991b1b;word-break:break-all">https://dof.gob.mx/nota_detalle_popup.php?codigo=5280607</a></p>
+        <p>Secretaría del Trabajo y Previsión Social [STPS]. (2011). <em>Norma Oficial Mexicana NOM-029-STPS-2011, Mantenimiento de las instalaciones eléctricas en los centros de trabajo — Condiciones de seguridad</em>. Diario Oficial de la Federación. <a href="https://dof.gob.mx/nota_detalle.php?codigo=5227363&fecha=29/12/2011" target="_blank" style="color:#991b1b;word-break:break-all">https://dof.gob.mx/NOM-029-STPS-2011</a></p>
+        <p>Secretaría del Trabajo y Previsión Social [STPS]. (2008). <em>Norma Oficial Mexicana NOM-017-STPS-2008, Equipo de protección personal — Selección, uso y manejo en los centros de trabajo</em>. STPS. <a href="https://www.stps.gob.mx" target="_blank" style="color:#991b1b">https://www.stps.gob.mx</a></p>
+      </div>
+
+      <h4 style="color:#991b1b">🧯 Protección Civil y extintores</h4>
+
+      <div style="background:#fef2f2;border-radius:8px;padding:11px 13px;margin:6px 0;font-size:11.5px;line-height:1.85;color:#475569">
+        <p>Coordinación Nacional de Protección Civil [CNPC]. (2022). <em>Guía para el uso correcto de extintores de incendio</em>. Secretaría de Gobernación / SEGOB. <a href="https://www.gob.mx/proteccioncivil" target="_blank" style="color:#991b1b">https://www.gob.mx/proteccioncivil</a></p>
+        <p>Universidad de Guanajuato, Coordinación de Protección Civil. (2021). <em>Manual de Protección Civil: Normas básicas de seguridad en laboratorios y talleres</em>. Universidad de Guanajuato.</p>
+      </div>
+
+      <div class="al info" style="margin-top:14px">
+        <span class="al-i">📌</span>
+        <div>
+          <strong>Nota sobre las fuentes:</strong> Las normas NTP del INSST (Instituto Nacional de Seguridad e Higiene en el Trabajo de España) son ampliamente reconocidas en América Latina como referencias técnicas de primer orden para seguridad laboral, aunque correspondan a la normativa española. Los estándares IEC son internacionales y aplicables universalmente. Las normas NOM citadas son de observancia obligatoria en México.
+        </div>
+      </div>
+    </div>
+  </div>
+
 
   </div><!-- /tabs -->
 
