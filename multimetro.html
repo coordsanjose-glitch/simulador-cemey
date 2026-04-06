@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<meta name="theme-color" content="#0c4a6e">
+<title>Uso del Multímetro Digital — CEMEY</title>
+<link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;500;700;800&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:'Exo 2',sans-serif;background:#f0f4f8;color:#1e293b;min-height:100vh}
+.back-bar{background:#071830;padding:8px 14px;display:flex;align-items:center;
+  border-bottom:3px solid #06b6d4;position:sticky;top:0;z-index:200}
+.back-btn{display:inline-flex;align-items:center;gap:7px;color:#ffd700;font-size:13px;
+  font-weight:700;text-decoration:none;padding:6px 12px;
+  background:rgba(255,215,0,.1);border:1px solid rgba(255,215,0,.3);border-radius:8px}
+.back-btn:hover{background:rgba(255,215,0,.2)}
+.back-bar-title{margin-left:12px;font-size:12px;color:rgba(255,255,255,.45);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr{background:linear-gradient(135deg,#0a2240 0%,#0f3460 55%,#1a4a7a 100%);
+  padding:10px 14px;display:flex;align-items:center;gap:12px;
+  box-shadow:0 2px 12px rgba(0,0,0,.4)}
+.hdr-logo{width:48px;height:48px;border-radius:50%;flex-shrink:0;
+  border:2px solid rgba(255,215,0,.55);overflow:hidden}
+.hdr-logo img{width:100%;height:100%;object-fit:contain}
+.hdr-text{flex:1;min-width:0}
+.hdr-inst{font-size:13px;color:#ffd700;font-weight:700;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hdr-proj{font-size:14px;color:#fff;font-weight:700;line-height:1.25;margin-top:1px}
+.hdr-sub{font-size:9px;color:rgba(255,255,255,.48);margin-top:2px}
+.cbar{background:#071830;padding:5px 14px;display:flex;flex-wrap:wrap;
+  gap:2px 20px;border-bottom:1px solid rgba(255,255,255,.07)}
+.cr{font-size:10.5px;color:rgba(255,255,255,.45);white-space:nowrap}
+.cr-label{font-size:9.5px;font-style:italic;color:rgba(255,255,255,.3)}
+.cr strong{color:rgba(255,255,255,.9);font-weight:700;font-size:11px}
+.mod-hero{background:linear-gradient(135deg,#0c4a6e,#0369a1,#0284c7,#06b6d4);
+  padding:22px 16px 18px;text-align:center;border-bottom:4px solid #bae6fd}
+.mod-icon{font-size:42px;margin-bottom:8px}
+.mod-title{font-size:clamp(18px,5vw,26px);font-weight:800;color:#fff;line-height:1.2}
+.mod-sub{font-size:12px;color:rgba(255,255,255,.75);margin-top:6px;line-height:1.5}
+.main{max-width:900px;margin:0 auto;padding:18px 13px 50px}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.tb{padding:9px 15px;border:2px solid transparent;border-radius:20px;cursor:pointer;
+  font-family:'Exo 2',sans-serif;font-size:12px;font-weight:600;white-space:nowrap;
+  background:#e2e8f0;color:#475569;touch-action:manipulation;transition:all .15s;flex-shrink:0}
+.tb:hover{background:#e0f2fe;color:#0369a1}
+.tb.active{background:#0284c7;color:#fff;border-color:#0369a1}
+.tp{display:none}.tp.active{display:block}
+.card{background:#fff;border-radius:12px;padding:14px;margin-bottom:12px;
+  box-shadow:0 1px 8px rgba(15,52,96,.08);border:1px solid #e2e8f0}
+.ct{font-size:14px;font-weight:700;margin-bottom:10px;color:#0369a1}
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:8px 0;border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:11.5px;min-width:280px}
+th{background:#0284c7;color:#fff;padding:8px 10px;text-align:left;font-size:11.5px}
+td{padding:7px 10px;border-bottom:1px solid #e2e8f0;font-size:11.5px;line-height:1.5}
+tr:nth-child(even) td{background:#f0f9ff}
+tr:hover td{background:#e0f2fe}
+.fml{background:#1e293b;color:#7dd3fc;border-radius:8px;padding:12px 14px;
+  margin:8px 0;font-family:'Share Tech Mono',monospace;font-size:12px;
+  border-left:4px solid #06b6d4;overflow-x:auto;white-space:pre;line-height:1.75}
+.al{border-radius:8px;padding:10px 12px;margin:8px 0;font-size:12px;
+  display:flex;gap:8px;align-items:flex-start;line-height:1.55}
+.al-i{font-size:16px;flex-shrink:0;margin-top:1px}
+.info{background:#e0f2fe;border-left:4px solid #06b6d4;color:#0c4a6e}
+.warn{background:#fff7ed;border-left:4px solid #f97316;color:#7c2d12}
+.success{background:#dcfce7;border-left:4px solid #00c896;color:#14532d}
+.danger{background:#fee2e2;border-left:4px solid #dc2626;color:#7f1d1d}
+.amber{background:#fffbeb;border-left:4px solid #f59e0b;color:#713f12}
+.steps{list-style:none;padding:0}
+.steps li{display:flex;gap:11px;padding:10px 0;border-bottom:1px solid #f1f5f9;align-items:flex-start}
+.steps li:last-child{border-bottom:none}
+.sn{width:28px;height:28px;border-radius:50%;background:#0284c7;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;flex-shrink:0;margin-top:2px}
+.sn-g{background:#059669}
+.st{font-size:12.5px;line-height:1.65;color:#475569}
+.st strong{color:#1e293b}
+.circ{background:#0a1628;border-radius:10px;padding:12px;overflow-x:auto;margin:10px 0}
+.circ svg{min-width:300px;display:block;margin:0 auto}
+.port-row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+.port{border-radius:10px;padding:12px;flex:1;min-width:120px;text-align:center;border:2px solid}
+.port-com{background:#1e293b;border-color:#000;color:#fff}
+.port-vr{background:#fff5f5;border-color:#ef4444}
+.port-10a{background:#fff7ed;border-color:#f97316}
+.port-em{font-size:22px;margin-bottom:4px}
+.port-label{font-size:13px;font-weight:800}
+.port-desc{font-size:10.5px;margin-top:4px;line-height:1.4}
+.mne{background:#0c4a6e;border-radius:10px;padding:13px 16px;margin:10px 0;
+  font-size:14px;font-weight:700;color:#ffd700;text-align:center;letter-spacing:.05em}
+.case-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}
+.case{background:#f0f9ff;border-radius:10px;padding:10px;border:1px solid #bae6fd;text-align:center}
+.case-icon{font-size:20px;margin-bottom:4px}
+.case-label{font-size:11px;font-weight:700;color:#0369a1}
+.case-val{font-family:'Share Tech Mono',monospace;font-size:14px;color:#0284c7;font-weight:700;margin-top:3px}
+p{line-height:1.7;font-size:12.5px;color:#475569;margin-bottom:7px}
+h4{font-size:13.5px;font-weight:700;color:#0369a1;margin:12px 0 7px}
+ul,ol{padding-left:17px;font-size:12.5px;color:#475569;line-height:1.8}
+li{margin-bottom:3px}
+strong{color:#1e293b}
+@media(max-width:500px){.case-row{grid-template-columns:1fr 1fr}.hdr-inst{font-size:11px}}
+@media(min-width:681px){.main{padding:22px 20px 50px}}
+</style>
+</head>
+<body>
+
+<div class="back-bar">
+  <a class="back-btn" href="https://coordsanjose-glitch.github.io/simulador-cemey/">&#8592; Volver al Men&uacute;</a>
+  <span class="back-bar-title">Uso del Mult&iacute;metro Digital</span>
+</div>
+
+<header class="hdr">
+  <div class="hdr-logo"><img src="data:image/png;base64,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" alt="CEMEY"></div>
+  <div class="hdr-text">
+    <div class="hdr-inst">Centro Escolar Manuel Espinosa Yglesias &mdash; CEMEY Puebla</div>
+    <div class="hdr-proj">Un Futuro Brillante para Todos</div>
+    <div class="hdr-sub">Simulador T&eacute;cnico de Electr&oacute;nica &bull; 3&deg; de Secundaria</div>
+  </div>
+</header>
+
+<div class="cbar">
+  <span class="cr"><span class="cr-label">Docente titular &nbsp;</span><strong>Reyna Cordero P&eacute;rez</strong></span>
+  <span class="cr"><span class="cr-label">Asesor tecnol&oacute;gico y creador &nbsp;</span><strong>Ing. Rodolfo Fernando Porras S&aacute;nchez</strong></span>
+</div>
+
+<div class="mod-hero">
+  <div class="mod-icon">🔬</div>
+  <div class="mod-title">Uso del Mult&iacute;metro Digital</div>
+  <div class="mod-sub">Partes &bull; Puertos &bull; Voltaje DC y AC &bull; Resistencia &bull; Corriente &bull; Continuidad &bull; Tabla resumen</div>
+</div>
+
+<div class="main">
+
+<div class="tabs">
+  <button class="tb active" onclick="switchTab(this,'mt','tA')">🔬 ¿Qué es?</button>
+  <button class="tb" onclick="switchTab(this,'mt','tB')">🔌 Puertos y puntas</button>
+  <button class="tb" onclick="switchTab(this,'mt','tC')">⚡ Voltaje DC</button>
+  <button class="tb" onclick="switchTab(this,'mt','tD')">🌐 Voltaje AC</button>
+  <button class="tb" onclick="switchTab(this,'mt','tE')">🌀 Resistencia</button>
+  <button class="tb" onclick="switchTab(this,'mt','tF')">🔋 Corriente</button>
+  <button class="tb" onclick="switchTab(this,'mt','tG')">🔔 Continuidad</button>
+  <button class="tb" onclick="switchTab(this,'mt','tH')">📋 Tabla resumen</button>
+  <button class="tb" onclick="switchTab(this,'mt','tI')">⚠️ Precauciones</button>
+</div>
+
+<div id="mt">
+  <div id="tA" class="tp active"><div class="card">
+  <div class="ct">🔬 ¿Qué es un Multímetro?</div>
+  <p>El <strong>multímetro digital</strong> es el instrumento de medición más útil en electrónica. Mide voltaje, corriente, resistencia y continuidad con un solo aparato. Es indispensable para verificar conexiones, diagnosticar fallas y comprobar que un circuito funciona correctamente.</p>
+  <div style="background:#0a1628;border-radius:10px;padding:14px;margin:10px 0"><svg viewBox="0 0 480 320" width="100%" style="max-width:480px;display:block;margin:0 auto">
+  <rect width="480" height="320" fill="#0a1628" rx="10"/>
+  <text x="240" y="22" text-anchor="middle" font-size="13" fill="#ffd700"
+    font-weight="700" font-family="Exo 2">Partes del multímetro digital</text>
+
+  <!-- Multimeter body -->
+  <rect x="130" y="40" width="140" height="230" rx="18" fill="#1e293b" stroke="#06b6d4" stroke-width="2.5"/>
+
+  <!-- LCD Display -->
+  <rect x="145" y="55" width="110" height="46" rx="6" fill="#0f172a" stroke="#475569" stroke-width="1.5"/>
+  <text x="200" y="82" text-anchor="middle" font-size="22" fill="#22c55e"
+    font-weight="800" font-family="Share Tech Mono">12.40</text>
+  <text x="200" y="96" text-anchor="middle" font-size="9" fill="#475569" font-family="Exo 2">V DC</text>
+
+  <!-- Rotary selector -->
+  <circle cx="200" cy="162" r="38" fill="#334155" stroke="#475569" stroke-width="1.5"/>
+  <circle cx="200" cy="162" r="28" fill="#1e293b" stroke="#06b6d4" stroke-width="1"/>
+  <!-- Tick marks around selector -->
+  <text x="200" y="133" text-anchor="middle" font-size="7" fill="#64748b" font-family="Exo 2">ACV</text>
+  <text x="229" y="143" text-anchor="middle" font-size="7" fill="#64748b" font-family="Exo 2">DCV</text>
+  <text x="238" y="166" text-anchor="middle" font-size="7" fill="#64748b" font-family="Exo 2">Ω</text>
+  <text x="228" y="190" text-anchor="middle" font-size="7" fill="#64748b" font-family="Exo 2">mA</text>
+  <text x="200" y="203" text-anchor="middle" font-size="7" fill="#ffd700" font-family="Exo 2">≫))</text>
+  <text x="174" y="190" text-anchor="middle" font-size="7" fill="#64748b" font-family="Exo 2">10A</text>
+  <!-- Selector pointer -->
+  <line x1="200" y1="162" x2="222" y2="148" stroke="#ffd700" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Ports -->
+  <circle cx="160" cy="240" r="9" fill="#000" stroke="#9ca3af" stroke-width="2"/>
+  <text x="160" y="258" text-anchor="middle" font-size="8" fill="#9ca3af" font-family="Exo 2">COM</text>
+  <circle cx="190" cy="240" r="9" fill="#ef4444" stroke="#fca5a5" stroke-width="2"/>
+  <text x="190" y="258" text-anchor="middle" font-size="7" fill="#fca5a5" font-family="Exo 2">VΩmA</text>
+  <circle cx="225" cy="240" r="9" fill="#ef4444" stroke="#fb923c" stroke-width="2"/>
+  <text x="225" y="258" text-anchor="middle" font-size="8" fill="#fb923c" font-family="Exo 2">10A</text>
+
+  <!-- ON/OFF button -->
+  <rect x="182" y="108" width="36" height="18" rx="9" fill="#dc2626" stroke="#fca5a5" stroke-width="1.5"/>
+  <text x="200" y="121" text-anchor="middle" font-size="9" fill="#fff" font-weight="700" font-family="Exo 2">ON/OFF</text>
+
+  <!-- Labels LEFT -->
+  <line x1="130" y1="78" x2="70" y2="58" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="66" y="55" text-anchor="end" font-size="11" fill="#e2e8f0" font-weight="600" font-family="Exo 2">Pantalla LCD</text>
+  <text x="66" y="68" text-anchor="end" font-size="9.5" fill="#94a3b8" font-family="Exo 2">muestra el valor medido</text>
+
+  <line x1="163" y1="240" x2="60" y2="210" stroke="#9ca3af" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="56" y="207" text-anchor="end" font-size="11" fill="#9ca3af" font-weight="600" font-family="Exo 2">Puerto COM</text>
+  <text x="56" y="220" text-anchor="end" font-size="9.5" fill="#64748b" font-family="Exo 2">punta negra, siempre aquí</text>
+
+  <!-- Labels RIGHT -->
+  <line x1="270" y1="162" x2="330" y2="132" stroke="#94a3b8" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="334" y="128" font-size="11" fill="#e2e8f0" font-weight="600" font-family="Exo 2">Selector rotativo</text>
+  <text x="334" y="142" font-size="9.5" fill="#94a3b8" font-family="Exo 2">elige la función de medición</text>
+
+  <line x1="215" y1="117" x2="330" y2="105" stroke="#ef4444" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="334" y="101" font-size="11" fill="#ef4444" font-weight="600" font-family="Exo 2">Botón ON/OFF</text>
+
+  <line x1="199" y1="240" x2="330" y2="220" stroke="#fca5a5" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="334" y="216" font-size="11" fill="#fca5a5" font-weight="600" font-family="Exo 2">Puerto VΩmA</text>
+  <text x="334" y="230" font-size="9.5" fill="#64748b" font-family="Exo 2">punta roja (V, Ω, mA)</text>
+
+  <line x1="225" y1="249" x2="330" y2="258" stroke="#fb923c" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="334" y="255" font-size="11" fill="#fb923c" font-weight="600" font-family="Exo 2">Puerto 10A</text>
+  <text x="334" y="269" font-size="9.5" fill="#64748b" font-family="Exo 2">solo para corrientes altas</text>
+</svg></div>
+  <h4>Las cuatro partes principales</h4>
+  <div class="tw"><table>
+    <tr><th>Parte</th><th>Función</th><th>Notas</th></tr>
+    <tr><td><strong>Pantalla LCD</strong></td><td>Muestra el valor medido con sus unidades</td><td>Pantalla de 4 dígitos más signo. "OL" o "1" = fuera de rango</td></tr>
+    <tr><td><strong>Selector rotativo</strong></td><td>Elige la función y el rango de medición</td><td>Girar al modo correcto ANTES de conectar las puntas</td></tr>
+    <tr><td><strong>Puertos de conexión</strong></td><td>Donde se insertan las puntas de prueba</td><td>3 puertos: COM, VΩmA y 10A — ver pestaña siguiente</td></tr>
+    <tr><td><strong>Botón ON/OFF</strong></td><td>Encender y apagar el multímetro</td><td>Siempre apagar después de usar — las pilas duran más</td></tr>
+  </table></div>
+</div></div>
+  <div id="tB" class="tp"><div class="card">
+  <div class="ct">🔌 Puertos y Puntas de Prueba</div>
+  <p>El multímetro tiene <strong>tres puertos</strong> y <strong>dos puntas de prueba</strong> (roja y negra). La regla de conexión es siempre la misma — solo cambia cuál puerto rojo usar.</p>
+  <div class="port-row">
+    <div class="port port-com">
+      <div class="port-em">⚫</div>
+      <div class="port-label">COM</div>
+      <div class="port-desc">Punta NEGRA<br>Siempre aquí<br>sin excepción<br>COM = Común = GND = (−)</div>
+    </div>
+    <div class="port port-vr">
+      <div class="port-em">🔴</div>
+      <div class="port-label">VΩmA</div>
+      <div class="port-desc">Punta ROJA<br>Para voltaje (V)<br>resistencia (Ω)<br>y corriente baja (mA)</div>
+    </div>
+    <div class="port port-10a">
+      <div class="port-em">🟠</div>
+      <div class="port-label">10A (o 20A)</div>
+      <div class="port-desc">Punta ROJA<br>Solo para corrientes<br>mayores a 200mA<br>o cuando hay duda</div>
+    </div>
+  </div>
+  <div class="mne">📖 Regla mnemotécnica: "Negro = Nunca cambia de puerto" · Rojo = elige según lo que mides</div>
+  <div class="tw"><table>
+    <tr><th>Medición</th><th>Puerto punta NEGRA</th><th>Puerto punta ROJA</th><th>Notas</th></tr>
+    <tr><td>Voltaje DC o AC</td><td>COM</td><td>VΩmA</td><td>Siempre paralelo al componente</td></tr>
+    <tr><td>Resistencia (Ω)</td><td>COM</td><td>VΩmA</td><td>Circuito apagado</td></tr>
+    <tr><td>Corriente &lt; 200mA</td><td>COM</td><td>VΩmA</td><td>En serie — interrumpe circuito</td></tr>
+    <tr><td>Corriente &gt; 200mA</td><td>COM</td><td>10A</td><td>En serie — precaución</td></tr>
+    <tr><td>Continuidad</td><td>COM</td><td>VΩmA</td><td>Circuito apagado</td></tr>
+  </table></div>
+  <div class="al danger"><span class="al-i">⚠️</span><div><strong>Error más peligroso:</strong> medir voltaje con la punta roja en el puerto 10A. El puerto 10A tiene muy baja resistencia interna — conectado en paralelo actúa como un cortocircuito, puede quemar el fusible interno, dañar el multímetro o dañar el circuito.</div></div>
+</div></div>
+  <div id="tC" class="tp"><div class="card">
+  <div class="ct">⚡ Cómo Medir Voltaje DC</div>
+  <p>La medición de voltaje DC (corriente directa) es la más frecuente en electrónica con LEDs y Neón Flex. Se usa para verificar la fuente de alimentación, el voltaje sobre los LEDs y caídas de voltaje en resistencias.</p>
+  <div class="al info"><span class="al-i">📌</span><div><strong>Regla fundamental:</strong> el voltímetro se conecta siempre en <strong>PARALELO</strong> con el componente que quieres medir. El circuito puede y debe estar <strong>ENCENDIDO</strong>.</div></div>
+  <h4>4 pasos para medir voltaje DC</h4>
+  <ul class="steps">
+    <li><div class="sn">1</div><div class="st"><strong>Seleccionar modo DC V.</strong> Gira el selector a la posición DC V (o V— con la línea continua). Si el multímetro no es autorange, selecciona un rango mayor al voltaje esperado (ej: 20V para una fuente de 12V).</div></li>
+    <li><div class="sn">2</div><div class="st"><strong>Conectar punta negra al COM y punta roja al puerto VΩmA.</strong> Verifica los puertos antes de tocar el circuito.</div></li>
+    <li><div class="sn">3</div><div class="st"><strong>Con el circuito encendido, toca los puntos de medición.</strong> Punta roja al punto de mayor potencial (positivo) y punta negra al punto de menor potencial (negativo o GND).</div></li>
+    <li><div class="sn">4</div><div class="st"><strong>Lee el valor en pantalla.</strong> Si aparece un número negativo, invierte las puntas (tenías la polaridad al revés). Si aparece "OL" o "1", cambia a un rango mayor.</div></li>
+  </ul>
+
+  <h4>Ejemplo 1 — Medir voltaje directo de un LED encendido</h4>
+  <div class="circ"><svg viewBox="0 0 520 230" width="100%" style="min-width:300px;display:block;margin:0 auto">
+  <rect width="520" height="230" fill="#0a1628" rx="10"/><defs><marker id="arMu" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#ffd700" stroke-width="1.8" stroke-linecap="round"/></marker></defs>
+  <text x="260" y="20" text-anchor="middle" font-size="12.5" fill="#ffd700" font-weight="700" font-family="Exo 2,sans-serif">Voltaje DC — Multímetro en PARALELO con el componente</text>
+
+  <rect x="12" y="70" width="52" height="56" rx="6" fill="#1a3558" stroke="#ffd700" stroke-width="2"/><text x="38" y="96" text-anchor="middle" font-size="12" fill="#ffd700" font-weight="800" font-family="Exo 2">9V</text><text x="38" y="110" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.5)" font-family="Exo 2">CD</text><text x="68" y="94" font-size="13" fill="#00c896" font-weight="900">+</text><text x="-2" y="94" font-size="13" fill="#ff6b6b" font-weight="900">−</text>
+  <line x1="64" y1="84" x2="110" y2="84" stroke="#ffd700" stroke-width="2.5"/>
+  <rect x="110" y="71" width="52" height="26" rx="6" fill="#5b21b6" stroke="#a78bfa" stroke-width="1.8"/><text x="136" y="88" text-anchor="middle" font-size="10" fill="#fff" font-weight="700" font-family="Share Tech Mono">470Ω</text>
+  <line x1="162" y1="84" x2="200" y2="84" stroke="#ffd700" stroke-width="2.5"/>
+  <polygon points="200,68 200,100 244,84" fill="#ef4444" fill-opacity="0.85" stroke="#ef4444" stroke-width="1.5"/><line x1="244" y1="68" x2="244" y2="100" stroke="#ef4444" stroke-width="2.5"/><line x1="248" y1="70" x2="258" y2="60" stroke="#ef4444" stroke-width="1.8" stroke-linecap="round"/><line x1="253" y1="80" x2="265" y2="72" stroke="#ef4444" stroke-width="1.8" stroke-linecap="round"/><text x="222" y="112" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.65)" font-family="Exo 2">LED Rojo</text>
+  <line x1="244" y1="84" x2="460" y2="84" stroke="#ffd700" stroke-width="2.5"/>
+  <line x1="460" y1="84" x2="460" y2="165" stroke="#ffd700" stroke-width="2.5"/><line x1="12" y1="165" x2="460" y2="165" stroke="#ffd700" stroke-width="2.5"/><line x1="12" y1="126" x2="12" y2="165" stroke="#ffd700" stroke-width="2.5"/>
+
+  <rect x="300" y="95" width="70" height="90" rx="8" fill="#1e293b" stroke="#06b6d4" stroke-width="2"/><rect x="308" y="103" width="54" height="26" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/><text x="335" y="121" text-anchor="middle" font-size="14" fill="#22c55e" font-weight="800" font-family="Share Tech Mono">1.98</text><circle cx="335" cy="147" r="14" fill="#334155" stroke="#475569" stroke-width="1"/><text x="335" y="150" text-anchor="middle" font-size="7" fill="#ffd700" font-family="Exo 2">SELECT</text><circle cx="315" cy="175" r="5" fill="#000" stroke="#9ca3af" stroke-width="1.2"/><text x="315" y="168" text-anchor="middle" font-size="7" fill="#9ca3af" font-family="Exo 2">COM</text><circle cx="335" cy="175" r="5" fill="#ef4444" stroke="#fca5a5" stroke-width="1.2"/><text x="335" y="168" text-anchor="middle" font-size="6" fill="#fca5a5" font-family="Exo 2">VΩmA</text>
+  <line x1="315" y1="185" x2="200" y2="84" stroke="#000" stroke-width="2.2"/><circle cx="200" cy="84" r="4" fill="#000" stroke="#9ca3af" stroke-width="1"/><line x1="335" y1="185" x2="244" y2="84" stroke="#ef4444" stroke-width="2.2"/><circle cx="244" cy="84" r="4" fill="#ef4444" stroke="#fca5a5" stroke-width="1"/>
+
+  <text x="320" y="205" text-anchor="middle" font-size="9.5" fill="#06b6d4"
+    font-family="Exo 2">🔴 punta roja → punto de mayor voltaje (ánodo LED)</text>
+  <text x="320" y="218" text-anchor="middle" font-size="9.5" fill="#9ca3af"
+    font-family="Exo 2">⚫ punta negra → punto de menor voltaje (cátodo LED)</text>
+  <text x="180" y="200" text-anchor="middle" font-size="9" fill="#94a3b8"
+    font-family="Exo 2">Circuito ENCENDIDO</text>
+  <text x="180" y="213" text-anchor="middle" font-size="9" fill="#22c55e"
+    font-family="Exo 2">V = 1.98V (Vf del LED rojo ✅)</text>
+</svg></div>
+  <div class="case-row">
+    <div class="case"><div class="case-icon">🔴</div><div class="case-label">LED Rojo</div><div class="case-val">~2.0V</div></div>
+    <div class="case"><div class="case-icon">🟢</div><div class="case-label">LED Verde</div><div class="case-val">~2.1V</div></div>
+    <div class="case"><div class="case-icon">🔵</div><div class="case-label">LED Azul</div><div class="case-val">~3.2V</div></div>
+  </div>
+
+  <h4>Ejemplo 2 — Medir voltaje de la fuente DC</h4>
+  <div class="circ"><svg viewBox="0 0 420 200" width="100%" style="min-width:280px;display:block;margin:0 auto">
+  <rect width="420" height="200" fill="#0a1628" rx="10"/><defs><marker id="arMu" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#ffd700" stroke-width="1.8" stroke-linecap="round"/></marker></defs>
+  <text x="210" y="20" text-anchor="middle" font-size="12.5" fill="#ffd700" font-weight="700" font-family="Exo 2,sans-serif">Medir voltaje de la fuente DC — terminales directas</text>
+
+  <rect x="40" y="60" width="52" height="56" rx="6" fill="#1a3558" stroke="#ffd700" stroke-width="2"/><text x="66" y="86" text-anchor="middle" font-size="12" fill="#ffd700" font-weight="800" font-family="Exo 2">9V</text><text x="66" y="100" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.5)" font-family="Exo 2">CD</text><text x="96" y="84" font-size="13" fill="#00c896" font-weight="900">+</text><text x="26" y="84" font-size="13" fill="#ff6b6b" font-weight="900">−</text>
+  <rect x="220" y="60" width="70" height="90" rx="8" fill="#1e293b" stroke="#06b6d4" stroke-width="2"/><rect x="228" y="68" width="54" height="26" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/><text x="255" y="86" text-anchor="middle" font-size="14" fill="#22c55e" font-weight="800" font-family="Share Tech Mono">12.03</text><circle cx="255" cy="112" r="14" fill="#334155" stroke="#475569" stroke-width="1"/><text x="255" y="115" text-anchor="middle" font-size="7" fill="#ffd700" font-family="Exo 2">SELECT</text><circle cx="235" cy="140" r="5" fill="#000" stroke="#9ca3af" stroke-width="1.2"/><text x="235" y="133" text-anchor="middle" font-size="7" fill="#9ca3af" font-family="Exo 2">COM</text><circle cx="255" cy="140" r="5" fill="#ef4444" stroke="#fca5a5" stroke-width="1.2"/><text x="255" y="133" text-anchor="middle" font-size="6" fill="#fca5a5" font-family="Exo 2">VΩmA</text>
+  <line x1="235" y1="150" x2="40" y2="71" stroke="#000" stroke-width="2.2"/><circle cx="40" cy="71" r="4" fill="#000" stroke="#9ca3af" stroke-width="1"/><line x1="255" y1="150" x2="92" y2="71" stroke="#ef4444" stroke-width="2.2"/><circle cx="92" cy="71" r="4" fill="#ef4444" stroke="#fca5a5" stroke-width="1"/>
+
+  <text x="210" y="172" text-anchor="middle" font-size="9.5" fill="#06b6d4"
+    font-family="Exo 2">🔴 punta roja → terminal (+) de la fuente</text>
+  <text x="210" y="186" text-anchor="middle" font-size="9.5" fill="#9ca3af"
+    font-family="Exo 2">⚫ punta negra → terminal (−) de la fuente · Circuito puede estar apagado</text>
+</svg></div>
+  <div class="al success"><span class="al-i">✅</span><div><strong>Práctica recomendada en clase:</strong> antes de conectar cualquier circuito, mide el voltaje de la fuente con el multímetro para confirmar que entrega exactamente el voltaje calculado (12V, 9V o 5V). Una fuente defectuosa puede entregar más voltaje y quemar los LEDs.</div></div>
+</div></div>
+  <div id="tD" class="tp"><div class="card">
+  <div class="ct">🌐 Cómo Medir Voltaje AC</div>
+  <p>El voltaje AC (corriente alterna) es el voltaje de la red eléctrica doméstica — 127V en México. En proyectos con LEDs y Neón Flex trabajamos casi siempre con DC, pero puede ser necesario verificar que la red eléctrica llega correctamente a la fuente de alimentación.</p>
+  <div class="al danger"><span class="al-i">🔴</span><div><strong>Precaución especial con AC:</strong> el voltaje de la red eléctrica (127V) puede ser mortal. Si no tienes experiencia, no midas voltaje AC directamente. Las mediciones de AC en proyectos escolares deben hacerse solo en la salida DC de la fuente de alimentación ya convertida.</div></div>
+  <h4>Diferencias clave AC vs DC</h4>
+  <div class="tw"><table>
+    <tr><th>Característica</th><th>Voltaje DC (el que usamos)</th><th>Voltaje AC (red eléctrica)</th></tr>
+    <tr><td>Símbolo en el selector</td><td>V— o VDC (línea continua)</td><td>V~ o VAC (línea ondulada)</td></tr>
+    <tr><td>Peligrosidad</td><td>✅ 12V–24V: no peligroso</td><td>⚠ 127V: peligroso si hay contacto</td></tr>
+    <tr><td>Polaridad al medir</td><td>Importa — negativo da número negativo</td><td>No importa — el valor es siempre positivo</td></tr>
+    <tr><td>Uso en letreros</td><td>✅ Todo el tiempo — es nuestro voltaje de trabajo</td><td>Solo para verificar la entrada a la fuente</td></tr>
+    <tr><td>EPP necesario</td><td>Ninguno especial</td><td>Guantes aislantes, no tocar terminales</td></tr>
+  </table></div>
+  <h4>¿Cuándo puede necesitarse en proyectos de letrero?</h4>
+  <ul>
+    <li>Para verificar que el contacto eléctrico tiene 127V antes de conectar la fuente.</li>
+    <li>Para diagnosticar si la fuente recibe voltaje pero no entrega DC (fuente defectuosa).</li>
+    <li>Para verificar la lectura correcta con la fuente AC enchufada y el circuito DC apagado.</li>
+  </ul>
+  <div class="al success"><span class="al-i">✅</span><div>En el 99% de los proyectos escolares y de taller con Neón Flex y LEDs, <strong>nunca necesitas medir voltaje AC</strong>. Toda tu medición se hace en el lado DC de la fuente: 12V, 9V o 5V según tu fuente de alimentación.</div></div>
+</div></div>
+  <div id="tE" class="tp"><div class="card">
+  <div class="ct">🌀 Cómo Medir Resistencia</div>
+  <p>Medir resistencia permite verificar que una resistencia tiene el valor correcto y diagnosticar componentes potencialmente dañados.</p>
+  <div class="al warn"><span class="al-i">⚠️</span><div><strong>Regla absoluta:</strong> para medir resistencia el circuito SIEMPRE debe estar <strong>APAGADO</strong> y el componente debe estar desconectado de otros elementos (al menos una pata libre). Medir con el circuito encendido puede dañar el multímetro.</div></div>
+  <h4>4 pasos para medir resistencia</h4>
+  <ul class="steps">
+    <li><div class="sn">1</div><div class="st"><strong>Apagar el circuito completamente.</strong> Desconectar la fuente de alimentación. Si hay capacitores en el circuito, esperar 30 segundos a que se descarguen.</div></li>
+    <li><div class="sn">2</div><div class="st"><strong>Seleccionar modo Ω.</strong> Si es autorange, simplemente selecciona Ω. Si es manual, selecciona el rango inmediatamente superior al valor esperado (ej: 2kΩ para una resistencia de 470Ω).</div></li>
+    <li><div class="sn">3</div><div class="st"><strong>Tocar las puntas directamente sobre las patas de la resistencia.</strong> No importa qué punta va en qué pata — la resistencia no tiene polaridad.</div></li>
+    <li><div class="sn">4</div><div class="st"><strong>Leer el valor.</strong> Una resistencia de 470Ω con tolerancia 5% puede dar entre 446.5Ω y 493.5Ω — cualquier valor en ese rango es correcto. Si da "OL" o "1", la resistencia está abierta (rota).</div></li>
+  </ul>
+  <div class="circ"><svg viewBox="0 0 520 210" width="100%" style="min-width:300px;display:block;margin:0 auto">
+  <rect width="520" height="210" fill="#0a1628" rx="10"/><defs><marker id="arMu" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#ffd700" stroke-width="1.8" stroke-linecap="round"/></marker></defs>
+  <text x="260" y="20" text-anchor="middle" font-size="12.5" fill="#ffd700" font-weight="700" font-family="Exo 2,sans-serif">Medir resistencia — circuito APAGADO, componente desconectado</text>
+
+  <rect x="90" y="80" width="70" height="36" rx="6" fill="#5b21b6" stroke="#a78bfa" stroke-width="1.8"/><text x="125" y="97" text-anchor="middle" font-size="10" fill="#fff" font-weight="700" font-family="Share Tech Mono">470Ω</text>
+
+  <rect x="300" y="70" width="70" height="90" rx="8" fill="#1e293b" stroke="#06b6d4" stroke-width="2"/><rect x="308" y="78" width="54" height="26" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/><text x="335" y="96" text-anchor="middle" font-size="14" fill="#22c55e" font-weight="800" font-family="Share Tech Mono">467</text><circle cx="335" cy="122" r="14" fill="#334155" stroke="#475569" stroke-width="1"/><text x="335" y="125" text-anchor="middle" font-size="7" fill="#ffd700" font-family="Exo 2">SELECT</text><circle cx="315" cy="150" r="5" fill="#000" stroke="#9ca3af" stroke-width="1.2"/><text x="315" y="143" text-anchor="middle" font-size="7" fill="#9ca3af" font-family="Exo 2">COM</text><circle cx="335" cy="150" r="5" fill="#ef4444" stroke="#fca5a5" stroke-width="1.2"/><text x="335" y="143" text-anchor="middle" font-size="6" fill="#fca5a5" font-family="Exo 2">VΩmA</text>
+
+  <line x1="300+15" y1="160" x2="90" y2="98" stroke="#000" stroke-width="2.2"/>
+  <circle cx="90" cy="98" r="4" fill="#000" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="300+35" y1="160" x2="160" y2="98" stroke="#ef4444" stroke-width="2.2"/>
+  <circle cx="160" cy="98" r="4" fill="#ef4444" stroke="#fca5a5" stroke-width="1"/>
+
+  <text x="250" y="178" text-anchor="middle" font-size="9.5" fill="#f59e0b"
+    font-family="Exo 2">⚠ Circuito APAGADO y componente desconectado de otros elementos</text>
+  <text x="250" y="192" text-anchor="middle" font-size="9.5" fill="#94a3b8"
+    font-family="Exo 2">Pantalla muestra 467Ω — normal ±5% para resistencia de 470Ω (tolerancia del 5%)</text>
+</svg></div>
+  <h4>Práctica con código de colores de resistencias</h4>
+  <p>Antes de medir, identifica el valor esperado por el código de colores y luego confirma con el multímetro:</p>
+  <div class="tw"><table>
+    <tr><th>Resistencia</th><th>Código de colores</th><th>Valor esperado</th><th>Rango aceptable (±5%)</th></tr>
+    <tr><td>Para LED rojo 12V</td><td>Amarillo-Violeta-Café-Dorado</td><td>470 Ω</td><td>446 – 494 Ω</td></tr>
+    <tr><td>Para LED azul 9V</td><td>Rojo-Violeta-Café-Dorado</td><td>270 Ω</td><td>256 – 284 Ω</td></tr>
+    <tr><td>Para LED rojo 5V</td><td>Café-Verde-Café-Dorado</td><td>150 Ω</td><td>142 – 158 Ω</td></tr>
+    <tr><td>Para LED azul 12V</td><td>Amarillo-Naranja-Café-Dorado</td><td>430 Ω</td><td>409 – 452 Ω</td></tr>
+  </table></div>
+</div></div>
+  <div id="tF" class="tp"><div class="card">
+  <div class="ct">🔋 Cómo Medir Corriente</div>
+  <p>Medir la corriente permite verificar que los LEDs están recibiendo exactamente los 20mA correctos y que la fuente no está sobrecargada. Es la medición más delicada porque el multímetro debe insertarse en el circuito.</p>
+  <div class="al danger"><span class="al-i">⚠️</span><div><strong>Regla esencial:</strong> el amperímetro siempre va en <strong>SERIE</strong> — debes interrumpir (abrir) el circuito en un punto e insertar el multímetro en ese punto. Conectarlo en paralelo como si fuera voltímetro quema el fusible interno inmediatamente.</div></div>
+  <div class="circ"><svg viewBox="0 0 540 240" width="100%" style="min-width:320px;display:block;margin:0 auto">
+  <rect width="540" height="240" fill="#0a1628" rx="10"/><defs><marker id="arMu" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#ffd700" stroke-width="1.8" stroke-linecap="round"/></marker></defs>
+  <text x="270" y="20" text-anchor="middle" font-size="12.5" fill="#ffd700" font-weight="700" font-family="Exo 2,sans-serif">Medir corriente — multímetro en SERIE (interrumpe el circuito)</text>
+
+  <rect x="12" y="72" width="52" height="56" rx="6" fill="#1a3558" stroke="#ffd700" stroke-width="2"/><text x="38" y="98" text-anchor="middle" font-size="12" fill="#ffd700" font-weight="800" font-family="Exo 2">9V</text><text x="38" y="112" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.5)" font-family="Exo 2">CD</text><text x="68" y="96" font-size="13" fill="#00c896" font-weight="900">+</text><text x="-2" y="96" font-size="13" fill="#ff6b6b" font-weight="900">−</text>
+  <line x1="64" y1="86" x2="110" y2="86" stroke="#ffd700" stroke-width="2.5"/>
+  <rect x="110" y="73" width="52" height="26" rx="6" fill="#5b21b6" stroke="#a78bfa" stroke-width="1.8"/><text x="136" y="90" text-anchor="middle" font-size="10" fill="#fff" font-weight="700" font-family="Share Tech Mono">470Ω</text>
+
+  <line x1="162" y1="86" x2="200" y2="86" stroke="#ffd700" stroke-width="2.5"/>
+  <text x="181" y="78" text-anchor="middle" font-size="9" fill="#06b6d4" font-family="Exo 2">corte ✂</text>
+  <line x1="200" y1="86" x2="220" y2="86" stroke="#ffd700" stroke-width="1" stroke-dasharray="4,3"/>
+
+  <rect x="220" y="55" width="70" height="90" rx="8" fill="#1e293b" stroke="#06b6d4" stroke-width="2"/><rect x="228" y="63" width="54" height="26" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/><text x="255" y="81" text-anchor="middle" font-size="14" fill="#22c55e" font-weight="800" font-family="Share Tech Mono">19.8</text><circle cx="255" cy="107" r="14" fill="#334155" stroke="#475569" stroke-width="1"/><text x="255" y="110" text-anchor="middle" font-size="7" fill="#ffd700" font-family="Exo 2">SELECT</text><circle cx="235" cy="135" r="5" fill="#000" stroke="#9ca3af" stroke-width="1.2"/><text x="235" y="128" text-anchor="middle" font-size="7" fill="#9ca3af" font-family="Exo 2">COM</text><circle cx="255" cy="135" r="5" fill="#ef4444" stroke="#fca5a5" stroke-width="1.2"/><text x="255" y="128" text-anchor="middle" font-size="6" fill="#fca5a5" font-family="Exo 2">mA</text>
+  <line x1="235" y1="145" x2="200" y2="86" stroke="#000" stroke-width="2.2"/>
+  <circle cx="200" cy="86" r="4" fill="#000" stroke="#9ca3af" stroke-width="1"/>
+  <line x1="255" y1="145" x2="295" y2="86" stroke="#ef4444" stroke-width="2.2"/>
+  <circle cx="295" cy="86" r="4" fill="#ef4444" stroke="#fca5a5" stroke-width="1"/>
+
+  <polygon points="295,70 295,102 339,86" fill="#ef4444" fill-opacity="0.85" stroke="#ef4444" stroke-width="1.5"/><line x1="339" y1="70" x2="339" y2="102" stroke="#ef4444" stroke-width="2.5"/><line x1="343" y1="72" x2="353" y2="62" stroke="#ef4444" stroke-width="1.8" stroke-linecap="round"/><line x1="348" y1="82" x2="360" y2="74" stroke="#ef4444" stroke-width="1.8" stroke-linecap="round"/><text x="317" y="114" text-anchor="middle" font-size="9" fill="rgba(255,255,255,.65)" font-family="Exo 2">LED</text>
+  <line x1="339" y1="86" x2="460" y2="86" stroke="#ffd700" stroke-width="2.5"/><line x1="460" y1="86" x2="460" y2="162" stroke="#ffd700" stroke-width="2.5"/><line x1="12" y1="162" x2="460" y2="162" stroke="#ffd700" stroke-width="2.5"/><line x1="12" y1="128" x2="12" y2="162" stroke="#ffd700" stroke-width="2.5"/>
+
+  <text x="270" y="185" text-anchor="middle" font-size="9.5" fill="#06b6d4"
+    font-family="Exo 2">El multímetro se inserta EN SERIE — interrumpe el circuito en un punto</text>
+  <text x="270" y="199" text-anchor="middle" font-size="9.5" fill="#9ca3af"
+    font-family="Exo 2">⚫ punta negra → extremo del corte donde entra la corriente (viene de R)</text>
+  <text x="270" y="213" text-anchor="middle" font-size="9.5" fill="#fca5a5"
+    font-family="Exo 2">🔴 punta roja → extremo del corte donde sale la corriente (va al LED)</text>
+  <text x="270" y="227" text-anchor="middle" font-size="9.5" fill="#22c55e"
+    font-family="Exo 2">Pantalla: 19.8 mA ≈ 20 mA esperados ✅</text>
+</svg></div>
+  <h4>4 pasos para medir corriente</h4>
+  <ul class="steps">
+    <li><div class="sn">1</div><div class="st"><strong>Seleccionar modo mA (o A) y el puerto correcto.</strong> Si esperas menos de 200mA (circuitos con LEDs: 20mA), usa el puerto VΩmA y el selector en mA. Si esperas más de 200mA (muchos LEDs en paralelo), usa el puerto 10A y el selector en A.</div></li>
+    <li><div class="sn">2</div><div class="st"><strong>Interrumpir el circuito en un punto.</strong> Abre el cable positivo entre la resistencia y el LED (o entre la fuente y la primera resistencia). Este corte es donde insertas el multímetro.</div></li>
+    <li><div class="sn">3</div><div class="st"><strong>Conectar en serie:</strong> punta negra (COM) al extremo que viene de la resistencia, punta roja (mA) al extremo que va al LED. La corriente entrará por el COM y saldrá por el VΩmA.</div></li>
+    <li><div class="sn">4</div><div class="st"><strong>Encender el circuito y leer.</strong> La pantalla mostrará la corriente en mA. Debería ser muy cercana a 20mA. Si es mayor, la resistencia es demasiado pequeña. Si es mucho menor, la resistencia es muy grande o hay una mala soldadura.</div></li>
+  </ul>
+  <h4>¿Cuándo usar el puerto 10A?</h4>
+  <ul>
+    <li>Cuando el circuito tiene <strong>más de 10 LEDs en paralelo</strong> (más de 200mA en total).</li>
+    <li>Cuando midiendo con el puerto VΩmA el fusible se quemó (el multímetro muestra "0" o nada).</li>
+    <li>Cuando mides la corriente total que consume el letrero completo desde la fuente.</li>
+  </ul>
+  <div class="al warn"><span class="al-i">⚠️</span><div>El puerto 10A no tiene fusible en muchos multímetros económicos. Si hay un cortocircuito mientras mides con el puerto 10A, el exceso de corriente puede dañar el multímetro permanentemente. Úsalo solo cuando sea necesario y nunca dejes el multímetro en modo 10A más tiempo del necesario.</div></div>
+</div></div>
+  <div id="tG" class="tp"><div class="card">
+  <div class="ct">🔔 Función de Continuidad</div>
+  <p>La <strong>continuidad</strong> es la función más usada en el diagnóstico de circuitos. Indica si hay un camino conductor entre dos puntos — es decir, si la electricidad puede fluir de un extremo al otro. Un pitido = hay continuidad. Silencio = hay un corte.</p>
+  <div class="al info"><span class="al-i">💡</span><div>El multímetro en modo continuidad aplica internamente un voltaje muy pequeño (1.5V o menos) entre las puntas. Si la resistencia entre los puntos es menor a ~30Ω, suena el buzzer. El circuito debe estar <strong>APAGADO</strong> para no interferir con esta medición.</div></div>
+  <h4>3 pasos para usar la continuidad</h4>
+  <ul class="steps">
+    <li><div class="sn">1</div><div class="st"><strong>Seleccionar modo continuidad:</strong> busca el símbolo ≫)) o el diodo con ondas. Suele estar compartido con la función de medición de diodos en la misma posición del selector.</div></li>
+    <li><div class="sn">2</div><div class="st"><strong>Apagar completamente el circuito a revisar</strong> y tocar las dos puntas en los extremos del elemento que quieres verificar.</div></li>
+    <li><div class="sn">3</div><div class="st"><strong>Interpretar el resultado:</strong> pitido continuo = hay continuidad (camino conductor). Silencio o "OL" = circuito abierto (cable roto, mala soldadura, fusible quemado, componente roto).</div></li>
+  </ul>
+  <div class="circ"><svg viewBox="0 0 520 220" width="100%" style="min-width:300px;display:block;margin:0 auto">
+  <rect width="520" height="220" fill="#0a1628" rx="10"/><defs><marker id="arMu" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M1 1L9 5L1 9" fill="none" stroke="#ffd700" stroke-width="1.8" stroke-linecap="round"/></marker></defs>
+  <text x="260" y="20" text-anchor="middle" font-size="12.5" fill="#ffd700" font-weight="700" font-family="Exo 2,sans-serif">Continuidad — verificar cable y soldaduras</text>
+
+  <!-- Cable test scenario -->
+  <text x="130" y="52" text-anchor="middle" font-size="11" fill="#e2e8f0"
+    font-weight="700" font-family="Exo 2">Escenario 1: cable íntegro</text>
+  <line x1="30" y1="80" x2="220" y2="80" stroke="#ffd700" stroke-width="3"/>
+  <circle cx="30"  cy="80" r="5" fill="#000" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="220" cy="80" r="5" fill="#ef4444" stroke="#fca5a5" stroke-width="1.5"/>
+  <rect x="50" y="100" width="70" height="90" rx="8" fill="#1e293b" stroke="#06b6d4" stroke-width="2"/><rect x="58" y="108" width="54" height="26" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/><text x="85" y="126" text-anchor="middle" font-size="14" fill="#22c55e" font-weight="800" font-family="Share Tech Mono">🔔</text><circle cx="85" cy="152" r="14" fill="#334155" stroke="#475569" stroke-width="1"/><text x="85" y="155" text-anchor="middle" font-size="7" fill="#ffd700" font-family="Exo 2">SELECT</text><circle cx="65" cy="180" r="5" fill="#000" stroke="#9ca3af" stroke-width="1.2"/><text x="65" y="173" text-anchor="middle" font-size="7" fill="#9ca3af" font-family="Exo 2">COM</text><circle cx="85" cy="180" r="5" fill="#ef4444" stroke="#fca5a5" stroke-width="1.2"/><text x="85" y="173" text-anchor="middle" font-size="6" fill="#fca5a5" font-family="Exo 2">≫))</text>
+  <line x1="65" y1="190" x2="30" y2="80" stroke="#000" stroke-width="1.8" stroke-dasharray="5,3"/>
+  <line x1="85" y1="190" x2="220" y2="80" stroke="#ef4444" stroke-width="1.8" stroke-dasharray="5,3"/>
+  <text x="130" y="208" text-anchor="middle" font-size="10" fill="#22c55e"
+    font-weight="700" font-family="Exo 2">✅ PITIDO — hay continuidad</text>
+
+  <!-- Broken cable scenario -->
+  <text x="385" y="52" text-anchor="middle" font-size="11" fill="#e2e8f0"
+    font-weight="700" font-family="Exo 2">Escenario 2: cable roto</text>
+  <line x1="285" y1="80" x2="370" y2="80" stroke="#ffd700" stroke-width="3"/>
+  <text x="388" y="84" text-anchor="middle" font-size="16" fill="#ef4444">✕</text>
+  <line x1="405" y1="80" x2="480" y2="80" stroke="#ffd700" stroke-width="3"/>
+  <circle cx="285" cy="80" r="5" fill="#000" stroke="#9ca3af" stroke-width="1.5"/>
+  <circle cx="480" cy="80" r="5" fill="#ef4444" stroke="#fca5a5" stroke-width="1.5"/>
+  <rect x="315" y="100" width="70" height="90" rx="8" fill="#1e293b" stroke="#06b6d4" stroke-width="2"/><rect x="323" y="108" width="54" height="26" rx="4" fill="#0f172a" stroke="#475569" stroke-width="1"/><text x="350" y="126" text-anchor="middle" font-size="14" fill="#22c55e" font-weight="800" font-family="Share Tech Mono">OL</text><circle cx="350" cy="152" r="14" fill="#334155" stroke="#475569" stroke-width="1"/><text x="350" y="155" text-anchor="middle" font-size="7" fill="#ffd700" font-family="Exo 2">SELECT</text><circle cx="330" cy="180" r="5" fill="#000" stroke="#9ca3af" stroke-width="1.2"/><text x="330" y="173" text-anchor="middle" font-size="7" fill="#9ca3af" font-family="Exo 2">COM</text><circle cx="350" cy="180" r="5" fill="#ef4444" stroke="#fca5a5" stroke-width="1.2"/><text x="350" y="173" text-anchor="middle" font-size="6" fill="#fca5a5" font-family="Exo 2">≫))</text>
+  <line x1="330" y1="190" x2="285" y2="80" stroke="#000" stroke-width="1.8" stroke-dasharray="5,3"/>
+  <line x1="350" y1="190" x2="480" y2="80" stroke="#ef4444" stroke-width="1.8" stroke-dasharray="5,3"/>
+  <text x="385" y="208" text-anchor="middle" font-size="10" fill="#ff6b6b"
+    font-weight="700" font-family="Exo 2">❌ OL / "1" — circuito abierto</text>
+</svg></div>
+  <h4>Usos más frecuentes en proyectos de letreros</h4>
+  <div class="tw"><table>
+    <tr><th>Uso</th><th>Qué verificas</th><th>Resultado esperado</th></tr>
+    <tr><td>Cable de alimentación</td><td>Extremo a extremo del cable</td><td>🔔 Pitido (cable íntegro)</td></tr>
+    <tr><td>Soldadura de Neón Flex</td><td>Entre el cable soldado y la pista de cobre</td><td>🔔 Pitido (soldadura conductora)</td></tr>
+    <tr><td>Fusible</td><td>Extremo a extremo del fusible</td><td>🔔 Pitido (fusible bueno) · Silencio (fusible quemado)</td></tr>
+    <tr><td>Cortocircuito</td><td>Entre bus (+) y bus (−) del circuito</td><td>Silencio esperado · 🔔 Pitido = cortocircuito</td></tr>
+    <tr><td>Continuidad de pista PCB</td><td>Dos puntos de la misma pista de cobre</td><td>🔔 Pitido (pista íntegra)</td></tr>
+    <tr><td>LED (función diodo)</td><td>Ánodo (+) al rojo, cátodo (−) al negro</td><td>Muestra ~1.7–3.2V según color (LED funcional)</td></tr>
+  </table></div>
+  <div class="al success"><span class="al-i">✅</span><div><strong>Hábito profesional:</strong> antes de encender cualquier circuito nuevo, mide continuidad entre el bus positivo y el negativo. Debe dar silencio ("OL"). Si suena el pitido, hay un cortocircuito en el cableado — encender causaría daño a la fuente y a los componentes.</div></div>
+</div></div>
+  <div id="tH" class="tp"><div class="card">
+  <div class="ct">📋 Tabla Resumen Completa — Todos los Modos</div>
+  <div class="tw"><table>
+    <tr><th>Función</th><th>Selector</th><th>Puerto punta roja</th><th>Puerto punta negra</th><th>Estado del circuito</th><th>Tipo de conexión</th><th>Lectura típica</th></tr>
+    <tr>
+      <td><strong>Voltaje DC</strong></td><td>V— o VDC</td><td>VΩmA</td><td>COM</td>
+      <td>✅ Encendido</td><td>Paralelo al componente</td>
+      <td>12.03V (fuente), 2.0V (LED rojo)</td>
+    </tr>
+    <tr>
+      <td><strong>Voltaje AC</strong></td><td>V~ o VAC</td><td>VΩmA</td><td>COM</td>
+      <td>✅ Encendido</td><td>Paralelo al componente</td>
+      <td>127V (red eléctrica)</td>
+    </tr>
+    <tr>
+      <td><strong>Resistencia</strong></td><td>Ω</td><td>VΩmA</td><td>COM</td>
+      <td>⚠ Apagado (obligatorio)</td><td>Directa sobre el componente (una pata libre)</td>
+      <td>467Ω (resistencia de 470Ω)</td>
+    </tr>
+    <tr>
+      <td><strong>Corriente baja (&lt;200mA)</strong></td><td>mA</td><td>VΩmA</td><td>COM</td>
+      <td>✅ Encendido</td><td>En SERIE (interrumpe el circuito)</td>
+      <td>19.8mA (LED a 20mA)</td>
+    </tr>
+    <tr>
+      <td><strong>Corriente alta (&gt;200mA)</strong></td><td>A o 10A</td><td>10A</td><td>COM</td>
+      <td>✅ Encendido</td><td>En SERIE (interrumpe el circuito)</td>
+      <td>0.56A (letrero de 28 LEDs)</td>
+    </tr>
+    <tr>
+      <td><strong>Continuidad</strong></td><td>≫)) o diodo</td><td>VΩmA</td><td>COM</td>
+      <td>⚠ Apagado (obligatorio)</td><td>Directa entre los dos puntos</td>
+      <td>Pitido = íntegro · OL = roto</td>
+    </tr>
+    <tr>
+      <td><strong>Prueba de diodo</strong></td><td>≫)) o ⊢|</td><td>VΩmA → ánodo LED</td><td>COM → cátodo LED</td>
+      <td>⚠ Apagado</td><td>Directa (punta roja al +)</td>
+      <td>1.7–3.2V según color del LED</td>
+    </tr>
+  </table></div>
+
+  <div class="al warn"><span class="al-i">⚠️</span><div>
+    <strong>Los 4 errores más frecuentes:</strong>
+    <ol style="margin-top:6px">
+      <li>Medir voltaje con el puerto en 10A → quema el fusible o el multímetro</li>
+      <li>Medir resistencia con el circuito encendido → lectura incorrecta, posible daño al multímetro</li>
+      <li>Medir corriente en paralelo (como si fuera voltaje) → quema el fusible interno instantáneamente</li>
+      <li>No verificar el modo del selector antes de tocar el circuito → cualquiera de los errores anteriores</li>
+    </ol>
+  </div></div>
+
+  <div class="al success"><span class="al-i">💡</span><div><strong>Flujo de diagnóstico recomendado para un LED que no enciende:</strong>
+    <ol style="margin-top:6px">
+      <li>Mide continuidad del cable de alimentación</li>
+      <li>Mide voltaje de la fuente DC</li>
+      <li>Mide voltaje en los terminales del LED (debe ser Vf ± 0.2V)</li>
+      <li>Mide corriente en la rama del LED (debe ser ~20mA)</li>
+      <li>Si todo parece bien, mide continuidad entre ánodo y cátodo del LED (si hay continuidad → LED en cortocircuito; si hay "OL" → LED abierto)</li>
+    </ol>
+  </div></div>
+</div></div>
+  <div id="tI" class="tp"><div class="card">
+  <div class="ct">⚠️ Precauciones Generales de Uso</div>
+  <p>El uso incorrecto del multímetro puede resultar en daño al instrumento, al circuito bajo prueba o al operador. Las siguientes precauciones deben observarse en cada medición sin excepción.</p>
+
+  <h4>🔌 Antes de cualquier medición</h4>
+  <ul class="steps">
+    <li><div class="sn">1</div><div class="st"><strong>Encender el multímetro antes de conectar las puntas al circuito.</strong> Un multímetro apagado con las puntas en contacto con un circuito energizado puede generar lecturas erróneas al encenderse bruscamente o activar protecciones internas de forma inesperada. El orden correcto es siempre: encender → seleccionar modo → conectar puntas → leer → desconectar puntas → apagar.</div></li>
+    <li><div class="sn">2</div><div class="st"><strong>Seleccionar el rango correcto antes de tocar el circuito.</strong> En multímetros sin autorange (selección automática), colocar el selector en el rango inmediatamente superior al valor esperado. Nunca iniciar en el rango más bajo — puede saturar el instrumento o activar protecciones.</div></li>
+    <li><div class="sn">3</div><div class="st"><strong>En multímetros de rango manual: desplazar el selector desde la escala más alta hacia la más baja.</strong> Comenzar siempre en el rango máximo del modo seleccionado y reducir el rango progresivamente hasta obtener una lectura con la mayor cantidad de dígitos significativos posible. Ejemplo para medir una fuente de ~12V en un multímetro manual: iniciar en 200V DC → si la pantalla muestra "12", bajar a 20V DC → la pantalla ahora muestra "12.0" con mejor resolución.</div></li>
+    <li><div class="sn">4</div><div class="st"><strong>Inspeccionar visualmente las puntas y el cable antes de cada sesión de trabajo.</strong> Verificar que el aislamiento de las puntas y de los cables de prueba no presente cortes, pelladuras, deformaciones por calor ni deterioro. Puntas con aislamiento dañado representan un riesgo de descarga eléctrica y de falso contacto.</div></li>
+    <li><div class="sn">5</div><div class="st"><strong>Verificar el estado de la pila del multímetro.</strong> Una pila baja puede producir lecturas imprecisas o erróneas, especialmente en modo continuidad y en mediciones de resistencia. Si la pantalla muestra el indicador de batería baja, cambiarla antes de realizar mediciones críticas.</div></li>
+  </ul>
+
+  <h4>⚡ Precauciones por modo de medición</h4>
+  <div class="tw"><table>
+    <tr><th>Modo</th><th>Precaución crítica</th><th>Consecuencia de ignorarla</th></tr>
+    <tr><td><strong>Voltaje DC</strong></td><td>Identificar y respetar la polaridad (+/−) antes de tocar el circuito</td><td>Lectura negativa (inocuo) o daño en multímetros sin protección de polaridad</td></tr>
+    <tr><td><strong>Voltaje AC</strong></td><td>No tocar las partes metálicas de las puntas durante la medición en 127V AC</td><td>Descarga eléctrica de consecuencias potencialmente mortales</td></tr>
+    <tr><td><strong>Resistencia</strong></td><td>Circuito completamente desenergizado; condensadores descargados</td><td>Daño al circuito de medición interno del multímetro; lectura errónea</td></tr>
+    <tr><td><strong>Corriente (mA)</strong></td><td>Nunca conectar en paralelo; solo en serie interrumpiendo el circuito</td><td>Quema inmediata del fusible interno o del shunt de medición</td></tr>
+    <tr><td><strong>Corriente (10A)</strong></td><td>Tiempo de medición máximo: 10 segundos continuos; descanso entre mediciones</td><td>Sobrecalentamiento del shunt interno; daño permanente al instrumento</td></tr>
+    <tr><td><strong>Continuidad</strong></td><td>Circuito apagado; no medir continuidad en fuentes activas ni baterías conectadas</td><td>Interferencia del voltaje externo con el voltaje de referencia interno del modo</td></tr>
+  </table></div>
+
+  <h4>🔴 Errores que dañan el multímetro permanentemente</h4>
+  <div class="al danger"><span class="al-i">⛔</span><div>
+    <strong>Las siguientes acciones pueden destruir el multímetro de forma irreversible:</strong>
+    <ol style="margin-top:8px;line-height:2">
+      <li>Conectar el puerto 10A en paralelo con cualquier fuente de voltaje — el puerto 10A tiene resistencia interna cercana a 0Ω y actúa como cortocircuito.</li>
+      <li>Medir voltaje AC de 127V con el selector en modo DC o en modo Ω/continuidad.</li>
+      <li>Exceder el voltaje máximo de entrada del instrumento (usualmente 600V DC/AC en modelos básicos).</li>
+      <li>Medir corriente con el selector en posición de voltaje (modo V) — el multímetro en modo V tiene alta impedancia interna; conectado en serie bloqueará el circuito sin daño, pero una corriente elevada puede dañar el circuito de entrada.</li>
+      <li>Aplicar voltaje externo al instrumento mientras el selector está en modo Ω — aunque la batería interna proporciona la referencia, un voltaje externo puede saturar o quemar el amplificador de medición.</li>
+    </ol>
+  </div></div>
+
+  <h4>🛡️ Precauciones de seguridad personal</h4>
+  <ul class="steps">
+    <li><div class="sn" style="background:#dc2626">!</div><div class="st"><strong>Nunca trabajar en circuitos de 127V AC sin la capacitación y el equipo de protección personal adecuados.</strong> En proyectos escolares, las mediciones de voltaje AC deben realizarse únicamente bajo supervisión docente y en el lado de salida DC de las fuentes de alimentación ya convertidas.</div></li>
+    <li><div class="sn" style="background:#dc2626">!</div><div class="st"><strong>Mantener una sola mano en el instrumento durante mediciones de voltaje AC.</strong> Técnica de la mano única: la mano libre permanece en el bolsillo o detrás de la espalda. Esto elimina la ruta de corriente de mano a mano a través del corazón en caso de contacto accidental.</div></li>
+    <li><div class="sn" style="background:#dc2626">!</div><div class="st"><strong>No realizar mediciones en circuitos de alta tensión sobre superficies húmedas o mojadas.</strong> La humedad reduce la resistencia de aislamiento de las superficies y aumenta el riesgo de descarga.</div></li>
+    <li><div class="sn">4</div><div class="st"><strong>Retirar primero la punta negra (COM), luego la roja, al desconectar las puntas.</strong> En circuitos energizados, esta secuencia reduce el riesgo de crear un arco eléctrico accidental al desconectar.</div></li>
+    <li><div class="sn">5</div><div class="st"><strong>Apagar el multímetro al terminar y retirar las puntas de los puertos.</strong> Un multímetro con puntas insertadas y selector en posición de voltaje puede crear un peligro si alguien toca accidentalmente los extremos de las puntas y hay un circuito energizado cerca.</div></li>
+  </ul>
+
+  <h4>🔋 Mantenimiento básico del multímetro</h4>
+  <ul>
+    <li>Almacenar el multímetro con el selector en posición AC V o en OFF — nunca en modo Ω o continuidad, donde la batería interna se consume lentamente aunque el instrumento esté "apagado".</li>
+    <li>Sustituir las puntas de prueba cuando el aislamiento muestre deterioro — no repararlas con cinta adhesiva.</li>
+    <li>Limpiar los contactos de la pila con un borrador de goma si aparecen signos de oxidación — la corrosión en los contactos causa lecturas inestables.</li>
+    <li>Verificar el fusible interno cuando el modo de amperímetro no funcione pero el voltímetro sí. El fusible interno protege solo el circuito de corriente — los demás modos funcionan aunque el fusible esté quemado.</li>
+    <li>No exponer el instrumento a temperaturas superiores a 50°C ni a humedad relativa mayor al 80% — la condensación interna puede corromper las lecturas.</li>
+  </ul>
+
+  <div class="al success"><span class="al-i">✅</span><div><strong>Lista de verificación rápida antes de cada medición:</strong>
+    <ol style="margin-top:6px;line-height:2">
+      <li>¿El multímetro está encendido?</li>
+      <li>¿Las puntas están en los puertos correctos?</li>
+      <li>¿El selector está en el modo y rango correctos?</li>
+      <li>¿El circuito a medir tiene el estado correcto (encendido / apagado)?</li>
+      <li>¿Se cumple el tipo de conexión correcto (paralelo para V, serie para A, directa para Ω)?</li>
+    </ol>
+  </div></div>
+</div>
+  </div>
+
+</div>
+
+</div>
+
+<script>
+function switchTab(btn,gid,pid){
+  document.getElementById(gid).querySelectorAll('.tp').forEach(p=>p.classList.remove('active'));
+  document.getElementById(pid).classList.add('active');
+  btn.closest('.tabs').querySelectorAll('.tb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>
